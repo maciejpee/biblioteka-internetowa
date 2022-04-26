@@ -1,6 +1,6 @@
 # Skład grupy projektowej
 
-Dawid Kula\
-Jakub Kurowski\
-Maciej Paździor\
-Milena Smęt
+Dawid Kula 211600\
+Jakub Kurowski 210268\
+Maciej Paździor 210277\
+Milena Smęt 211494
