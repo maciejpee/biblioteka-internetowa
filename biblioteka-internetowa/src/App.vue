@@ -1,8 +1,18 @@
 <template>
-  <h1>{{ message }}</h1>
+  <h1>{{ title }}</h1>
+  <Test/>
+
 </template>
 
-<script setup>
-  import { ref } from 'vue'
-  const message = ref('Hello Vue!')
+<script>
+  import Test from './components/Test.vue'
+  
+  export default {
+    components: { Test },
+    data() {
+      return {
+        title: "Test książek"
+      }
+    }
+  }
 </script>
