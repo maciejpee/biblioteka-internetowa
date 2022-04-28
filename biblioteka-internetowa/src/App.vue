@@ -1,14 +1,13 @@
 <template>
   <h1>{{ title }}</h1>
-  <Test/>
+  <Books/>
 
 </template>
 
 <script>
-  import Test from './components/Test.vue'
-  
+  import Books from './components/Books.vue'
   export default {
-    components: { Test },
+    components: { Books },
     data() {
       return {
         title: "Test książek"
