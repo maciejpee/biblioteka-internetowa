@@ -1,8 +1,11 @@
 <template>
-  <div v-for="b of books">
-    <h3 @click="saveID(b.id)">{{ b.title }}</h3>
-    <h5>{{ b.author }}</h5>
-    <p>{{ b.id }}</p>
+  <div id="mainDiv">
+    <h1>Katalog książek</h1>
+    <div v-for="b of books">
+      <h3 @click="saveID(b.id)">{{ b.title }}</h3>
+      <h5>{{ b.author }}</h5>
+      <p>{{ b.id }}</p>
+    </div>
   </div>
 </template>
 
@@ -28,6 +31,8 @@ export default {
   methods: {
     saveID(id) {
       console.log(id)
+      location.assign(location.href + '#' + id)
+      location.reload()
     }
   }
 }
