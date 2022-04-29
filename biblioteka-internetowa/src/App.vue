@@ -1,6 +1,7 @@
 <template>
   <Navbar/>
-  <Books v-if="url === 'http://localhost:3000/'"/>
+  <router-view></router-view>
+
 </template>
 
 <script>
