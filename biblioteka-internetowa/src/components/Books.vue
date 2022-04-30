@@ -1,17 +1,21 @@
 <template>
   <div id="mainDiv">
     <h1>Katalog książek</h1>
-    <div v-for="b of books">
-      <router-link :to="{name:'Details', params:{bookId: b.id}}" custom v-slot="{ navigate }">
-        <div id='bookCard' role="link" @click="navigate">
-          <h3>{{ b.title }}</h3>
-          <h5>{{ b.author }}</h5>
-          <p>{{ b.id }}</p>
+    <div class="container">
+      <div class="row">
+        <div class="col-2" v-for="b of books">
+          <router-link :to="{name:'Details', params:{bookId: b.id}}" custom v-slot="{ navigate }">
+            <div class="card" role="link" @click="navigate">
+              <img :src=b.cover class="card-img cover-small">
+              <div class="card-body">
+                <h6 class="card-title">{{ b.title }}</h6>
+                <p>{{ b.author }}</p>
+              </div>
+            </div>
+          </router-link>
         </div>
-      </router-link>
+      </div>
     </div>
-
-    <router-link to="/news">NEWS</router-link>
   </div>
 </template>
 
@@ -28,26 +32,38 @@ export default {
         const data = {
           'id': doc.id,
           'title': doc.data().title,
-          'author': doc.data().author
+          'author': doc.data().author,
+          'cover': doc.data().cover,
           }
         this.books.push(data)
       })
     })
   },
-  methods: {
-    saveID(id) {
-      console.log(id)
-      location.assign(location.href + 'details#' + id)
-    }
-  }
 }
 </script>
 
 
 <style>
+img.cover-small {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  }
+.card {
+	background: #ffffff;
+	border: 0;
+	border-radius: 8px 8px 8px 8px;
+}
 
-#bookCard {
-  border:solid 5px black;
-  width: 25%;
+.card-title {
+	font-size: 18px;
+	font-family: 'Ubuntu';
+	letter-spacing: 0.8px;
+}
+
+.card:hover{
+    box-shadow: 4px 2px 2px rgba(0,0,0,0.1);
+    transform: scale(1.01);
 }
 </style>

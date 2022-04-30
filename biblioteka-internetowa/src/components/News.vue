@@ -1,13 +1,16 @@
 <template>
   <div id="mainDiv">
-    <div v-for="n of news" id="newsCard">
-      <h3>{{n.title}}</h3>
-      <span>{{n.about}}</span>
-      <p>{{n.content}}</p>
+    <div v-for="n of news" :key="n.id">
+      <router-link :to="{name:'newsDetails', params:{newsId: n.id}}" custom v-slot="{ navigate }">
+        <div id="newsCard" role="link" @click="navigate">
+          <h3>{{n.title}}</h3>
+          <span>{{n.about}}, {{getRealDate(n.date.seconds)}}</span>
+          <p>{{handleLongText(n.content)}}</p>
+        </div>
+      </router-link>
     </div>
-  </div> 
+  </div>
 </template>
-
 <script>
 export default {
   data() {
@@ -32,14 +35,21 @@ export default {
     })
   },
   methods: {
-    getDate(timestamp) {
-      var realDate = new Date(timestamp).toLocalDateString("pl-PL")
-      return realDate
+    getRealDate(thing) {
+      var realDate = new Date(thing * 1000)
+      return realDate.getDate() + '/' + realDate.getMonth() + '/' + realDate.getFullYear()
+    },
+
+    handleLongText(content){
+       if (content.length > 250) {
+         return content.slice(0, 250) + '...'
+       }else{
+         return content
+       }
     }
   }
 }
 
-console.log('h')
 </script>
 
 <style>

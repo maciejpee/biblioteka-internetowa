@@ -32,11 +32,13 @@
   background-position: center bottom;
 }
 
-#mainDiv {
+
+#mainDiv{
   background-color: rgba(231, 231, 206, 0.815);
-  height: 500px;
+  height: 80%;
   margin-left: 8%;
   margin-right: 8%;
-  padding: 10px;
+  padding: 15px;
+  
 }
 </style>

@@ -25,9 +25,10 @@ export default {
 };
 </script>
 
+
 <style>
-    img.cover {
-        width: 50px;
-        height: 100px;
-    }
+  img.cover {
+    width: 50%;
+    height: auto;
+  }
 </style>
