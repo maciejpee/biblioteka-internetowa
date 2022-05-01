@@ -7,6 +7,8 @@ import BookDetails from './components/BookDetails.vue'
 import NewsDetails from './components/NewsDetails.vue'
 import Register from './components/Register.vue'
 import SearchBooks from './components/SearchBooks.vue'
+import Profile from './components/Profile.vue'
+import LogIn from './components/LogIn.vue'
 
 const router = createRouter({
     history:createWebHistory(),
@@ -17,6 +19,8 @@ const router = createRouter({
         {path:'/news/:newsId', name: 'newsDetails', component: NewsDetails, props:true},
         {path:'/register', name: 'Register', component: Register},
         {path:'/search', name: 'Search', component: SearchBooks},
+        {path: '/profile', name: 'Profile', component: Profile},
+        {path: '/login', name: 'LogIn', component: LogIn},
     ]
 })
 

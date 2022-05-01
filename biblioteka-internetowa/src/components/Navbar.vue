@@ -7,20 +7,27 @@
 
     <div class="collapse navbar-collapse" id="navbarColor01">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
+
+        <li class="nav-item">
           <router-link class="nav-link" to="/news">Aktualności <span class="sr-only">(current)</span></router-link>
         </li>
+        
         <li class="nav-item">
-          <router-link to="/register">
-          <a class="nav-link" href="#">Zarejestruj się</a>
-          </router-link>
+          <router-link class="nav-link" to="/register">Zarejestruj się</router-link>
         </li>
+
         <li class="nav-item">
-            <a class="nav-link" href="#">Zaloguj się</a>
+          <router-link class="nav-link" to="/login">Zaloguj się</router-link>
         </li>
+
           <li class="nav-item">
             <router-link class="nav-link" to="/search">Przeszukaj katalog</router-link>
         </li>
+
+        <li class="nav-item">
+          <router-link class="nav-link" to="/profile">Profil</router-link>
+        </li>
+
       </ul>
     </div>
   </nav>
