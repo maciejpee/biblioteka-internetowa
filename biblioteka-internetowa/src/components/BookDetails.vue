@@ -30,7 +30,7 @@ export default {
         for(let i = 0; i < copies.length; i++){ 
           if (copies[i]) {
             var realDate = new Date(copies[i].seconds * 1000)
-            var date = realDate.getDate() + '/' + realDate.getMonth() + '/' + realDate.getFullYear()
+            var date = realDate.getDate() + '/' + (realDate.getMonth() + 1) + '/' + realDate.getFullYear()
             this.bookDetails["copies"].push(date)
           } else {
             this.bookDetails["copies"].push(null)

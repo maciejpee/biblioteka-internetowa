@@ -27,7 +27,7 @@ export default {
   methods: {
     getRealDate(thing) {
       var realDate = new Date(thing * 1000)
-      return realDate.getDate() + '/' + realDate.getMonth() + '/' + realDate.getFullYear()
+      return realDate.getDate() + '/' + (realDate.getMonth() + 1) + '/' + realDate.getFullYear()
     },
     tagsHandler(tagsList){
         return tagsList.join([', '])
