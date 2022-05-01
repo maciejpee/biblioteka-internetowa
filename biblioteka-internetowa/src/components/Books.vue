@@ -3,12 +3,12 @@
     <h1>Katalog książek</h1>
     <div class="container">
       <div class="row">
-        <div class="col-2" v-for="b of books">
+        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12 py-2" v-for="b of books">
           <router-link :to="{name:'Details', params:{bookId: b.id}}" custom v-slot="{ navigate }">
             <div class="card" role="link" @click="navigate">
               <img :src=b.cover class="card-img cover-small">
               <div class="card-body">
-                <h6 class="card-title">{{ b.title }}</h6>
+                <p class="card-title">{{ b.title }}</p>
                 <p>{{ b.author }}</p>
               </div>
             </div>
