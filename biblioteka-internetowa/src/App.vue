@@ -20,7 +20,7 @@
  
 <style>
 
-#app {
+body {
   width: 100vw;
   height: 100vh;
   min-height: 350px;
@@ -36,8 +36,8 @@
 #mainDiv{
   background-color: rgba(231, 231, 206, 0.815);
   height: 80%;
-  margin-left: 8%;
-  margin-right: 8%;
+  margin-left: 5%;
+  margin-right: 5%;
   padding: 15px;
   
 }
