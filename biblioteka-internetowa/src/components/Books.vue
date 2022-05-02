@@ -44,8 +44,8 @@ export default {
   computed:{
     filteredBooks: function(){
       return this.books.filter((book) => {
-        var normalizedTitle = book.title.toLowerCase()
-        return normalizedTitle.match(this.search.toLowerCase());
+        var normalizedTitle = book.title.toLowerCase().replace(/ +/g, '')
+        return normalizedTitle.match(this.search.toLowerCase().replace(/ +/g, ''));
       })
     }
   }
