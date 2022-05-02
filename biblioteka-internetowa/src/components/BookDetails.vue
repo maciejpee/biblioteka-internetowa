@@ -87,6 +87,13 @@ export default {
         this.bookDetails["copies"].sort()
       });
   },
+  methods: {
+    categoriesHandler(categoriesList){
+      
+
+    }
+
+  }
 };
 </script>
 
