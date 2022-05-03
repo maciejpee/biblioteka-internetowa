@@ -8,8 +8,9 @@
   console.log(location.href)
   import Books from './components/Books.vue'
   import Navbar from './components/Navbar.vue'
+  
   export default {
-    components: { Books, Navbar },
+    components: { Books, Navbar, },
     data() {
       return {
         url: location.href

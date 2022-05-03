@@ -17,39 +17,42 @@
         </div>
       </div>
     </div>
+    <AddBook/>
   </div>
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      books: [],
-      search: ''
-    }
-  },
-  created() {
-    db.collection('books').get().then((snapshot) => {
-      snapshot.docs.forEach(doc => {
-        const data = {
-          'id': doc.id,
-          'title': doc.data().title,
-          'author': doc.data().author,
-          'cover': doc.data().cover,
-          }
-        this.books.push(data)
+  import AddBook from './AddBook.vue'
+  export default {
+    components: { AddBook },
+    data() {
+      return {
+        books: [],
+        search: ''
+      }
+    },
+    created() {
+      db.collection('books').get().then((snapshot) => {
+        snapshot.docs.forEach(doc => {
+          const data = {
+            'id': doc.id,
+            'title': doc.data().title,
+            'author': doc.data().author,
+            'cover': doc.data().cover,
+            }
+          this.books.push(data)
+        })
       })
-    })
-  },
-  computed:{
-    filteredBooks: function(){
-      return this.books.filter((book) => {
-        var normalizedTitle = book.title.toLowerCase().replace(/ +/g, '')
-        return normalizedTitle.match(this.search.toLowerCase().replace(/ +/g, ''));
-      })
+    },
+    computed:{
+      filteredBooks: function(){
+        return this.books.filter((book) => {
+          var normalizedTitle = book.title.toLowerCase().replace(/ +/g, '')
+          return normalizedTitle.match(this.search.toLowerCase().replace(/ +/g, ''));
+        })
+      }
     }
   }
-}
 </script>
 
 
