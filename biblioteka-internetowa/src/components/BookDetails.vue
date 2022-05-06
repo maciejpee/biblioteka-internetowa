@@ -46,9 +46,9 @@
     </div><hr>
     <div v-if="series.length > 0">
       <h4>Inne książki z cyklu {{ bookDetails.series }}</h4>
-      <div class="row">
+      <div class="row justify-content-center">
         <div v-for="b of series" class="col-xl-2 col-lg-2 col-md-3 col-sm-6 col-6 py-2">
-          <div class="card" role="link" @click="pageReload(b.id)">
+          <div class="card h-100" role="link" @click="pageReload(b.id)">
             <img :src=b.cover class="card-img cover-small">
             <span>{{ b.title }}</span>
             <span>Tom {{ b.volume }}</span>
