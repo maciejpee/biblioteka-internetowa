@@ -6,13 +6,7 @@
           <img :src="bookDetails.cover" class="cover" />
         </div>
         <div class="col-8">
-          <h1 v-if="bookDetails.series && bookDetails.volume">
-          {{ bookDetails.title }}. {{ bookDetails.series }}. Tom {{ bookDetails.volume }}
-          </h1>
-          <h1 v-else-if="bookDetails.series">
-          {{ bookDetails.title }}. {{ bookDetails.series }}
-          </h1>
-          <h1 v-else-if="bookDetails.volume">
+          <h1 v-if="bookDetails.volume">
           {{ bookDetails.title }}. Tom {{ bookDetails.volume }}
           </h1>
           <h1 v-else>
@@ -35,7 +29,7 @@
               <ul style="list-style: none;">
                 <li>{{ bookDetails.release_year }}</li><hr>
                 <li>{{ bookDetails.page_count }}</li><hr>
-                <li>{{ bookDetails.categories }}</li><hr>
+                <li>{{ bookDetails.genre }}</li><hr>
                 <li>{{ bookDetails.publishing }}</li><hr>
                 <li>{{ bookDetails.isbn }}</li><hr>
               </ul>
@@ -71,7 +65,7 @@ export default {
         this.bookDetails["isbn"] = doc.data().isbn;
         this.bookDetails["release_year"] = doc.data().release_year;
         this.bookDetails["publishing"] = doc.data().publishing;
-        this.bookDetails["categories"] = doc.data().categories;
+        this.bookDetails["genre"] = doc.data().genre;
         this.bookDetails["cover"] = doc.data().cover;
         this.bookDetails["copies"] = []
         var copies = doc.data().copies
