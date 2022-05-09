@@ -25,7 +25,7 @@ export default {
   created() {
     db.collection('books').where('series', '==', this.bookSeries).get().then((snapshot) => {
     snapshot.docs.forEach(doc => {
-        if (doc.data().title != this.currentBook) {
+      if (doc.data().title != this.currentBook) {
         const data = {
         'id': doc.id,
         'title': doc.data().title,
