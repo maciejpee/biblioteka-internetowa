@@ -29,10 +29,6 @@
             <th>Wydawca: </th>
             <th>{{ bookDetails.publishing }}</th>
           </tr>
-          <tr v-if="bookDetails.release_year">
-            <th>Rok wydania: </th>
-            <th>{{ bookDetails.release_year }}</th>
-          </tr>
           <tr v-if="bookDetails.isbn">
             <th>ISBN: </th>
             <th>{{ bookDetails.isbn }}</th>
@@ -45,11 +41,14 @@
       </div> 
     </div><hr>
     <SeriesRecommend :bookSeries="bookDetails.series" :currentBook="bookDetails.title"/>
+    
+    <GenreRecommend :bookSeries="bookDetails.series" :currentBook="bookDetails.title" :genre="bookDetails.genre[0]"/>
   </div>
 </template>
 
 <script>
 import SeriesRecommend from "./SeriesRecommend.vue";
+import GenreRecommend from "./GenreRecommend.vue";
 export default {
     props: ["bookId"],
     data() {
@@ -58,7 +57,7 @@ export default {
             series: [],
         };
     },
-    components: { SeriesRecommend },
+    components: { SeriesRecommend, GenreRecommend },
     created() {
         db.collection("books").doc(this.bookId).get().then((doc) => {
             this.bookDetails["title"] = doc.data().title,
