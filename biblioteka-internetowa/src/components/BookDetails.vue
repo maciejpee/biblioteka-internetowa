@@ -42,7 +42,7 @@
     </div><hr>
     <SeriesRecommend v-if="showRecommendations" :bookSeries="bookDetails.series" :currentBook="bookDetails.title"/>
     
-    <GenreRecommend v-if="showRecommendations" :bookSeries="bookDetails.series"  :genre="bookDetails.genre"/>
+    <GenreRecommend v-if="showRecommendations" :bookSeries="bookDetails.series"  :genre="bookDetails.genre[0]"/>
   </div>
 </template>
 

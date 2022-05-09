@@ -25,7 +25,7 @@ export default {
   },
   created() {
     
-    db.collection('books').where('genre', '==', this.genre).get().then((snapshot) => {
+    db.collection('books').where('genre', 'array-contains', this.genre).get().then((snapshot) => {
     snapshot.docs.forEach(doc => {
       if (doc.data().series != this.bookSeries) {
         const data = {
