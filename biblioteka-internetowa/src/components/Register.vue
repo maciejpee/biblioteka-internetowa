@@ -25,7 +25,7 @@
           </div>
             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
               <div class="form-group">
-                <button type="submit" class="btn btn-success" id="btnRegisterTest" @click="register">Zarejestruj się</button>
+                <button type="submit" class="btn btn-success" id="btnRegisterTest" @click="register">Zarejestruj się</button>     
               </div>          
           </div>
         </div>
@@ -43,5 +43,7 @@
     
     const register = () => {
       auth.createUserWithEmailAndPassword(email.value, passVal1.value)
+      auth.signInWithEmailAndPassword(email.value, pass.value)
+      
       }
 </script>

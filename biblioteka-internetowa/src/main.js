@@ -17,7 +17,7 @@ const router = createRouter({
         {path:'/details/:bookId', name: 'Details', component: BookDetails, props:true},
         {path:'/register', name: 'Register', component: Register},
         {path:'/search', name: 'Search', component: SearchBooks},
-        {path: '/profile', name: 'Profile', component: Profile},
+        {path: '/profile/:userId', name: 'Profile', component: Profile, props:true},
         {path: '/login', name: 'LogIn', component: LogIn},
     ]
 })

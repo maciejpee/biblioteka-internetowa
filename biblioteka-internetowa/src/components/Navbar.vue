@@ -12,20 +12,20 @@
           <router-link class="nav-link" to="/news">Aktualności <span class="sr-only">(current)</span></router-link>
         </li>
         
-        <li class="nav-item">
+        <li class="nav-item" v-if="!loggedIn">
           <router-link class="nav-link" to="/register">Zarejestruj się</router-link>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item" v-if="!loggedIn">
           <router-link class="nav-link" to="/login">Zaloguj się</router-link>
         </li>
 
-          <li class="nav-item">
+          <li class="nav-item" v-if="false">
             <router-link class="nav-link" to="/search">Przeszukaj katalog</router-link>
         </li>
 
-        <li class="nav-item">
-          <router-link class="nav-link" to="/profile">Profil</router-link>
+        <li class="nav-item" v-if="loggedIn">
+          <router-link class="nav-link" :to="{name:'Profile', params:{userId: id}}">{{userName}}</router-link>
         </li>
 
       </ul>
@@ -35,5 +35,23 @@
 </template>
 
 <script>
-
+ export default {
+   data() {
+     return {
+       userName: null,
+       id: null,
+       loggedIn: false,
+     }
+   },
+   created() {
+     firebase.auth().onAuthStateChanged(user => {
+       if (user) {
+         this.userName = user.email
+         this.id = user.uid
+         console.log(this.id)
+         this.loggedIn = true
+       }
+     })
+   },
+ }
 </script>

@@ -27,6 +27,7 @@ export default {
         }
     },
     created () {
+        console.log(Date.now())
         this.copies.sort(function(x, y){
             return x.date - y.date;
         })
@@ -52,3 +53,6 @@ export default {
     } 
 }
 </script>
+
+<style>
+</style>

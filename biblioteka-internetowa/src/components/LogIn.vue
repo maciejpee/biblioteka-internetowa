@@ -23,12 +23,6 @@
           </div>          
         </div>
 
-        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
-          <div class="form-group">
-            <button type="submit" class="btn btn-danger" id="btnLogOut" @click="logout">Wyloguj się</button>
-          </div>          
-        </div>
-
       </div>
     </div>
   </div>
@@ -42,28 +36,17 @@
 
   const login = () => {
     auth.signInWithEmailAndPassword(email.value, pass.value)
+    
 
     auth.onAuthStateChanged(firebaseUser => {
       if(firebaseUser) {
         console.log('is logged in:', firebaseUser.email);
+        location.replace('/')
       } else {
         console.log('not logged in');
         }
     })
   }
-
-  const logout = () => {
-    auth.signOut()
-
-    auth.onAuthStateChanged(firebaseUser => {
-      if(firebaseUser) {
-        console.log('is logged in:', firebaseUser.email);
-      } else {
-        console.log('not logged in');
-      }
-    })
-  }
-
 </script>
 
 <style>
