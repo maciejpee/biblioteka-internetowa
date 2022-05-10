@@ -13,6 +13,7 @@ publishing:
 isbn: 
 original_title: 
 translation: 
+copies:
 },
 
 Tak jak np tutaj:
@@ -30,7 +31,8 @@ genre: ["fantastyka"],
 publishing: "Media Rodzina",
 isbn: "9788380082175",
 original_title: "Harry Potter and the Goblet of Fire",
-translation: "Andrzej Polkowski"
+translation: "Andrzej Polkowski",
+copies: [null, null, null, null]
 },
 
 
@@ -39,5 +41,5 @@ translation: "Andrzej Polkowski"
 
 import { ref } from 'vue'
 export default ref([
-    //tutaj dawać tamte szkice z klamerkami
+    //tutaj dawać tamte szkice z klamerkami (w copies można zmieniać ilość nullów)
 ])

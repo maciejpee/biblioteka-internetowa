@@ -10,7 +10,7 @@
             <span>{{ b.author }}</span>
           </div>
         </div>
-      </div>
+      </div><hr>
     </div>
 </template>
 

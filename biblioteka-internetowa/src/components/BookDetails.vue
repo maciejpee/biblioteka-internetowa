@@ -6,6 +6,7 @@
       </div>
       <div class="col-8">
         <h1>{{ bookDetails.title }}</h1>
+        <button v-if="false" @click="addCopies(bookId)">Copies</button>
         <h3>{{ bookDetails.author }}</h3><hr>
         <p>{{ bookDetails.desc }}</p><hr>
         <table>
@@ -38,11 +39,13 @@
             <th>{{ bookDetails.translation }}</th>
           </tr>
         </table>
-      </div> 
+      </div>
     </div><hr>
-    <SeriesRecommend v-if="showRecommendations" :bookSeries="bookDetails.series" :currentBook="bookDetails.title"/>
+    <Copies v-if="firestore" :copies="bookDetails.copies"/>
+
+    <SeriesRecommend v-if="firestore" :bookSeries="bookDetails.series" :currentBook="bookDetails.title"/>
     
-    <GenreRecommend v-if="showRecommendations" :bookSeries="bookDetails.series"  :genre="bookDetails.genre[0]"/>
+    <GenreRecommend v-if="firestore" :bookSeries="bookDetails.series"  :genre="bookDetails.genre[0]"/>
   </div>
 </template>
 
@@ -50,15 +53,16 @@
 import { ref } from 'vue'
 import SeriesRecommend from "./SeriesRecommend.vue";
 import GenreRecommend from "./GenreRecommend.vue";
+import Copies from "./Copies.vue";
 export default {
   props: ["bookId"],
   data() {
     return {
       bookDetails: {},
-      showRecommendations: ref(false)
+      firestore: ref(false)
     };
   },
-  components: { SeriesRecommend, GenreRecommend },
+  components: { SeriesRecommend, GenreRecommend, Copies },
   created() {
     db.collection("books").doc(this.bookId).get().then((doc) => {
       this.bookDetails["title"] = doc.data().title,
@@ -75,22 +79,29 @@ export default {
       this.bookDetails["original_title"] = doc.data().original_title;
       this.bookDetails["translation"] = doc.data().translation;
       this.bookDetails["copies"] = [];
-      /*
+
       var copies = doc.data().copies
       for(let i = 0; i < copies.length; i++){
         if (copies[i]) {
           var realDate = new Date(copies[i].seconds * 1000)
-          var date = realDate.getDate() + '/' + (realDate.getMonth() + 1) + '/' + realDate.getFullYear()
-          this.bookDetails["copies"].push(date)
         } else {
-          this.bookDetails["copies"].push(null)
+          var realDate = null
         }
-      }
-      this.bookDetails["copies"].sort()
-      */
-      this.showRecommendations = true
+        this.bookDetails["copies"].push({
+          date: realDate,
+          index: i
+        })
+      }  
+      this.firestore = true
     });
   },
+  methods: {
+    addCopies(id) {
+      db.collection("books").doc(id).update({
+        'copies': [null, null, null, null],
+        });
+    }
+  }
 };
 </script>
 
