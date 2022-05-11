@@ -14,39 +14,34 @@
     </div>
 </template>
 
-<script>
-export default {
-  props: ["bookSeries", "currentBook"],
-  data() {
-    return {
-      series: [],
-    };
-  },
-  created() {
-    db.collection('books').where('series', '==', this.bookSeries).get().then((snapshot) => {
-    snapshot.docs.forEach(doc => {
-      if (doc.data().title != this.currentBook) {
-        const data = {
-        'id': doc.id,
-        'title': doc.data().title,
-        'author': doc.data().author,
-        'cover': doc.data().cover,
-        'volume': doc.data().volume,
+<script setup>
+  import { ref, onMounted } from 'vue'
+
+  const props = defineProps(["bookSeries", "currentBook"])
+
+  const series = ref([])
+
+  onMounted(() => {
+    db.collection('books').where('series', '==', props.bookSeries).get().then((snapshot) => {
+      snapshot.docs.forEach(doc => {
+        if (doc.data().title != props.currentBook) {
+          const data = {
+            'id': doc.id,
+            'title': doc.data().title,
+            'author': doc.data().author,
+            'cover': doc.data().cover,
+            'volume': doc.data().volume,
+          }
+          series.value.push(data)
         }
-        this.series.push(data)
-        }
-    });
-    this.series.sort(function(a,b){
+      })
+      series.value.sort(function(a,b){
         return a.volume - b.volume
-    });
-    });
-  },
-  methods: {
-    pageReload(id) {
-      var index = window.location.href.indexOf('details') + 8
-      var url = window.location.href.slice(0, index) + id
-      window.location.replace(url)
-    }
+      })
+    })
+  })
+
+  function pageReload(id) {
+    window.location.replace('/details/' + id)
   }
-};
 </script>

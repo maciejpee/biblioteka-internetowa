@@ -14,41 +14,34 @@
     </div>
 </template>
 
-<script>
+<script setup>
+  import { ref, onMounted } from 'vue'
 
-export default {
-  props: ["bookSeries", "genre"],
-  data() {
-    return {
-      series: [],
-    };
-  },
-  created() {
-    
-    db.collection('books').where('genre', 'array-contains', this.genre).get().then((snapshot) => {
-    snapshot.docs.forEach(doc => {
-      if (doc.data().series != this.bookSeries) {
-        const data = {
-        'id': doc.id,
-        'title': doc.data().title,
-        'author': doc.data().author,
-        'cover': doc.data().cover,
-        'volume': doc.data().volume,
+  const props = defineProps(["bookSeries", "genre"])
+
+  const series = ref([])
+
+  onMounted(() => {
+    db.collection('books').where('genre', 'array-contains', props.genre).get().then((snapshot) => {
+      snapshot.docs.forEach(doc => {
+        if (doc.data().series != props.bookSeries) {
+          const data = {
+            'id': doc.id,
+            'title': doc.data().title,
+            'author': doc.data().author,
+            'cover': doc.data().cover,
+            'volume': doc.data().volume,
+          }
+          series.value.push(data)
         }
-        this.series.push(data)
-      }
-    });
-    this.series.sort(function(a,b){
-      return a.volume - b.volume
-    });
-    });
-  },
-  methods: {
-    pageReload(id) {
-      var index = window.location.href.indexOf('details') + 8
-      var url = window.location.href.slice(0, index) + id
-      window.location.replace(url)
-    }
+      })
+      series.value.sort(function(a,b){
+        return a.volume - b.volume
+      })
+    })
+  })
+
+  function pageReload(id) {
+    window.location.replace('/details/' + id)
   }
-};
 </script>

@@ -21,38 +21,33 @@
   </div>
 </template>
 
-<script>
+<script setup>
+  import { ref, onMounted, computed } from 'vue'
   import AddBook from './AddBook.vue'
-  export default {
-    components: { AddBook },
-    data() {
-      return {
-        books: [],
-        search: ''
-      }
-    },
-    created() {
-      db.collection('books').get().then((snapshot) => {
-        snapshot.docs.forEach(doc => {
-          const data = {
-            'id': doc.id,
-            'title': doc.data().title,
-            'author': doc.data().author,
-            'cover': doc.data().cover,
-            }
-          this.books.push(data)
-        })
+
+  const books = ref([])
+  const search = ref('')
+
+  onMounted(() => {
+    db.collection('books').get().then((snapshot) => {
+      snapshot.docs.forEach(doc => {
+        const data = {
+          'id': doc.id,
+          'title': doc.data().title,
+          'author': doc.data().author,
+          'cover': doc.data().cover,
+        }
+        books.value.push(data)
       })
-    },
-    computed:{
-      filteredBooks: function(){
-        return this.books.filter((book) => {
-          var normalizedTitle = book.title.toLowerCase().replace(/ +/g, '')
-          return normalizedTitle.match(this.search.toLowerCase().replace(/ +/g, ''));
-        })
-      }
-    }
-  }
+    })
+  })
+
+  const filteredBooks = computed(() => {
+    return books.value.filter((book) => {
+      var normalizedTitle = book.title.toLowerCase().replace(/ +/g, '')
+      return normalizedTitle.match(search.value.toLowerCase().replace(/ +/g, ''))
+    })
+  })
 </script>
 
 

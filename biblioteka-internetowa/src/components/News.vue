@@ -49,7 +49,7 @@ export default {
 <style>
 
 #newsCard {
-  border:solid 5px black;
+  border:solid 1px black;
   width: 100%;
 }
 

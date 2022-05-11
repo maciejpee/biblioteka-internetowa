@@ -49,36 +49,33 @@
   </div>
 </template>
 
-<script>
-import { ref } from 'vue'
-import SeriesRecommend from "./SeriesRecommend.vue";
-import GenreRecommend from "./GenreRecommend.vue";
-import Copies from "./Copies.vue";
-export default {
-  props: ["bookId"],
-  data() {
-    return {
-      bookDetails: {},
-      firestore: ref(false)
-    };
-  },
-  components: { SeriesRecommend, GenreRecommend, Copies },
-  created() {
-    db.collection("books").doc(this.bookId).get().then((doc) => {
-      this.bookDetails["title"] = doc.data().title,
-      this.bookDetails["author"] = doc.data().author;
-      this.bookDetails["desc"] = doc.data().desc;
-      this.bookDetails["series"] = doc.data().series;
-      this.bookDetails["volume"] = doc.data().volume;
-      this.bookDetails["page_count"] = doc.data().page_count;
-      this.bookDetails["isbn"] = doc.data().isbn;
-      this.bookDetails["release_year"] = doc.data().release_year;
-      this.bookDetails["publishing"] = doc.data().publishing;
-      this.bookDetails["genre"] = doc.data().genre;
-      this.bookDetails["cover"] = doc.data().cover;
-      this.bookDetails["original_title"] = doc.data().original_title;
-      this.bookDetails["translation"] = doc.data().translation;
-      this.bookDetails["copies"] = [];
+<script setup>
+  import { ref, onMounted } from 'vue'
+  import SeriesRecommend from "./SeriesRecommend.vue"
+  import GenreRecommend from "./GenreRecommend.vue"
+  import Copies from "./Copies.vue"
+
+  const props = defineProps(["bookId"])
+
+  const bookDetails = ref({})
+  const firestore = ref(false)
+
+  onMounted(() => {
+    db.collection("books").doc(props.bookId).get().then((doc) => {
+      bookDetails.value["author"] = doc.data().author
+      bookDetails.value["title"] = doc.data().title
+      bookDetails.value["desc"] = doc.data().desc
+      bookDetails.value["series"] = doc.data().series
+      bookDetails.value["volume"] = doc.data().volume
+      bookDetails.value["page_count"] = doc.data().page_count
+      bookDetails.value["isbn"] = doc.data().isbn
+      bookDetails.value["release_year"] = doc.data().release_year
+      bookDetails.value["publishing"] = doc.data().publishing
+      bookDetails.value["genre"] = doc.data().genre
+      bookDetails.value["cover"] = doc.data().cover
+      bookDetails.value["original_title"] = doc.data().original_title
+      bookDetails.value["translation"] = doc.data().translation
+      bookDetails.value["copies"] = []
 
       var copies = doc.data().copies
       for(let i = 0; i < copies.length; i++){
@@ -87,22 +84,14 @@ export default {
         } else {
           var realDate = null
         }
-        this.bookDetails["copies"].push({
+        bookDetails.value["copies"].push({
           date: realDate,
           index: i
         })
-      }  
-      this.firestore = true
-    });
-  },
-  methods: {
-    addCopies(id) {
-      db.collection("books").doc(id).update({
-        'copies': [null, null, null, null],
-        });
-    }
-  }
-};
+      }
+      firestore.value = true  
+    })
+  })
 </script>
 
 <style>

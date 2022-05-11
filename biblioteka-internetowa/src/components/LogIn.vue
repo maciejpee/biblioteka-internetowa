@@ -37,7 +37,6 @@
   const login = () => {
     auth.signInWithEmailAndPassword(email.value, pass.value)
     
-
     auth.onAuthStateChanged(firebaseUser => {
       if(firebaseUser) {
         console.log('is logged in:', firebaseUser.email);

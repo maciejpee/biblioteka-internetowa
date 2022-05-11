@@ -34,24 +34,20 @@
 
 </template>
 
-<script>
- export default {
-   data() {
-     return {
-       userName: null,
-       id: null,
-       loggedIn: false,
-     }
-   },
-   created() {
-     firebase.auth().onAuthStateChanged(user => {
+<script setup>
+  import { ref, onMounted } from 'vue'
+
+  const userName = ref('')
+  const id = ref('')
+  const loggedIn = ref(false)
+
+  onMounted(() => {
+    firebase.auth().onAuthStateChanged(user => {
        if (user) {
-         this.userName = user.email
-         this.id = user.uid
-         console.log(this.id)
-         this.loggedIn = true
+         userName.value = user.email
+         id.value = user.uid
+         loggedIn.value = true
        }
-     })
-   },
- }
+    })
+  })
 </script>

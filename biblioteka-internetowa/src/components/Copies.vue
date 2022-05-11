@@ -18,40 +18,38 @@
     <hr>
 </template>
 
-<script>
-export default {
-    props: ["copies"],
-    data () {
-        return {
-            nearestDate: null
-        }
-    },
-    created () {
+<script setup>
+    import { ref, onMounted } from 'vue'
+
+    const props = defineProps(["copies"])
+
+    const nearestDate = ref(null)
+
+    onMounted(() => {
         console.log(Date.now())
-        this.copies.sort(function(x, y){
+        props.copies.sort(function(x, y){
             return x.date - y.date;
         })
-        for(let i = 0; i < this.copies.length; i++){
-            if (!this.copies[i].date) {
+        for(let i = 0; i < props.copies.length; i++){
+            if (!props.copies[i].date) {
                 break;
             } else {
-                if (this.copies[i].date.getDate() < 10) {
-                    var day = "0" + this.copies[i].date.getDate();
+                if (props.copies[i].date.getDate() < 10) {
+                    var day = "0" + props.copies[i].date.getDate();
                 } else {
-                    var day = this.copies[i].date.getDate();
+                    var day = props.copies[i].date.getDate();
                 }
-                if (this.copies[i].date.getMonth() + 1) {
-                    var month = "0" + (this.copies[i].date.getMonth() + 1);
+                if (props.copies[i].date.getMonth() + 1) {
+                    var month = "0" + (props.copies[i].date.getMonth() + 1);
                 } else {
-                    var month = this.copies[i].date.getMonth() + 1;
+                    var month = props.copies[i].date.getMonth() + 1;
                 }
-                var date = day + '/' + month + '/' + this.copies[i].date.getFullYear();
-                this.nearestDate = date
+                var date = day + '/' + month + '/' + props.copies[i].date.getFullYear();
+                nearestDate.value = date
                 break;
             }
         }
-    } 
-}
+    })
 </script>
 
 <style>

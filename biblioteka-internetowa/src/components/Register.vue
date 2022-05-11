@@ -43,7 +43,14 @@
     
     const register = () => {
       auth.createUserWithEmailAndPassword(email.value, passVal1.value)
-      auth.signInWithEmailAndPassword(email.value, pass.value)
       
+      auth.onAuthStateChanged(firebaseUser => {
+      if(firebaseUser) {
+        console.log('is logged in:', firebaseUser.email);
+        location.replace('/')
+      } else {
+        console.log('not logged in');
+        }
+      })
       }
 </script>

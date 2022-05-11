@@ -5,19 +5,17 @@
     </div>
 </template>
 
-<script>
+<script setup>
+    import { onMounted } from 'vue'
 
-export default {
-    props: ["userId"],
-    created() {
-        console.log(this.userId)
-    },
-    methods: {
-        logout(){
-            firebase.auth().signOut()
-            location.replace('/')
-        }
+    const props = defineProps(['userId'])
+
+    onMounted(() => {
+        console.log(props.userId)
+    })
+
+    function logout() {
+        firebase.auth().signOut()
+        location.replace('/')
     }
-}
-
 </script>
