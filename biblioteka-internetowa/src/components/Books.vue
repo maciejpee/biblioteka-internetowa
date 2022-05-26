@@ -1,16 +1,18 @@
 <template>
   <div id="mainDiv">
     <h1>Katalog książek</h1>
+
     <div class="container">
       <input class="searchBar" type="text" v-model="search" placeholder="Wyszukaj...">
-      <div class="row justify-content-center">  
+
+      <div class="row justify-content-center">
         <div class="col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12 py-2" v-for="b of filteredBooks" :key="b.id">
           <router-link :to="{name:'Details', params:{bookId: b.id}}" custom v-slot="{ navigate }">
             <div class="card h-100" style="width: 14rem;" role="link" @click="navigate">
               <img :src=b.cover class="card-img cover-small">
               <div class="card-body">
                 <p class="card-title">{{ b.title }}</p>
-                <p>{{ b.author }}</p>
+                <p class="card-subtitle">{{ b.author }}</p>
               </div>
             </div>
           </router-link>
@@ -56,23 +58,31 @@ img.cover-small {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 90%;
+  width: 75%;
   }
+  
 .card {
 	background: #ffffff;
 	border: 0;
 	border-radius: 8px 8px 8px 8px;
+  padding-top: 25px;
 }
 
 .card-title {
-	font-size: 18px;
-	font-family: 'Ubuntu';
-	letter-spacing: 0.8px;
+	font-size: 17px;
+	font-family: 'Ubuntu, Times New Roman';
+	letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.card-subtitle {
+  font-size: 13px;
 }
 
 .card:hover{
     box-shadow: 4px 2px 2px rgba(0,0,0,0.1);
     transform: scale(1.01);
+    cursor: pointer;
 }
 
 .searchBar{
@@ -80,8 +90,9 @@ img.cover-small {
   width: 50%;
   border-radius: 8px 8px 8px 8px;
   margin-left: 25%;
-  margin-bottom: 10px;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  padding: 6px 10px 6px 10px;
 }
-
 
 </style>
