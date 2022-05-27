@@ -17,13 +17,11 @@
         </div>
       </div>
     </div>
-    <AddBook/>
   </div>
 </template>
 
 <script setup>
   import { ref, onMounted, computed } from 'vue'
-  import AddBook from './AddBook.vue'
 
   const books = ref([])
   const search = ref('')

@@ -28,6 +28,10 @@
           <router-link class="nav-link" :to="{name:'Profile', params:{userId: id}}">{{userName}}</router-link>
         </li>
 
+        <li class="nav-item" v-if="loggedIn">
+          <router-link class="nav-link" :to="{name:'AddBook'}">Dodaj książkę</router-link>
+        </li>
+
       </ul>
     </div>
   </nav>
