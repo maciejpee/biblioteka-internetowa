@@ -1,6 +1,6 @@
 <template>
     <div id="mainDiv">
-        <p>{{userId}}</p>
+        <p>{{ userId }}</p>
         <button class="btn btn-danger" @click="logout">Wyloguj się</button>
     </div>
 </template>
