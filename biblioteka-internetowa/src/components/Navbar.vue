@@ -24,12 +24,22 @@
             <router-link class="nav-link" to="/search">Przeszukaj katalog</router-link>
         </li>
 
-        <li class="nav-item" v-if="loggedIn">
-          <router-link class="nav-link" :to="{name:'Profile', params:{userId: id}}">{{userName}}</router-link>
+        <li class="nav-item" v-if="admin">
+          <router-link class="nav-link" :to="{name:'AddBook'}">Dodaj książkę</router-link>
         </li>
 
-        <li class="nav-item" v-if="loggedIn">
-          <router-link class="nav-link" :to="{name:'AddBook'}">Dodaj książkę</router-link>
+        <li class="nav-item" v-if="admin">
+          <router-link class="nav-link" :to="{name:'AddPost'}">Dodaj post</router-link>
+        </li>
+
+        <li class="nav-item dropdown" v-if="loggedIn">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{userName}}</a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><router-link class="dropdown-item" :to="{name:'Profile', params:{userId: id}}">Twój profil</router-link></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Wyloguj się</a></li>
+          </ul>
         </li>
 
       </ul>
@@ -44,13 +54,18 @@
   const userName = ref('')
   const id = ref('')
   const loggedIn = ref(false)
+  const admin = ref(false)
 
   onMounted(() => {
     firebase.auth().onAuthStateChanged(user => {
        if (user) {
-         userName.value = user.email
          id.value = user.uid
-         loggedIn.value = true
+         db.collection("users").doc(user.uid).get().then((doc) => {
+           userName.value = doc.data().user_name
+           admin.value = doc.data().is_admin
+           loggedIn.value = true
+         })
+         
        }
     })
   })

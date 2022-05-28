@@ -9,6 +9,7 @@ import SearchBooks from './components/SearchBooks.vue'
 import Profile from './components/Profile.vue'
 import LogIn from './components/LogIn.vue'
 import AddBook from './components/AddBook.vue'
+import AddPost from './components/AddPost.vue'
 
 const router = createRouter({
     history:createWebHistory(),
@@ -21,6 +22,7 @@ const router = createRouter({
         {path: '/profile/:userId', name: 'Profile', component: Profile, props:true},
         {path: '/login', name: 'LogIn', component: LogIn},
         {path: '/add', name: 'AddBook', component: AddBook},
+        {path: '/add-post', name:'AddPost', component: AddPost}
     ]
 })
 

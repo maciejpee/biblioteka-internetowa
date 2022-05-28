@@ -63,10 +63,11 @@
     const register = () => {
       auth.createUserWithEmailAndPassword(email.value, password1.value)
       .then(cred => { db.collection('users').doc(cred.user.uid).set({
+        user_name: login.value,
         is_admin: false,
         borrowed: [],
         favourites: [],
-        arrears: []
+        arrears: 0
 		  })})}
     
 </script>
