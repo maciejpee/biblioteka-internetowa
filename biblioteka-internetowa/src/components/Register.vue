@@ -6,7 +6,7 @@
           <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
             <div class="form-group">
               <label for="inputLogin">Twój nick</label>
-              <input type="text" class="form-control" id="txtLogin" aria-describedby="emailHelp" placeholder="Podaj nick"  v-model="loginVal">
+              <input type="text" class="form-control" id="txtLogin" aria-describedby="emailHelp" placeholder="Podaj nick"  v-model="login">
             </div>
             <div class="form-group">
               <label for="exampleInputEmail1">Adres email</label>
@@ -16,11 +16,11 @@
           <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
             <div class="form-group">
               <label for="exampleInputPassword1" minlength="8" required>Hasło</label>
-              <input type="password" class="form-control" id="txtPassword" placeholder="Podaj hasło" v-model="passVal1">
+              <input type="password" class="form-control" id="txtPassword" placeholder="Podaj hasło" v-model="password1">
             </div>
             <div class="form-group">
               <label for="exampleInputPassword2" minlength="8" required>Powtórz hasło</label>
-              <input type="password" class="form-control" id="txtPassword2" placeholder="Powtórz hasło" v-model="passVal2">   
+              <input type="password" class="form-control" id="txtPassword2" placeholder="Powtórz hasło" v-model="password2">   
             </div>
           </div>
             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
@@ -36,14 +36,19 @@
 <script setup>
     import { ref } from 'vue'
     const email = ref("")
-    const passVal1 = ref("")  
-    const passVal2 = ref("")
-    const loginVal = ref("") 
+    const password1 = ref("")  
+    const password2 = ref("")
+    const login = ref("") 
     const auth = firebase.auth()
     
+    /*
     const register = () => {
-      auth.createUserWithEmailAndPassword(email.value, passVal1.value)
-      
+      auth.createUserWithEmailAndPassword(email.value, password1.value).then(cred => {
+        console.log(cred)
+        return db.collection('users').doc(cred.user.uid).set({
+          login: login.value,
+		    })
+      })
       auth.onAuthStateChanged(firebaseUser => {
       if(firebaseUser) {
         console.log('is logged in:', firebaseUser.email);
@@ -53,4 +58,15 @@
         }
       })
       }
+      */
+
+    const register = () => {
+      auth.createUserWithEmailAndPassword(email.value, password1.value)
+      .then(cred => { db.collection('users').doc(cred.user.uid).set({
+        is_admin: false,
+        borrowed: [],
+        favourites: [],
+        arrears: []
+		  })})}
+    
 </script>
