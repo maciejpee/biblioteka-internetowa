@@ -53,7 +53,7 @@
       </div>
       <form class="d-flex">
         <input class="form-control" type="search" placeholder="Wyszukaj...">
-        <router-link class="nav-link" to="/search"><img src="/magnifier.png" width="28" height="30"></router-link>
+        <router-link class="nav-link" to="/search"><img src="/magnifier.png" width="30" height="30"></router-link>
       </form>
       
 

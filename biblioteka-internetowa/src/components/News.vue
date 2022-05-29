@@ -2,10 +2,10 @@
   <div id="mainDiv">
     <div v-for="n of news" :key="n.id">
       <div id="newsCard">
-        <h3>{{n.title}}</h3>
-        <span>{{n.about}}, {{getRealDate(n.date.seconds)}}</span>
-        <p>{{n.content}}</p>
-        <div id="tags">tagi: {{tagsHandler(n.tags)}}</div>
+        <h3 id="newsTitle">{{ n.title }}</h3>
+        <p id="newsContent">{{ n.content }}</p>
+        <span id="newsDate">{{ n.about }}, {{ getRealDate(n.date.seconds) }}</span>
+        <div id="tags">tagi: {{ tagsHandler(n.tags) }}</div>
       </div>
     </div>
   </div>
@@ -49,9 +49,40 @@ export default {
 
 <style>
 
+#mainDiv {
+  padding: 2.5%;
+}
+
 #newsCard {
-  border:solid 1px black;
   width: 100%;
+  background-color: #F8F9FA;
+  border: 0;
+  margin-bottom: 35px;
+  border-radius: 3px;
+  padding: 20px 25px 20px 25px;
+  box-shadow: 0 2px 6px 0.5px grey;
+}
+
+#tags {
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+#newsTitle {
+  margin-top: 10px;
+  letter-spacing: 1px;
+  font-weight: 650;
+  font-size: 26px;
+}
+
+#newsDate {
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+#newsContent {
+  margin-top: 16px;
+  text-align: justify;
 }
 
 </style>
