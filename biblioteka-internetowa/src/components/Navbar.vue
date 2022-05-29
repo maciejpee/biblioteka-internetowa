@@ -1,8 +1,69 @@
 <template>
- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-md navbar-light bg-light">
+    <div class="container-fluid">
+
+      <router-link class="navbar-brand" to="/">
+        <img src="/book.png" width="28" height="30" >
+        Bookworm
+      </router-link>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <router-link class="nav-link" to="/news">Aktualności <span class="sr-only">(current)</span></router-link>
+          </li>
+
+          <li class="nav-item dropdown" v-if="loggedIn">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{userName}}</a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            
+              <li><router-link class="dropdown-item" :to="{name:'Profile', params:{userId: id}}">Twój profil</router-link></li>
+              
+              <li class="nav-item" v-if="admin">
+                <router-link class="dropdown-item" :to="{name:'AddBook'}">Dodaj książkę</router-link>
+              </li>
+
+              <li class="nav-item" v-if="admin">
+                <router-link class="dropdown-item" :to="{name:'AddPost'}">Dodaj post</router-link>
+              </li>
+
+              <li><hr class="dropdown-divider"></li>
+
+              <li><a class="dropdown-item" href="#" @click="logout">Wyloguj się</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown" v-if="!loggedIn">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Konto</a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+              <li class="nav-item">
+                <router-link class="dropdown-item" to="/register">Załóż konto</router-link>
+              </li>
+
+              <li class="nav-item">
+                <router-link class="dropdown-item" to="/login">Zaloguj się</router-link>
+              </li>
+
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <form class="d-flex">
+        <input class="form-control" type="search" placeholder="Wyszukaj...">
+        <router-link class="nav-link" to="/search"><img src="/magnifier.png" width="28" height="30"></router-link>
+      </form>
+      
+
+    </div>
+  </nav>
+ 
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <router-link class="navbar-brand" to="/">
-    <img src="/book.png" width="28" height="30" >
-    Bookworm
+      <img src="/book.png" width="28" height="30" >
+      Bookworm
     </router-link>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -21,10 +82,6 @@
 
         <li class="nav-item" v-if="!loggedIn">
           <router-link class="nav-link" to="/login">Zaloguj się</router-link>
-        </li>
-
-          <li class="nav-item" v-if="false">
-            <router-link class="nav-link" to="/search">Przeszukaj katalog</router-link>
         </li>
 
         <li class="nav-item" v-if="admin">
