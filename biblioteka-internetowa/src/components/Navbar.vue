@@ -1,6 +1,9 @@
 <template>
  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <router-link class="navbar-brand" to="/">Readbook</router-link>
+    <router-link class="navbar-brand" to="/">
+    <img src="/book.png" width="28" height="30" >
+    Bookworm
+    </router-link>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -38,7 +41,7 @@
             <li><router-link class="dropdown-item" :to="{name:'Profile', params:{userId: id}}">Twój profil</router-link></li>
             <li><a class="dropdown-item" href="#">Another action</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Wyloguj się</a></li>
+            <li><a class="dropdown-item" href="#" @click="logout">Wyloguj się</a></li>
           </ul>
         </li>
 
@@ -69,4 +72,11 @@
        }
     })
   })
+
+  function logout() {
+    firebase.auth().signOut()
+    location.replace('/')
+  }
+
+
 </script>
