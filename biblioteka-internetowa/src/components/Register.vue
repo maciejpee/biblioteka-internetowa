@@ -41,25 +41,6 @@
     const login = ref("") 
     const auth = firebase.auth()
     
-    /*
-    const register = () => {
-      auth.createUserWithEmailAndPassword(email.value, password1.value).then(cred => {
-        console.log(cred)
-        return db.collection('users').doc(cred.user.uid).set({
-          login: login.value,
-		    })
-      })
-      auth.onAuthStateChanged(firebaseUser => {
-      if(firebaseUser) {
-        console.log('is logged in:', firebaseUser.email);
-        location.replace('/')
-      } else {
-        console.log('not logged in');
-        }
-      })
-      }
-      */
-
     const register = () => {
       auth.createUserWithEmailAndPassword(email.value, password1.value)
       .then(cred => { db.collection('users').doc(cred.user.uid).set({
@@ -68,6 +49,14 @@
         borrowed: [],
         favourites: [],
         arrears: 0
-		  })})}
+		  })
+      .then(function onSuccess(res) {
+        location.replace('/');
+      })
+      .catch(function onError(err) {
+        console.error(err);
+      })
+      })
+    }
     
 </script>
