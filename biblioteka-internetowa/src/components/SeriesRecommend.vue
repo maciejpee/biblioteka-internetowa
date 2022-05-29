@@ -24,7 +24,7 @@
   onMounted(() => {
     db.collection('books').where('series', '==', props.bookSeries).get().then((snapshot) => {
       snapshot.docs.forEach(doc => {
-        if (doc.data().title != props.currentBook) {
+        if (doc.data().title != props.currentBook && doc.data().series != null) {
           const data = {
             'id': doc.id,
             'title': doc.data().title,
