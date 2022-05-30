@@ -51,9 +51,9 @@
           </li>
         </ul>
       </div>
-      <form class="d-flex">
-        <input class="form-control" type="search" placeholder="Wyszukaj...">
-        <router-link class="nav-link" to="/search"><img src="/magnifier.png" width="30" height="30"></router-link>
+      <form class="d-flex" @submit.prevent="handleSearchBar">
+        <input v-model="searchv" class="form-control" placeholder="Wyszukaj..." :class="searchWarning" >
+        <div class="nav-link" @click="handleSearchBar"  ><img src="/magnifier.png" width="30" height="30" style="cursor: pointer;"></div>
       </form>
     
 
@@ -65,13 +65,16 @@
 </template>
 
 <script setup>
-  import { ref, onMounted } from 'vue'
+  import { ref, onMounted, reactive, computed } from 'vue'
 
   const userName = ref('')
   const id = ref('')
   const loggedIn = ref(false)
   const admin = ref(false)
-
+  
+  const searchv = ref('')
+  const searchWarning = ref('')
+  
   onMounted(() => {
     firebase.auth().onAuthStateChanged(user => {
        if (user) {
@@ -91,5 +94,12 @@
     location.replace('/')
   }
 
+  function handleSearchBar(){
+    if (!searchv.value){
+      searchWarning.value = 'border-danger'
+    }else{
+      window.location.replace(window.location.protocol + '/search/' + searchv.value)
+    }
+  }
 
 </script>
