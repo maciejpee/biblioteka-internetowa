@@ -130,10 +130,12 @@
                     </small>
                 </div>
                 <div class="col-md-1"></div>
-                <br><br><br><br>
-                <div class="d-grid">
-                    <button class="btn btn-primary" type="submit" >Dodaj książkę</button>
+
+                <div class="col-md-4"></div>
+                <div class="col-md-2 d-grid">
+                    <button class="btn btn-primary" type="submit" style="width:170%">Dodaj książkę</button>
                 </div>
+                <div class="col-md-5"></div>
             </form>
         </div>
     </div>
@@ -366,13 +368,13 @@
     }
 </script>
 
-<style>
+<style scoped>
 input, textarea {
-  padding: 8px;
+  padding: 7px;
   border: 0;
-  box-shadow: 0 0 15px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 0 15px 4px rgba(0,0,0,0.03);
   border-radius: 6px;
-  margin-bottom: 11px;
+  margin-bottom: 10px;
 }
 
 .form-label {
@@ -382,13 +384,12 @@ input, textarea {
 }
 
 .form-label.field {
-    margin-top: 20px;
+    margin-top: 22px;
 }
 
 .d-grid {
-    margin-top: 25px;
+    margin-top: 30px;
     margin-bottom: 8px;
 }
-
 
 </style>
