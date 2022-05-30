@@ -6,7 +6,7 @@
           <div class="card h-100" @click="pageReload(b.id)">
             <img :src=b.cover class="card-img cover-small">
             <span class="card-title">{{ b.title }}</span>
-            <span class="card-vol">Tom {{ b.volume }}</span>
+            <span v-if="b.volume" class="card-vol">Tom {{ b.volume }}</span>
             <span class="card-subtitle">{{ b.author }}</span>
           </div>
         </div>
@@ -17,22 +17,33 @@
 <script setup>
   import { ref, onMounted } from 'vue'
 
-  const props = defineProps(["bookSeries", "genre"])
+  const props = defineProps(["bookSeries", "genre", "id"])
 
   const series = ref([])
 
   onMounted(() => {
     db.collection('books').where('genre', 'array-contains', props.genre).get().then((snapshot) => {
       snapshot.docs.forEach(doc => {
-        if (doc.data().series != props.bookSeries) {
-          const data = {
-            'id': doc.id,
-            'title': doc.data().title,
-            'author': doc.data().author,
-            'cover': doc.data().cover,
-            'volume': doc.data().volume,
+        if (props.bookSeries) {
+          if (doc.data().series != props.bookSeries) {
+            const data = {
+              'id': doc.id,
+              'title': doc.data().title,
+              'author': doc.data().author,
+              'cover': doc.data().cover,
+              'volume': doc.data().volume,
+            }
+            series.value.push(data)
           }
-          series.value.push(data)
+        } else if (doc.id != props.id) {
+          const data = {
+              'id': doc.id,
+              'title': doc.data().title,
+              'author': doc.data().author,
+              'cover': doc.data().cover,
+              'volume': doc.data().volume,
+            }
+            series.value.push(data)
         }
       })
       series.value.sort(function(a,b){
