@@ -5,7 +5,6 @@
 </template>
 
 <script>
-  console.log(location.href)
   import Books from './components/Books.vue'
   import Navbar from './components/Navbar.vue'
   

@@ -3,10 +3,12 @@
         <div class="col-auto me-auto">
             <p>Najbliższy dostępny egzemplarz: {{ nearestDate }}</p>
         </div>
+        
         <div class="col-auto">
             <button type="button" class="btn btn-warning">Zapisz się do kolejki</button>
         </div>
     </div>
+    
     <div class="row" v-else>
         <div class="col-auto me-auto">
             <p>Dostępny egzemplarz</p>
@@ -14,19 +16,20 @@
         <div class="col-auto">
             <button class="btn btn-success" type="button">Wypożycz</button>
         </div>
+        
     </div>
-    <hr>
+    
+    
 </template>
 
 <script setup>
     import { ref, onMounted } from 'vue'
 
     const props = defineProps(["copies"])
-
     const nearestDate = ref(null)
 
+    console.log(copiesArr);
     onMounted(() => {
-        console.log(Date.now())
         props.copies.sort(function(x, y){
             return x.date - y.date;
         })
@@ -50,6 +53,7 @@
             }
         }
     })
+
 </script>
 
 <style>

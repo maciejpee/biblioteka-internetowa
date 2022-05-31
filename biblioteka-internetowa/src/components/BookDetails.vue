@@ -6,7 +6,8 @@
       </div>
       <div class="col-8">
         <h1>{{ bookDetails.title }}</h1>
-        <button v-if="false" @click="addCopies(bookId)">Copies</button>
+        <img src="/heartfull.png" width="30" height="30" style="cursor: pointer;" @click="addToFavourites"/>
+        <h1 @click="addToFavourites"> 8> </h1>
         <h3>{{ bookDetails.author }}</h3><hr>
         <p>{{ bookDetails.desc }}</p><hr>
         <table>
@@ -41,8 +42,8 @@
         </table>
       </div>
     </div><hr>
-    <Copies v-if="firestore" :copies="bookDetails.copies"/>
-
+    <CopiesV2 v-if="firestore" :copies="bookDetails.copies" :bookId="props.bookId"/>
+    <hr>
     <SeriesRecommend v-if="firestore" :bookSeries="bookDetails.series" :currentBook="bookDetails.title"/>
     
     <GenreRecommend v-if="firestore" :bookSeries="bookDetails.series"  :genre="bookDetails.genre[0]" :id="props.bookId"/>
@@ -54,6 +55,7 @@
   import SeriesRecommend from "./SeriesRecommend.vue"
   import GenreRecommend from "./GenreRecommend.vue"
   import Copies from "./Copies.vue"
+  import CopiesV2 from "./CopiesV2.vue"
 
   const props = defineProps(["bookId"])
 
@@ -92,6 +94,31 @@
       firestore.value = true  
     })
   })
+
+  function addToFavourites() {
+    firebase.auth().onAuthStateChanged(user => {
+      if(user) {
+        console.log('is logged in:', user.email);
+        console.log(user.uid, props.bookId)
+        db.collection('users').doc(user.uid).get().then((doc) => {
+          var favs = doc.data().favourites
+          console.log(favs.includes(props.bookId))
+          if (!favs.includes(props.bookId)) {
+            favs.push(props.bookId)
+            db.collection('users').doc(user.uid).update({
+              favourites: favs
+            })
+          } else {
+            db.collection('users').doc(user.uid).update({
+              favourites: firebase.firestore.FieldValue.arrayRemove(props.bookId)
+            })
+          }
+        })
+      } else {
+        console.log('not logged in');
+        }
+    })
+  }
 </script>
 
 <style>
