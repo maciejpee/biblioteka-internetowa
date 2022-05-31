@@ -2,39 +2,47 @@
     <div id="mainDiv">
         <div class="container">
             <form class="row g-3 justify-content-md-center" @submit.prevent="addPost">
-              
-                <div class="col-md-4">
+
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
                     <label for="inputTitle" class="form-label" >Tytuł</label>
                     <input type="text" class="form-control" id="inputTitle" v-model="title" :class="titleWarning">
                     <small v-show="titleAlertVisible" id="titleHelpBlock" class="form-text text-danger">
                     Tytuł powinien mieć co najmniej 10 znaków.
                     </small>
                 </div>
-                <div class="col-md-8">
-                    <label for="inputAbout" class="form-label">Opis</label>
-                    <input type="text" class="form-control" id="inputAbout" v-model="about" :class="aboutWarning">
-                    <small v-show="aboutAlertVisible" id="aboutHelpBlock" class="form-text text-danger">
-                    Opis powinien mieć co najmniej 10 znaków (data dodawana jest od razu).
-                    </small>
-                </div>
-                <div class="col-md-12">
+                <div class="col-md-1"></div>
+
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
                     <label for="inputContent" class="form-label">Treść</label>
                     <textarea class="form-control" id="inputContent" rows="8" v-model="content" :class="contentWarning"></textarea>
                     <small v-show="contentAlertVisible" id="contentHelpBlock" class="form-text text-danger">
                     Treść powinina zawierać co najmniej 50 znaków.
                     </small>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-1"></div>
+
+                <div class="col-md-1"></div>
+                <div class="col-md-5">
+                    <label for="inputAbout" class="form-label">Opis</label>
+                    <input type="text" class="form-control" id="inputAbout" v-model="about" :class="aboutWarning">
+                    <small v-show="aboutAlertVisible" id="aboutHelpBlock" class="form-text text-danger">
+                    Opis powinien mieć co najmniej 10 znaków (data dodawana jest od razu).
+                    </small>
+                </div>
+                <div class="col-md-5">
                     <label for="inputTags" class="form-label">Tagi</label>
                     <input type="text" class="form-control" id="inputTags" v-model="tags" :class="tagsWarning">
                     <small v-show="tagsAlertVisible" id="tagsHelpBlock" class="form-text text-danger">
                     Należy podać conajmniej 1 tag.
                     </small>
                 </div>
+                <div class="col-md-1"></div>
                 
-                <div class="col-md-6">
+                <div class="col-md-6 d-grid">
                     <button class="btn btn-primary" type="submit"       
-                    style="margin: 2.5%; position: absolute; top: 50%; left: 50%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%); width:35%">Dodaj post</button>
+                    style="margin: 2.5%; position: absolute; top: 50%; left: 48%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%); width:45%">Dodaj post</button>
                 </div>
             </form>
         </div>
@@ -123,8 +131,31 @@
 
 </script>
 
-<style>
+<style scoped>
 .error{
     border: 2px solid red;
+}
+
+input, textarea {
+  padding: 8px;
+  border: 0;
+  box-shadow: 0 0 15px 4px rgba(0,0,0,0.03);
+  border-radius: 6px;
+  margin-bottom: 11px;
+}
+
+.form-label {
+    font-size: 14px;
+    opacity: 0.8;
+    margin-bottom: -5px;
+    margin-top: 15px;
+}
+
+.d-grid {
+    margin-top: 40px;
+}
+
+.container {
+    padding-bottom: 42px;
 }
 </style>
