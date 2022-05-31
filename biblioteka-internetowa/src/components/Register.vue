@@ -98,6 +98,7 @@
           is_admin: false,
           borrowed: [],
           favourites: [],
+          waiting: [],
           arrears: 0
         })
         .then(function onSuccess(res) {

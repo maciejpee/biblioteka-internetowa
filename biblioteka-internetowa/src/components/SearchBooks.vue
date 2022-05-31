@@ -1,5 +1,4 @@
 <template>
-
     <div id="mainDiv">
     <h1>Wyniki wyszukiwania dla: {{search}}</h1>
 
@@ -19,8 +18,6 @@
       </div>
     </div>
   </div>
-
-
 </template>
 
 <script setup>
