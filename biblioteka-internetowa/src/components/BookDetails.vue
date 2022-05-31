@@ -5,9 +5,15 @@
         <img :src="bookDetails.cover" class="cover" />
       </div>
       <div class="col-8">
-        <h1>{{ bookDetails.title }}</h1>
-        <img src="/heartfull.png" width="30" height="30" style="cursor: pointer;" @click="addToFavourites"/>
-        <h1 @click="addToFavourites"> 8> </h1>
+        <div class="row">
+          <div class="col-10">
+            <h1>{{ bookDetails.title }}</h1>
+          </div>
+          <div class="col-2">
+            <img v-if="fav" src="/heartfull.png" width="50" height="50" style="cursor: pointer;" @click="addToFavourites"/>
+            <img v-if="!fav" src="/heart.png" width="50" height="50" style="cursor: pointer;" @click="addToFavourites"/>
+          </div>
+        </div>
         <h3>{{ bookDetails.author }}</h3><hr>
         <p>{{ bookDetails.desc }}</p><hr>
         <table>
@@ -61,6 +67,7 @@
 
   const bookDetails = ref({})
   const firestore = ref(false)
+  const fav = ref(false)
 
   onMounted(() => {
     db.collection("books").doc(props.bookId).get().then((doc) => {
@@ -91,6 +98,16 @@
           index: i
         })
       }
+      firebase.auth().onAuthStateChanged(user => {
+        if(user) {
+          db.collection('users').doc(user.uid).get().then((doc) => {
+            if (doc.data().favourites.includes(props.bookId)) {
+              fav.value = true
+            }
+          })
+        }
+      })
+
       firestore.value = true  
     })
   })
@@ -98,17 +115,17 @@
   function addToFavourites() {
     firebase.auth().onAuthStateChanged(user => {
       if(user) {
-        console.log('is logged in:', user.email);
-        console.log(user.uid, props.bookId)
         db.collection('users').doc(user.uid).get().then((doc) => {
           var favs = doc.data().favourites
           console.log(favs.includes(props.bookId))
           if (!favs.includes(props.bookId)) {
+            fav.value = true
             favs.push(props.bookId)
             db.collection('users').doc(user.uid).update({
               favourites: favs
             })
           } else {
+            fav.value = false
             db.collection('users').doc(user.uid).update({
               favourites: firebase.firestore.FieldValue.arrayRemove(props.bookId)
             })
