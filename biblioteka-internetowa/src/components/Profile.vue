@@ -25,7 +25,7 @@
             </div>
 
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                Wypożyczone książki
+                <Borrowed v-if="firestore" :userId="props.userId" :bors="profile.borrowed"/>
             </div>
 
             <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
@@ -38,6 +38,7 @@
 <script setup>
     import { onMounted, ref } from 'vue'
     import Favourites from "./Favourites.vue"
+    import Borrowed from './Borrowed.vue';
 
 
     const props = defineProps(['userId'])

@@ -4,11 +4,15 @@
             <p>Dostępne egzemplarze: {{copiesAvailable}}/{{copiesArr.length}}</p>
             
         </div>
-        <div class="col-auto" v-if="copiesAvailable > 0">
+        <div class="col-auto" v-if="copiesAvailable > 0 & !alreadyBorrowed">
             <button class="btn btn-success" type="button" @click="borrowBook">Wypożycz</button>
         </div>
+        <div v-else-if="alreadyBorrowed">
+            <div style="background-color: red">Już wypożyczyłeś tę książkę</div>
+        </div>
         <div class="col-auto" v-else>
-            <button class="btn btn-danger" type="button">Zapisz się do kolejki</button>
+            <button class="btn btn-danger" type="button" @click="signToQueue" v-if="!alreadyInQueue">Zapisz się do kolejki</button>
+            <div v-else>Jesteś już zapisany do kolejki na pozycji {{queuePosition}}</div>
         </div>
         
     </div>
@@ -18,6 +22,7 @@
 
 <script setup>
     import { ref, onMounted } from 'vue'
+    
 
     const props = defineProps(["copies", 'bookId'])
     const nearestDate = ref(null)
@@ -25,6 +30,10 @@
     const copiesFinal = ref([])
     const copiesAvailable = ref(0)
     const user = firebase.auth().currentUser;
+    const alreadyBorrowed = ref(false)
+    const alreadyInQueue = ref(false)
+    const queuePosition = ref(0)
+    
     
     onMounted(() => {
         for (let copy of props.copies){
@@ -33,7 +42,29 @@
                 copiesAvailable.value = copiesAvailable.value + 1
             }
         }
+        db.collection("users").doc(user.uid).get().then((doc)=>{
+            console.log(doc.data().borrowed);
+            for (let m of doc.data().borrowed){
+                for(let [key, value] of Object.entries(m)){
+                    if (key == 'bookId'){
+                        if (value == props.bookId){
+                            alreadyBorrowed.value = true
+                        }
+                    }
+                }
+            }
+        })
+        db.collection("books").doc(props.bookId).get().then((doc)=>{
+            console.log(doc.data().copies_queue);
+            for (let m of doc.data().copies_queue){
+                   if (m == user.uid){
+                       alreadyInQueue.value = true
+                       queuePosition.value += 1
+                   }
+            }
+        })
     })
+
 
     function borrowBook(){
         let copyFound = false
@@ -48,7 +79,7 @@
         for (let copy of copiesArr.value){
             copiesArr.value[copy.index] = copy.date
             if (!copyFound){
-                if (!copy.date){
+                if (!copy.date | copy.date == ''){
                     copiesArr.value[copy.index] = borrowDate
                     copyFound = true
                 }
@@ -65,6 +96,17 @@
       })
         
     }
+
+    function signToQueue(){
+
+       if (!alreadyInQueue.value){
+        db.collection("books").doc(props.bookId).update({
+            copies_queue: firebase.firestore.FieldValue.arrayUnion(user.uid)
+
+       })
+
+    }
+}
 
 </script>
 
