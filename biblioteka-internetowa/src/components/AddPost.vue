@@ -40,9 +40,8 @@
                 </div>
                 <div class="col-md-1"></div>
                 
-                <div class="col-md-6 d-grid">
-                    <button class="btn btn-primary" type="submit"       
-                    style="margin: 2.5%; position: absolute; top: 50%; left: 48%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%); width:45%">Dodaj post</button>
+                <div class="col-md-6 d-grid text-center">
+                    <button class="btn btn-primary" type="submit" style="width:250px">Dodaj post</button>
                 </div>
             </form>
         </div>

@@ -4,7 +4,7 @@
     <ul>
         <div id='book'>
             <li v-for="book of borrowedBooks" :key="book.id">
-                {{book.title}} <button @click="returnBook(book.bookId)">Zwróć</button> 
+                {{book.title}}, {{ book.author }} <button @click="returnBook(book.bookId)">Zwróć</button> 
             </li>
             
         </div>
@@ -34,6 +34,7 @@
                 var data = {
                     'bookId': b.bookId,
                     'title': doc.data().title,
+                    'author': doc.data().author,
                 }
                 borrowedBooks.value.push(data)
             })
@@ -96,10 +97,5 @@
             })
         })
         
-        
-    
     }
-
-
-   
 </script>

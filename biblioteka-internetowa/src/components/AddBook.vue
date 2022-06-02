@@ -2,6 +2,7 @@
     <div id="mainDiv">
         <div class="container">
             <form class="row g-3 justify-content-md-center" @submit.prevent="addBook">
+
                 <div class="col-md-1"></div>
                 <div class="col-md-5">
                     <label for="inputTitle" class="form-label">Tytuł</label>
@@ -131,11 +132,9 @@
                 </div>
                 <div class="col-md-1"></div>
 
-                <div class="col-md-4"></div>
-                <div class="col-md-2 d-grid">
-                    <button class="btn btn-primary" type="submit" style="width:170%">Dodaj książkę</button>
+                <div class="col-md-12 d-grid text-center">
+                    <button class="btn btn-primary" type="submit" style="width:250px">Dodaj książkę</button>
                 </div>
-                <div class="col-md-5"></div>
             </form>
         </div>
     </div>
