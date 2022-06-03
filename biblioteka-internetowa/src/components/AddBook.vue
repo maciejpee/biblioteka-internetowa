@@ -345,6 +345,8 @@
                             copiesArr.push(null)
                         }
 
+                        var queue = []
+
                         db.collection('books').add({
                             title: title.value,
                             author: author.value,
@@ -360,6 +362,7 @@
                             cover: downloadURL,
                             genre: genreArr,
                             copies: copiesArr,
+                            queue: queue,
                         })
                     })
                 }

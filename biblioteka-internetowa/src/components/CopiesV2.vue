@@ -55,8 +55,8 @@
             }
         })
         db.collection("books").doc(props.bookId).get().then((doc)=>{
-            console.log(doc.data().copies_queue);
-            for (let m of doc.data().copies_queue){
+            console.log(doc.data().queue);
+            for (let m of doc.data().queue){
                    if (m == user.uid){
                        alreadyInQueue.value = true
                        queuePosition.value += 1
@@ -101,7 +101,7 @@
 
        if (!alreadyInQueue.value){
         db.collection("books").doc(props.bookId).update({
-            copies_queue: firebase.firestore.FieldValue.arrayUnion(user.uid)
+            queue: firebase.firestore.FieldValue.arrayUnion(user.uid)
 
        })
 
