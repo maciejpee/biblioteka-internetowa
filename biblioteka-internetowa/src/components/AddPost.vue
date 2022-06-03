@@ -55,7 +55,9 @@
     const content = ref('')
     const tags = ref('')
     const title = ref('')
+    
     const errors = ref(new Set([]))
+
     const titleAlertVisible = ref(false)
     const aboutAlertVisible = ref(false)
     const contentAlertVisible = ref(false)

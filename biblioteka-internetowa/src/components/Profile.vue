@@ -24,6 +24,16 @@
                 <p>Zaległości: {{ profile.arrears }} zł</p>
             </div>
 
+            <div>
+                <router-link :to="{name:'ProfileInfoEdit'}">
+                    <button type="submit" class="btn btn-primary d-grid" id="btnChangeProfile1">Zmień dane użytkownika</button>
+                </router-link>
+
+                <router-link :to="{name:'ProfilePasswordEdit'}">
+                    <button type="submit" class="btn btn-primary d-grid" id="btnChangeProfile2">Zmień hasło</button>
+                </router-link>
+            </div>
+
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <Borrowed v-if="firestore" :userId="props.userId" :bors="profile.borrowed"/>
             </div>
@@ -55,3 +65,9 @@
         })
     })
 </script>
+
+<style scoped>
+.d-grid {
+    margin: 0 10px 0 10px;
+}
+</style>

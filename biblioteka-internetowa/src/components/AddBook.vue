@@ -157,6 +157,7 @@
     const originalTitle = ref(null)
     const translation = ref(null)
     const copies = ref(null)
+    
     const errors = ref(new Set([]))
 
     //validation
