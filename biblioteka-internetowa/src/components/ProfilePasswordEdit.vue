@@ -89,7 +89,23 @@
 
         // sprawdzenie czy stare hasło jest zgodne z hasłem z bazy
 
-        // zapisanie nowych danych jeśli nie ma errorów
+        // import { getAuth, updatePassword } from "firebase/auth";
+
+        // const auth = getAuth();
+
+        // const user = auth.currentUser;
+        // const newPassword = getASecureRandomPassword();
+
+        // updatePassword(user, newPassword).then(() => {
+        // // Update successful.
+        // }).catch((error) => {
+        // // An error ocurred
+        // // ...
+        // });
+
+        // if (errors.value.size == 0) {
+            // zapisanie nowych danych
+        // }
 
     }
 </script>

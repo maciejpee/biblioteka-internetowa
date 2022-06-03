@@ -3,53 +3,59 @@
         <div class="container">
             <form class="row g-3 justify-content-md-center" @submit.prevent="addBook">
 
-                <div class="col-md-1"></div>
-                <div class="col-md-5">
+                <div class="col-md-2"></div>
+                <div class="col-md-4">
                     <label for="inputLogin" class="form-label">Nazwa użytkownika</label>
-                    <input type="text" class="form-control" id="inputLogin" v-model="title" :class="loginWarning">
-                    <small v-show="loginAlertVisible" id="titleHelpBlock" class="form-text text-danger">
+                    <input type="text" class="form-control" id="inputLogin" v-model="login" :class="loginWarning">
+                    <small v-show="loginAlertVisible" id="loginHelpBlock" class="form-text text-danger">
                     Nazwa użytkownika musi mieć co najmniej 5 znaków.
                     </small>
                 </div>
-                <div class="col-md-1"></div>
-                
+
                 <div class="col-md-4">
                     <label for="inputEmail" class="form-label">Email</label>
                     <input type="text" class="form-control" id="inputEmail" v-model="email" :class="emailWarning">
                     <small v-show="emailAlertVisible" id="emailHelpBlock" class="form-text text-danger">
-                    Email nie może być pusty.
+                    Niepoprawny email.
                     </small>
                 </div>
-                <div class="col-md-1"></div>
+                <div class="col-md-2"></div>
+                
+                <div class="col-md-2"></div>
+                <div class="col-md-2">
+                    <label for="inputName" class="form-label">Imię</label>
+                    <input type="text" class="form-control" id="inputName" v-model="name" :class="nameWarning">
+                    <small v-show="nameAlertVisible" id="nameHelpBlock" class="form-text text-danger">
+                    Niepoprawne imię.
+                    </small>
+                </div>
 
-                <div class="col-md-1"></div>
-                <div class="col-md-5">
+                <div class="col-md-2">
+                    <label for="inputSurname" class="form-label">Nazwisko</label>
+                    <input type="text" class="form-control" id="inputSurname" v-model="surname" :class="surnameWarning">
+                    <small v-show="surnameAlertVisible" id="surnameHelpBlock" class="form-text text-danger">
+                    Niepoprawne nazwisko.
+                    </small>
+                </div>
+
+                <div class="col-md-4">
                     <label for="inputPhone" class="form-label">Numer telefonu</label>
                     <input type="text" class="form-control" id="inputPhone" v-model="phone" :class="phoneWarning">
                     <small v-show="phoneAlertVisible" id="phoneHelpBlock" class="form-text text-danger">
                     Numer telefonu musi składać się z 9 cyfr.
                     </small>
                 </div>
-                <div class="col-md-1"></div>
+                <div class="col-md-2"></div>
 
-                <div class="col-md-4">
-                    <label for="inputPassword" class="form-label">Wpisz aktualne hasło</label>
-                    <input type="text" class="form-control" id="inputPassword" v-model="password" :class="passwordWarning">
-                    <small v-show="passwordAlertVisible" id="passwordHelpBlock" class="form-text text-danger">
-                    Niepoprawne hasło.
-                    </small>
-                </div>
-                <div class="col-md-1"></div>
-
-                <div class="col-md-1"></div>
-                <div class="col-md-10">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
                     <label for="inputDesc" class="form-label field">Opis</label>
                     <textarea class="form-control" id="inputDesc" rows="8" v-model="desc" :class="descWarning"></textarea>
                     <small v-show="descAlertVisible" id="descHelpBlock" class="form-text text-danger">
                     Niepoprawny opis.
                     </small>
                 </div>
-                <div class="col-md-1"></div>
+                <div class="col-md-2"></div>
 
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="form-group text-center">
@@ -65,48 +71,47 @@
 <script setup>
     import { ref } from 'vue'
 
-    //const login = dotychczasowa nazwa użytkownika
-    //const email = dotychczasowy email
-    const desc = ref(null)
-    const phone = ref(null)
-    const password = ref("")
+    const login = ref(null) // wyświetl: dotychczasowa nazwa użytkownika?
+    const email = ref(null)  // wyświetl: dotychczasowy email?
+    const desc = ref(null) // itd
+    const phone = ref(null) // dodać: pola mogą być nieobowiązkowe
+    const name = ref(null)
+    const surname = ref(null)
 
     const errors = ref(new Set([]))
     const props = defineProps(['userId'])
 
-    // onMounted(() => {
-    //     db.collection("users").doc(props.userId).get().then((doc) => {
-    //         profile.value["userName"] = doc.data().user_name
-    //     })
-    // })
-
     const loginAlertVisible = ref(false)
     const emailAlertVisible = ref(false)
-    const passwordAlertVisible = ref(false)
     const descAlertVisible = ref(false)
     const phoneAlertVisible = ref(false)
+    const nameAlertVisible = ref(false)
+    const surnameAlertVisible = ref(false)
 
     const loginWarning = ref('')
     const emailWarning = ref('')
-    const passwordWarning = ref('')
     const descWarning = ref('')
     const phoneWarning = ref('')
+    const nameWarning = ref('')
+    const surnameWarning = ref('')
 
 
     function changeProfileInfo () {
         loginAlertVisible.value = false
         emailAlertVisible.value = false
-        passwordAlertVisible.value = false
         descAlertVisible.value = false
         phoneAlertVisible.value = false
+        nameAlertVisible.value = false
+        surnameAlertVisible.value = false
 
         loginWarning.value = ''
         emailWarning.value = ''
-        passwordWarning.value = ''
         descWarning.value = ''
         phoneWarning.value = ''
+        nameWarning.value = ''
+        surnameWarning.value = ''
 
-        if (login.value.length < 5 || login.value == ""){
+        if (login.value.length < 5) {
             loginAlertVisible.value = true;
             loginWarning.value = 'border-danger'
             errors.value.add('login')
@@ -114,7 +119,7 @@
             errors.value.delete('login')
         }
 
-        if ( !(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) ){
+        if ( !(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) ) {
             emailAlertVisible.value = true;
             emailWarning.value = 'border-danger'
             errors.value.add('email')
@@ -122,18 +127,42 @@
             errors.value.delete('email')
         }
 
-        if ( !(/^[0-9]{9}/.test(phone.value)) ){
-            loginAlertVisible.value = true;
-            loginWarning.value = 'border-danger'
+        if ( !(/^[0-9]{9}/.test(phone.value)) ) {
+            phoneAlertVisible.value = true;
+            phoneWarning.value = 'border-danger'
             errors.value.add('phone')
         } else {
             errors.value.delete('phone')
         }
 
-        // sprawdzenie zgodności hasła?
+        if ( name.value.length < 2 ) {
+            nameAlertVisible.value = true;
+            nameWarning.value = 'border-danger'
+            errors.value.add('name')
+        } else {
+            errors.value.delete('name')
+        }
 
-        // zapisanie nowych danych jeśli nie ma errorów
+        if ( surname.value.length < 2 ) {
+            surnameAlertVisible.value = true;
+            surnameWarning.value = 'border-danger'
+            errors.value.add('surname')
+        } else {
+            errors.value.delete('surname')
+        }
 
+        
+        if (errors.value.size == 0) {
+            db.collection('users').doc(props.userId).update({
+               desc: desc.value,
+               phone: phone.value,
+               name: name.value,
+               surname: surname.value,
+               user_name: login.value,
+            })
+
+            // dodać: zmiana emaila
+        }
 
     }
 </script>
