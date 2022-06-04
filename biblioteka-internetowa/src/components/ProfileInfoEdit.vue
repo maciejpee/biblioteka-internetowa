@@ -6,41 +6,15 @@
                 <div class="col-md-2"></div>
                 <div class="col-md-4">
                     <label for="inputLogin" class="form-label">Nazwa użytkownika</label>
-                    <input type="text" class="form-control" id="inputLogin" v-model="login" :class="loginWarning">
+                    <input type="text" class="form-control" id="inputLogin" v-model="login" :class="loginWarning" :placeholder="profile.user_name">
                     <small v-show="loginAlertVisible" id="loginHelpBlock" class="form-text text-danger">
                     Nazwa użytkownika musi mieć co najmniej 5 znaków.
                     </small>
                 </div>
-
-                <div class="col-md-4">
-                    <label for="inputEmail" class="form-label">Email</label>
-                    <input type="text" class="form-control" id="inputEmail" v-model="email" :class="emailWarning">
-                    <small v-show="emailAlertVisible" id="emailHelpBlock" class="form-text text-danger">
-                    Niepoprawny email.
-                    </small>
-                </div>
-                <div class="col-md-2"></div>
                 
-                <div class="col-md-2"></div>
-                <div class="col-md-2">
-                    <label for="inputName" class="form-label">Imię</label>
-                    <input type="text" class="form-control" id="inputName" v-model="name" :class="nameWarning">
-                    <small v-show="nameAlertVisible" id="nameHelpBlock" class="form-text text-danger">
-                    Niepoprawne imię.
-                    </small>
-                </div>
-
-                <div class="col-md-2">
-                    <label for="inputSurname" class="form-label">Nazwisko</label>
-                    <input type="text" class="form-control" id="inputSurname" v-model="surname" :class="surnameWarning">
-                    <small v-show="surnameAlertVisible" id="surnameHelpBlock" class="form-text text-danger">
-                    Niepoprawne nazwisko.
-                    </small>
-                </div>
-
                 <div class="col-md-4">
                     <label for="inputPhone" class="form-label">Numer telefonu</label>
-                    <input type="text" class="form-control" id="inputPhone" v-model="phone" :class="phoneWarning">
+                    <input type="text" class="form-control" id="inputPhone" v-model="phone" :class="phoneWarning" :placeholder="profile.phone">
                     <small v-show="phoneAlertVisible" id="phoneHelpBlock" class="form-text text-danger">
                     Numer telefonu musi składać się z 9 cyfr.
                     </small>
@@ -48,9 +22,27 @@
                 <div class="col-md-2"></div>
 
                 <div class="col-md-2"></div>
+                <div class="col-md-4">
+                    <label for="inputName" class="form-label">Imię</label>
+                    <input type="text" class="form-control" id="inputName" v-model="name" :class="nameWarning" :placeholder="profile.name">
+                    <small v-show="nameAlertVisible" id="nameHelpBlock" class="form-text text-danger">
+                    Niepoprawne imię.
+                    </small>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="inputSurname" class="form-label">Nazwisko</label>
+                    <input type="text" class="form-control" id="inputSurname" v-model="surname" :class="surnameWarning" :placeholder="profile.surname">
+                    <small v-show="surnameAlertVisible" id="surnameHelpBlock" class="form-text text-danger">
+                    Niepoprawne nazwisko.
+                    </small>
+                </div>
+                <div class="col-md-2"></div>
+
+                <div class="col-md-2"></div>
                 <div class="col-md-8">
                     <label for="inputDesc" class="form-label field">Opis</label>
-                    <textarea class="form-control" id="inputDesc" rows="8" v-model="desc" :class="descWarning"></textarea>
+                    <textarea class="form-control" id="inputDesc" rows="8" v-model="desc" :class="descWarning" :placeholder="profile.desc"></textarea>
                     <small v-show="descAlertVisible" id="descHelpBlock" class="form-text text-danger">
                     Niepoprawny opis.
                     </small>
@@ -71,47 +63,52 @@
 <script setup>
     import { ref } from 'vue'
 
-    const login = ref(null)
-    const email = ref(null)
-    const desc = ref(null)
-    const phone = ref(null)
-    const name = ref(null)
-    const surname = ref(null)
+    const login = ref("")
+    const desc = ref("")
+    const phone = ref("")
+    const name = ref("")
+    const surname = ref("")
 
+    const auth = firebase.auth()
     const errors = ref(new Set([]))
     const props = defineProps(['userId'])
 
     const loginAlertVisible = ref(false)
-    const emailAlertVisible = ref(false)
     const descAlertVisible = ref(false)
     const phoneAlertVisible = ref(false)
     const nameAlertVisible = ref(false)
     const surnameAlertVisible = ref(false)
 
     const loginWarning = ref('')
-    const emailWarning = ref('')
     const descWarning = ref('')
     const phoneWarning = ref('')
     const nameWarning = ref('')
     const surnameWarning = ref('')
 
+    const profile = ref({})
+
+    db.collection("users").doc(props.userId).get().then((doc) => {
+        profile.value["user_name"] = doc.data().user_name
+        profile.value["desc"] = doc.data().desc
+        profile.value["phone"] = doc.data().phone
+        profile.value["name"] = doc.data().name
+        profile.value["surname"] = doc.data().surname
+    })
 
     function changeProfileInfo () {
         loginAlertVisible.value = false
-        emailAlertVisible.value = false
         descAlertVisible.value = false
         phoneAlertVisible.value = false
         nameAlertVisible.value = false
         surnameAlertVisible.value = false
 
         loginWarning.value = ''
-        emailWarning.value = ''
         descWarning.value = ''
         phoneWarning.value = ''
         nameWarning.value = ''
         surnameWarning.value = ''
 
-        if (login.value.length < 5) {
+        if (login.value.length < 5 && login.value.length > 0 ) {
             loginAlertVisible.value = true;
             loginWarning.value = 'border-danger'
             errors.value.add('login')
@@ -119,15 +116,7 @@
             errors.value.delete('login')
         }
 
-        if ( !(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) ) {
-            emailAlertVisible.value = true;
-            emailWarning.value = 'border-danger'
-            errors.value.add('email')
-        } else {
-            errors.value.delete('email')
-        }
-
-        if ( !(/^[0-9]{9}/.test(phone.value)) ) {
+        if ( !(/^[0-9]{9}/.test(phone.value) || phone.value ==="" ) ) {
             phoneAlertVisible.value = true;
             phoneWarning.value = 'border-danger'
             errors.value.add('phone')
@@ -135,7 +124,7 @@
             errors.value.delete('phone')
         }
 
-        if ( name.value.length < 2 ) {
+        if ( name.value.length < 3 && name.value.length > 0 ) {
             nameAlertVisible.value = true;
             nameWarning.value = 'border-danger'
             errors.value.add('name')
@@ -143,7 +132,7 @@
             errors.value.delete('name')
         }
 
-        if ( surname.value.length < 2 ) {
+        if ( surname.value.length < 3 && surname.value.length > 0 ) {
             surnameAlertVisible.value = true;
             surnameWarning.value = 'border-danger'
             errors.value.add('surname')
@@ -151,21 +140,46 @@
             errors.value.delete('surname')
         }
 
-        
         if (errors.value.size == 0) {
-            db.collection('users').doc(props.userId).update({
-               desc: desc.value,
-               phone: phone.value,
-               name: name.value,
-               surname: surname.value,
-               user_name: login.value,
-            })
+            const update = {}
+            if (desc.value!="") {
+                update.desc = desc.value
+            }
+            if (phone.value!="") {
+                update.phone = phone.value
+            }
+            if (name.value!="") {
+                update.name = name.value
+            }
+            if (surname.value!="") {
+                update.surname = surname.value
+            }
+            if (login.value!="") {
+                update.user_name = login.value
+            }
 
-            // dodać: zmiana emaila
+            const user = auth.currentUser;
+            db.collection('users').doc(props.userId).update(update)
+            .then(() => { location.replace('/profile/' + props.userId)} )
+            .catch(function(err) {
+                console.error(err);
+                console.log('profile info not updated')
+            });
+
+            // const user = auth.currentUser;
+            // db.collection('users').doc(props.userId).update({
+            //    desc: desc.value,
+            //    phone: phone.value,
+            //    name: name.value,
+            //    surname: surname.value,
+            //    user_name: login.value,
+            // })
+        
+
             // dodać: przeniesienie na stronę profilu
+            // dodać: jeżeli użytkownik nie wpisze danych, nie zmieniamy niczego w bazie
 
-            // dodać: niektóre pola mogą być nieobowiązkowe/puste
-            // dodać: wyświetlanie w polach formularza dotychczasowych informacji jako domyślnych
+
         }
 
     }
