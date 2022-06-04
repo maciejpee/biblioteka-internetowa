@@ -132,6 +132,12 @@
                 </div>
                 <div class="col-md-1"></div>
 
+                <div class="col-md-1"></div>
+                <div v-show="successAlertVisible" class="col-md-5 alert alert-success text-center" role="alert">
+                Książka dodana pomyślnie! Możesz dodawać kolejne pozycje.
+                </div>
+                <div class="col-md-1"></div>
+                
                 <div class="col-md-12 d-grid text-center">
                     <button class="btn btn-primary" type="submit" style="width:250px">Dodaj książkę</button>
                 </div>
@@ -159,6 +165,8 @@
     const copies = ref(null)
     
     const errors = ref(new Set([]))
+
+    const successAlertVisible = ref(false)
 
     //validation
     const titleAlertVisible = ref(false)
@@ -363,6 +371,12 @@
                             genre: genreArr,
                             copies: copiesArr,
                             queue: queue,
+                        })
+                        .then(function onSuccess(res) {
+                        successAlertVisible.value = true;
+                        })
+                        .catch(function onError(err) {
+                        console.error(err);
                         })
                     })
                 }
