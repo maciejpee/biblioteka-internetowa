@@ -5,6 +5,16 @@
 
                 <div class="col-xl-3 col-lg-3"></div>
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    <label for="inputEmail" class="form-label">Email</label>
+                    <input type="text" class="form-control" id="inputEmail" v-model="email" :class="emailWarning">
+                    <small v-show="emailAlertVisible" id="emailHelpBlock" class="form-text text-danger">
+                    Niepoprawny email.
+                    </small>
+                </div>
+                <div class="col-xl-3 col-lg-3"></div>
+
+                <div class="col-xl-3 col-lg-3"></div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
                     <label for="inputOldPassword" class="form-label">Stare hasło</label>
                     <input type="password" class="form-control" :class="oldPasswordWarning" id="inputOldPassword" v-model="oldPassword">
                     <small v-show="oldPasswordAlertVisible" id="oldPasswordHelpBlock" class="form-text text-danger">
@@ -17,7 +27,7 @@
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
                     <label for="inputNewPassword1" class="form-label">Nowe hasło</label>
                     <input type="password" class="form-control" :class="newPassword1Warning" id="inputNewPassword1" v-model="newPassword1">
-                    <small v-show="passwordLengthlAlertVisible" id="newPasswordHelpBlock" class="form-text text-danger">
+                    <small v-show="passwordLengthlAlertVisible" id="newPassword1HelpBlock" class="form-text text-danger">
                     Hasło powinno mieć co najmniej 8 znaków.
                     </small>
                 </div>
@@ -26,8 +36,8 @@
                 <div class="col-xl-3 col-lg-3"></div>
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
                     <label for="inputNewPassword2" class="form-label">Powtórz nowe hasło</label>
-                    <input type="password" class="form-control" :class="newPassword2Warning" id="inputNewPassword2" v-model="newpassword2">
-                    <small v-show="passwordDifferencelAlertVisible" id="newPasswordHelpBlock" class="form-text text-danger">
+                    <input type="password" class="form-control" :class="newPassword2Warning" id="inputNewPassword2" v-model="newPassword2">
+                    <small v-show="passwordDifferencelAlertVisible" id="newPassword2HelpBlock" class="form-text text-danger">
                     Hasła różnią się.
                     </small>
                 </div>
@@ -47,31 +57,37 @@
 <script setup>
     import { ref } from 'vue'
 
-    const oldPassword = ref("")
-    const newPassword1 = ref("")
-    const newPassword2 = ref("")
+    const email = ref(null)
+    const oldPassword = ref(null)
+    const newPassword1 = ref(null)
+    const newPassword2 = ref(null)
+    const auth = firebase.auth()
 
     const errors = ref(new Set([]))
     const props = defineProps(['userId'])
 
+    const emailAlertVisible = ref(false)
     const oldPasswordAlertVisible = ref(false)
     const passwordLengthlAlertVisible = ref(false)
     const passwordDifferencelAlertVisible = ref(false)
 
+    const emailWarning = ref('')
     const oldPasswordWarning = ref('')
     const newPassword1Warning = ref('')
     const newPassword2Warning = ref('')
 
     function changePassword () {
+        emailAlertVisible.value = false
         oldPasswordAlertVisible.value = false
         passwordLengthlAlertVisible.value = false
         passwordDifferencelAlertVisible.value = false
 
+        emailWarning.value = ''
         oldPasswordWarning.value = ''
-        newPassword1Warning = ''
-        newPassword2Warning = ''
+        newPassword1Warning.value = ''
+        newPassword2Warning.value = ''
 
-        if (newPassword1.value.length < 6 || newPassword1.value == "") {
+        if (newPassword1.value.length < 6) {
             passwordLengthlAlertVisible.value = true;
             newPassword1Warning.value = 'border-danger'
             errors.value.add('newPassword1')
@@ -87,27 +103,29 @@
             errors.value.delete('newPassword2')
         }
 
-        // sprawdzenie czy stare hasło jest zgodne z hasłem z bazy
 
-        // import { getAuth, updatePassword } from "firebase/auth";
+        // login with email and old password and change to the new password
+        if (errors.value.size == 0) {
+            const user = auth.currentUser;
+            firebase.auth()
+            .signInWithEmailAndPassword(email.value, oldPassword.value)
+            .then(function(user) {
+                firebase.auth().currentUser.updatePassword(newPassword1.value).then(function(){
+                    console.log('password updated');
+                    location.replace('/profile/:userId');
 
-        // const auth = getAuth();
+                }).catch(function(err){
+                    console.error(err);
+                    console.log('password not updated')
+                });
 
-        // const user = auth.currentUser;
-        // const newPassword = getASecureRandomPassword();
-
-        // updatePassword(user, newPassword).then(() => {
-        // // Update successful.
-        // }).catch((error) => {
-        // // An error ocurred
-        // // ...
-        // });
-
-        // if (errors.value.size == 0) {
-            // zapisanie nowych danych
-        // }
-
+            }).catch(function(err){
+                console.error(err);
+                console.log('invalid email or old password')
+            });
+        }
     }
+
 </script>
 
 

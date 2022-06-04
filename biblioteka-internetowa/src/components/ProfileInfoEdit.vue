@@ -71,10 +71,10 @@
 <script setup>
     import { ref } from 'vue'
 
-    const login = ref(null) // wyświetl: dotychczasowa nazwa użytkownika?
-    const email = ref(null)  // wyświetl: dotychczasowy email?
-    const desc = ref(null) // itd
-    const phone = ref(null) // dodać: pola mogą być nieobowiązkowe
+    const login = ref(null)
+    const email = ref(null)
+    const desc = ref(null)
+    const phone = ref(null)
     const name = ref(null)
     const surname = ref(null)
 
@@ -162,6 +162,10 @@
             })
 
             // dodać: zmiana emaila
+            // dodać: przeniesienie na stronę profilu
+
+            // dodać: niektóre pola mogą być nieobowiązkowe/puste
+            // dodać: wyświetlanie w polach formularza dotychczasowych informacji jako domyślnych
         }
 
     }

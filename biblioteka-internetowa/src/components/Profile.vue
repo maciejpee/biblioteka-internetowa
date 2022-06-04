@@ -22,9 +22,7 @@
                 <p v-if="firestore">Wypożyczone: {{ profile.borrowed.length }}</p>
                 <p>Oczekujące: </p>
                 <p>Zaległości: {{ profile.arrears }} zł</p>
-            </div>
 
-            <div>
                 <router-link :to="{name:'ProfileInfoEdit'}">
                     <button type="submit" class="btn btn-primary d-grid" id="btnChangeProfile1">Zmień dane użytkownika</button>
                 </router-link>
