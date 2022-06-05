@@ -41,7 +41,7 @@
 
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
               <div class="form-group text-center">
-                <button type="submit" class="btn btn-primary d-grid" id="btnRegisterTest" style="width:250px" @click="register">Zarejestruj się</button>     
+                <button type="submit" class="btn btn-primary d-grid" id="btnRegisterTest" style="width:250px" @click="register()">Zarejestruj się</button>     
               </div>          
           </div>
         </div>
@@ -67,7 +67,7 @@
   const password1Warning = ref('')
   const password2Warning = ref('')
    
-  const register = () => {
+  function register() {
     loginAlertVisible.value = false
     emailAlertVisible.value = false
     passwordLengthlAlertVisible.value = false

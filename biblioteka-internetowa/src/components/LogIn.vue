@@ -32,7 +32,7 @@
 
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <div class="form-group text-center">
-            <button type="submit" class="btn btn-primary d-grid" id="btnLogIn" @click="login" style="width:250px">Zaloguj się</button>
+            <button type="submit" class="btn btn-primary d-grid" id="btnLogIn" @click="login()" style="width:250px">Zaloguj się</button>
           </div>          
         </div>
 
@@ -55,7 +55,7 @@
   const emailWarning = ref('')
   const passwordWarning = ref('')
 
-  const login = () => {
+  function  login() {
     auth.signInWithEmailAndPassword(email.value, pass.value)
     .catch(function(error) {
       wrongEmailAlertVisible.value = false
