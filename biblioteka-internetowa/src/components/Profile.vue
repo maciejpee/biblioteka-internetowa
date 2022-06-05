@@ -28,7 +28,7 @@
                 </router-link>
 
                 <router-link :to="{name:'ProfilePasswordEdit'}">
-                    <button type="submit" class="btn btn-primary d-grid" id="btnChangeProfile2">Zmień hasło</button>
+                    <button type="submit" class="btn btn-primary d-grid" id="btnChangeProfile2">Zmień email lub hasło</button>
                 </router-link>
             </div>
 
