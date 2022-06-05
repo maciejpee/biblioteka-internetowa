@@ -88,10 +88,7 @@
         </form>
     </div>
     <hr>
-    <div>
-        <h4>Dane logowania</h4>
-        <p>Email: </p>
-    </div>
+    <ChangeCredentials/>
     <hr>
 
     <div>
@@ -113,6 +110,7 @@
 
 <script setup>
     import { onMounted, ref } from 'vue'
+    import ChangeCredentials from "./ChangeCredentials.vue"
 
     const props = defineProps(['userId'])
     const errors = ref(new Set([]))
@@ -121,6 +119,7 @@
     const profile = ref({})
     const firestore = ref(false)
     const editInfo = ref(false)
+    const credentialsModal = ref(false)
 
     const loginAlertVisible = ref(false)
     const descAlertVisible = ref(false)
@@ -231,6 +230,10 @@
             editInfo.value = false        
         }
 
+    }
+
+    function closeModal() {
+        console.log('hej')
     }
 
 </script>
