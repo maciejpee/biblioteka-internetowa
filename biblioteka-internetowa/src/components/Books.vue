@@ -48,6 +48,7 @@
       return normalizedTitle.match(search.value.toLowerCase().replace(/ +/g, ''))
     })
   })
+
 </script>
 
 

@@ -2,7 +2,7 @@
     <div id="mainDiv">
         <h1>{{ profile.userName }}</h1>
         <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item" role="presentation">
+            <li class="nav-item" role="presentation" @click="refresh">
                 <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Dane użytkownika</button>
             </li>
 
@@ -33,7 +33,7 @@
             </div>
 
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                <Borrowed v-if="firestore" :userId="props.userId" :bors="profile.borrowed"/>
+                <Borrowed v-if="firestore" :userId="props.userId" :borrowed="profile.borrowed"/>
             </div>
 
             <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
@@ -62,6 +62,13 @@
             firestore.value = true
         })
     })
+
+    function refresh () {
+        db.collection("users").doc(props.userId).get().then((doc) => {
+            profile.value["arrears"] = doc.data().arrears
+            profile.value["borrowed"] = doc.data().borrowed
+        })
+    }
 </script>
 
 <style scoped>

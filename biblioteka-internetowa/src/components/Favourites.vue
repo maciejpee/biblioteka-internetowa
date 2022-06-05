@@ -1,8 +1,15 @@
 <template>
     <h5>Twoje ulubione książki:</h5>
-    <ul>
-        <li v-for="f of favs">{{ f.title }}, {{ f.author }}</li>
-    </ul>
+    <div class="row" v-for="f of favs">
+        <div class="col-md-2">
+            <img :src="f.cover" class="cover" />
+        </div>
+        <div class="col-md-8">
+            <p>{{f.title}}</p>
+            <p>{{f.author}}</p>
+            <p v-if="f.series">{{f.series}} Tom {{f.volume}}</p>
+        </div>
+    </div>
 
 </template>
 
@@ -16,8 +23,12 @@
         for (let i = 0; i < props.favs.length; i++) {
             db.collection("books").doc(props.favs[i]).get().then((doc) => {
                 var data = {
-                    'title': doc.data().title,
-                    'author': doc.data().author,
+                    "author": doc.data().author,
+                    "title": doc.data().title,
+                    "series": doc.data().series,
+                    "volume": doc.data().volume,
+                    "genre": doc.data().genre,
+                    "cover": doc.data().cover,
                 }
                 favs.value.push(data)
             })

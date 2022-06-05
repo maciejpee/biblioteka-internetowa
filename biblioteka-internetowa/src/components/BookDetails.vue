@@ -41,6 +41,7 @@
             <th>ISBN: </th>
             <th>{{ bookDetails.isbn }}</th>
           </tr>
+          <tr v-if="canNuke"><button @click="nukeBook">NUKE BOOK</button></tr>
           <tr v-if="bookDetails.translation">
             <th>Przekład: </th>
             <th>{{ bookDetails.translation }}</th>
@@ -62,7 +63,7 @@
   import GenreRecommend from "./GenreRecommend.vue"
   import Copies from "./Copies.vue"
   import CopiesV2 from "./CopiesV2.vue"
-
+  const canNuke = ref(false)
   const props = defineProps(["bookId"])
 
   const bookDetails = ref({})
@@ -109,6 +110,9 @@
       })
 
       firestore.value = true  
+      if (!doc.data().queue){
+        canNuke.value = true
+      }
     })
   })
 
@@ -136,6 +140,19 @@
         }
     })
   }
+    function nukeBook(){
+        db.collection("books").doc(props.bookId).get().then((doc) => {
+            if (!doc.data().queue){
+              db.collection("books").doc(props.bookId).update({
+                queue: []
+              })
+            }
+        })
+
+           
+    }
+    
+    
 </script>
 
 <style>
