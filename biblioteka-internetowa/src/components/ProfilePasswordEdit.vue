@@ -102,7 +102,7 @@
         passwordLengthWarning.value = ''
         passwordDifferenceWarning.value = ''
 
-        if (newPassword1.value.length < 6) {
+        if (newPassword1.value.length < 6 && newPassword1.value.length > 0) {
             passwordLengthlAlertVisible.value = true;
             passwordLengthWarning.value = 'border-danger'
             errors.value.add('passwordLength')
@@ -118,7 +118,7 @@
             errors.value.delete('passwordDifference')
         }
 
-        if ( !(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newEmail.value)) ) {
+        if ( !(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newEmail.value)) && newEmail.value!="") {
             newEmailAlertVisible.value = true;
             newEmailWarning.value = 'border-danger'
             errors.value.add('newEmail')
@@ -126,40 +126,90 @@
             errors.value.delete('newEmail')
         }
 
+        console.log("Numer of errors: ", errors.value.size)
 
         // login with email and old password and change to the new password
+
         if (errors.value.size == 0) {
-            const user = auth.currentUser;
-            firebase.auth()
-            .signInWithEmailAndPassword(email.value, oldPassword.value)
-            .then(function(user) {
-                firebase.auth().currentUser.updatePassword(newPassword1.value).then(function(){
-                    console.log('password updated');
-                    location.replace('/profile' + props.userId);
+            console.log(email.value)
+            console.log(oldPassword.value)
+            let isError = false;
 
-                }).catch(function(err){
-                    console.error(err);
-                    console.log('update unsuccessful')
-                });
+            let passwordUpdated = false;
+            if (newPassword1.value!="") {
+                const user = firebase.auth().currentUser;
 
-            }).catch(function(err){
-                console.error(err);
-                console.log('invalid email or old password')
-            });
+                let credentials = firebase.auth.EmailAuthProvider.credential(
+                    email.value,
+                    oldPassword.value
+                );
 
-            user.updateEmail(newEmail.value).then(() => {
-                console.log('email updated')
-            }).catch(function(err){
-                console.error(err);
-                console.log('error')
-            });
-        }
+                user.reauthenticateWithCredential(credentials)
+
+                .then((userCredential) => {
+                    firebase.auth().currentUser.updatePassword(newPassword1.value).then(() => {
+                        passwordUpdated = true;
+                        console.log('password updated');
+                    }).catch((err) => {
+                        console.error(err);
+                        console.log('password not updated')
+                        window.alert(err);
+                    });
+                })
+                .catch((error) => {
+                    isError = true;
+                    console.log("Can't log in, bad username/credentials or problem with server");
+                    console.error(error);
+                    window.alert(error);
+                })
+            }
+
+            if (newEmail.value!="") {
+
+                const user = firebase.auth().currentUser;
+                let credentials = firebase.auth.EmailAuthProvider.credential(
+                    email.value,
+                    passwordUpdated ? newPassword1.value : oldPassword.value
+                );
+
+                user.reauthenticateWithCredential(credentials)
+                .then((userCredential) => {
+                    firebase.auth().currentUser.updateEmail(newEmail.value).then(() => {
+                        console.log('email updated')
+                    }).catch((err) => {
+                        isError = true;
+                        console.log('email not updated')
+                        window.alert(err);
+                    });
+                })
+                .catch((error) => {
+                    isError = true;
+                    console.log("Can't log in, bad username/credentials or problem with server");
+                    console.error(error);
+                    // window.alert(error);
+                })
+            }
+    
+        }   
+
+
+        // dodać: replace location
+        
+            
+            // .finally(() => {
+            //     if (isError!=true) {
+            //         console.log('4')
+            //         location.replace('/profile/' + props.userId)
+            //     }
+            // }
+            // )
+                
+
+
     }
 
 
     // dodać: error dla użytkownika (niepoprawny email lub hasło)
-    // dodać: nieobowiązkowe pola
-    // problem: id po zmianie hasła i emaila
 
 </script>
 

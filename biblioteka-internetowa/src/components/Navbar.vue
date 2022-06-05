@@ -90,8 +90,9 @@
   })
 
   function logout() {
-    firebase.auth().signOut()
-    location.replace('/')
+    firebase.auth().signOut().then(() => {
+      location.replace('/')
+    })
   }
 
   function handleSearchBar(){

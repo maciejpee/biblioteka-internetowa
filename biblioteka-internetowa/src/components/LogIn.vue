@@ -8,6 +8,12 @@
           <div class="form-group">
             <label class="form-label" for="exampleInputEmail1">Adres email</label>
             <input type="email" class="form-control" id="txtEmail" aria-describedby="emailHelp" placeholder="Podaj email" v-model="email">
+            <small v-show="wrongEmailAlertVisible" id="emailHelpBlock" class="form-text text-danger">
+                Błędny adres email.
+            </small>
+            <small v-show="userNotFoundAlertVisible" id="userHelpBlock" class="form-text text-danger">
+                Użytkownik o danym adresie email nie istnieje.
+            </small>
           </div>
         </div>
         <div class="col-xl-3 col-lg-3"></div>
@@ -16,7 +22,10 @@
         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
           <div class="form-group">
             <label class="form-label" for="exampleInputPassword1" minlength="8" required>Hasło</label>
-              <input type="password" class="form-control" id="txtPassword" placeholder="Podaj hasło" v-model="pass">
+            <input type="password" class="form-control" id="txtPassword" placeholder="Podaj hasło" v-model="pass">
+            <small v-show="wrongPasswordAlertVisible" id="passwordHelpBlock" class="form-text text-danger">
+                Hasło jest nieprawidłowe.
+            </small>
           </div>
         </div>
         <div class="col-xl-3 col-lg-3"></div>
@@ -34,12 +43,32 @@
 
 <script setup>
   import { ref } from 'vue'
+  
   const email = ref("")
   const pass = ref("")  
   const auth = firebase.auth()
 
+  const wrongEmailAlertVisible = ref(false)
+  const wrongPasswordAlertVisible = ref(false)
+  const userNotFoundAlertVisible = ref(false)
+
   const login = () => {
     auth.signInWithEmailAndPassword(email.value, pass.value)
+    .catch(function(error) {
+      wrongEmailAlertVisible.value = false
+      wrongPasswordAlertVisible.value = false
+      userNotFoundAlertVisible.value = false
+
+      if (error.code == 'auth/invalid-email') {
+        wrongEmailAlertVisible.value = true
+      }
+      if (error.code == 'auth/wrong-password') {
+        wrongPasswordAlertVisible.value = true
+      }
+      if (error.code == 'auth/user-not-found') {
+        userNotFoundAlertVisible.value = true
+      }
+    })
     
     auth.onAuthStateChanged(firebaseUser => {
       if(firebaseUser) {
