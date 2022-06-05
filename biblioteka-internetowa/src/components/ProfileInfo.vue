@@ -1,111 +1,113 @@
 <template>
-    <div v-if="!editInfo">
-        <div class="row">
-            <div class="col-md-11">
-                <h4>Informacje o profilu</h4>
-            </div>
-            <div class="col-md-1">
-                <img @click="editInfo = true" class="icon" src="/edit.png" width="30" height="30" style="cursor: pointer;">
-            </div>
-        </div>
-        <p>Nazwa użytkownika: {{ profile.user_name }}</p>
-        <p>Imię: {{ profile.name }}</p>
-        <p>Nazwisko: {{ profile.surname }}</p>
-        <p>Numer telefonu: {{ profile.phone }}</p>
-        <p>Opis:</p>
-        <p>{{ profile.desc }}</p>
-    </div>
-    <div v-if="editInfo">
-        <div class="row">
-            <div class="col-md-11">
-                <h4>Informacje o profilu</h4>
-            </div>
-            <div class="col-md-1">
-                <img @click="changeProfileInfo" class="icon" src="/edit.png" width="30" height="30" style="cursor: pointer;">
-            </div>
-        </div>
-        <form>
-            <div class="row">
-                <div class="col-md-2">
-                    <label for="inputLogin" class="form-label">Nazwa użytkownika: </label>
-                </div>
-                <div class="col-md-3">
-                    <input type="text" class="form-control" id="inputLogin" v-model="profile.user_name" :class="loginWarning">
-                </div>
-                <div class="col-md-3">
-                    <small v-show="loginAlertVisible" id="loginHelpBlock" class="form-text text-danger">
-                    Nazwa użytkownika musi mieć co najmniej 5 znaków.
-                    </small>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-2">
-                    <label for="inputName" class="form-label">Imię: </label>
-                </div>
-                <div class="col-md-3">
-                    <input type="text" class="form-control" id="inputName" v-model="profile.name" :class="nameWarning">
-                </div>
-                <div class="col-md-3">
-                    <small v-show="nameAlertVisible" id="nameHelpBlock" class="form-text text-danger">
-                    Niepoprawne imię.
-                    </small>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-2">
-                    <label for="inputSurname" class="form-label">Nazwisko: </label>
-                </div>
-                <div class="col-md-3">
-                    <input type="text" class="form-control" id="inputSurname" v-model="profile.surname" :class="surnameWarning">
-                </div>
-                <div class="col-md-3">
-                    <small v-show="surnameAlertVisible" id="surnameHelpBlock" class="form-text text-danger">
-                    Niepoprawne nazwisko.
-                    </small>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-2">
-                    <label for="inputPhone" class="form-label">Numer telefonu: </label>
-                </div>
-                <div class="col-md-3">
-                    <input type="text" class="form-control" id="inputPhone" v-model="profile.phone" :class="phoneWarning">
-                </div>
-                <div class="col-md-3">
-                    <small v-show="phoneAlertVisible" id="phoneHelpBlock" class="form-text text-danger">
-                    Numer telefonu musi składać się z 9 cyfr.
-                    </small>
-                </div>
-            </div>
-            <label for="inputDesc" class="form-label field">Opis: </label>
-            <textarea class="form-control" id="inputDesc" rows="2" v-model="profile.desc" :class="descWarning"></textarea>
-            <small v-show="descAlertVisible" id="descHelpBlock" class="form-text text-danger">
-            Niepoprawny opis.
-            </small>
-        </form>
-    </div>
-    <hr>
-    <ChangeCredentials/>
-    <hr>
-
     <div>
-        <h4>Stan konta</h4>
-        <p v-if="firestore">Wypożyczone: {{ profile.borrowed.length }}</p>
-        <p>Oczekujące: </p>
-        <p>Zaległości: {{ profile.arrears }} zł</p>
+        <div v-if="!editInfo">
+            <div class="row">
+                <div class="col-md-11">
+                    <h4>Informacje o profilu</h4>
+                </div>
+                <div class="col-md-1">
+                    <img @click="editInfo = true" class="icon" src="/edit.png" width="30" height="30" style="cursor: pointer;">
+                </div>
+            </div>
+            <p>Nazwa użytkownika: {{ profile.user_name }}</p>
+            <p>Imię: {{ profile.name }}</p>
+            <p>Nazwisko: {{ profile.surname }}</p>
+            <p>Numer telefonu: {{ profile.phone }}</p>
+            <p>Opis:</p>
+            <p>{{ profile.desc }}</p>
+        </div>
+        <div v-if="editInfo">
+            <div class="row">
+                <div class="col-md-11">
+                    <h4>Informacje o profilu</h4>
+                </div>
+                <div class="col-md-1">
+                    <img @click="changeProfileInfo" class="icon" src="/edit.png" width="30" height="30" style="cursor: pointer;">
+                </div>
+            </div>
+            <form>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="inputLogin" class="form-label">Nazwa użytkownika: </label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="inputLogin" v-model="profile.user_name" :class="loginWarning">
+                    </div>
+                    <div class="col-md-3">
+                        <small v-show="loginAlertVisible" id="loginHelpBlock" class="form-text text-danger">
+                        Nazwa użytkownika musi mieć co najmniej 5 znaków.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="inputName" class="form-label">Imię: </label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="inputName" v-model="profile.name" :class="nameWarning">
+                    </div>
+                    <div class="col-md-3">
+                        <small v-show="nameAlertVisible" id="nameHelpBlock" class="form-text text-danger">
+                        Niepoprawne imię.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="inputSurname" class="form-label">Nazwisko: </label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="inputSurname" v-model="profile.surname" :class="surnameWarning">
+                    </div>
+                    <div class="col-md-3">
+                        <small v-show="surnameAlertVisible" id="surnameHelpBlock" class="form-text text-danger">
+                        Niepoprawne nazwisko.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="inputPhone" class="form-label">Numer telefonu: </label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="inputPhone" v-model="profile.phone" :class="phoneWarning">
+                    </div>
+                    <div class="col-md-3">
+                        <small v-show="phoneAlertVisible" id="phoneHelpBlock" class="form-text text-danger">
+                        Numer telefonu musi składać się z 9 cyfr.
+                        </small>
+                    </div>
+                </div>
+                <label for="inputDesc" class="form-label field">Opis: </label>
+                <textarea class="form-control" id="inputDesc" rows="2" v-model="profile.desc" :class="descWarning"></textarea>
+                <small v-show="descAlertVisible" id="descHelpBlock" class="form-text text-danger">
+                Niepoprawny opis.
+                </small>
+            </form>
+        </div>
+        <hr>
+        <ChangeCredentials/>
+        <hr>
+
+        <div>
+            <h4>Stan konta</h4>
+            <p v-if="firestore">Wypożyczone: {{ profile.borrowed.length }}</p>
+            <p>Oczekujące: </p>
+            <p>Zaległości: {{ profile.arrears }} zł</p>
+        </div>
+        
+
+        <router-link :to="{name:'ProfileInfoEdit'}">
+            <button type="submit" class="btn btn-primary d-grid" id="btnChangeProfile1">Zmień dane użytkownika</button>
+        </router-link>
+
+        <router-link :to="{name:'ProfilePasswordEdit'}">
+            <button type="submit" class="btn btn-primary d-grid" id="btnChangeProfile2">Zmień email lub hasło</button>
+        </router-link>
     </div>
-    
-
-    <router-link :to="{name:'ProfileInfoEdit'}">
-        <button type="submit" class="btn btn-primary d-grid" id="btnChangeProfile1">Zmień dane użytkownika</button>
-    </router-link>
-
-    <router-link :to="{name:'ProfilePasswordEdit'}">
-        <button type="submit" class="btn btn-primary d-grid" id="btnChangeProfile2">Zmień email lub hasło</button>
-    </router-link>
 </template>
 
 <script setup>
@@ -176,7 +178,7 @@
             errors.value.delete('phone')
         }
 
-        if ( profile.value['phone'].length < 3 && profile.value['phone'].length > 0 ) {
+        if ( profile.value['name'].length < 3 && profile.value['name'].length > 0 ) {
             nameAlertVisible.value = true;
             nameWarning.value = 'border-danger'
             errors.value.add('name')
@@ -184,7 +186,7 @@
             errors.value.delete('name')
         }
 
-        if ( profile.value['phone'].length < 3 && profile.value['phone'].length > 0 ) {
+        if ( profile.value['surname'].length < 3 && profile.value['surname'].length > 0 ) {
             surnameAlertVisible.value = true;
             surnameWarning.value = 'border-danger'
             errors.value.add('surname')

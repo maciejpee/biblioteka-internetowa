@@ -3,8 +3,6 @@
     <h1>Katalog książek</h1>
 
     <div class="container">
-      <input class="searchBar" type="text" v-model="search" placeholder="Wyszukaj...">
-
       <div class="row justify-content-center">
         <div class="col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12 py-2" v-for="b of filteredBooks" :key="b.id">
           <router-link :to="{name:'Details', params:{bookId: b.id}}" custom v-slot="{ navigate }">

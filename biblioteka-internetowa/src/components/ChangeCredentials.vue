@@ -39,14 +39,6 @@
                                     </div>
 
                                     <div class="col-9">
-                                        <label for="inputNewEmail" class="form-label">Nowy email</label>
-                                        <input type="newEmail" class="form-control" id="inputNewEmail" v-model="newEmail" :class="newEmailWarning">
-                                        <small v-show="newEmailAlertVisible" id="newEmailHelpBlock" class="form-text text-danger">
-                                        Niepoprawny email.
-                                        </small>
-                                    </div>
-
-                                    <div class="col-9">
                                         <label for="inputNewPassword1" class="form-label">Nowe hasło</label>
                                         <input type="password" class="form-control" :class="passwordLengthWarning" id="inputNewPassword1" v-model="newPassword1">
                                         <small v-show="passwordLengthlAlertVisible" id="newPassword1HelpBlock" class="form-text text-danger">
@@ -79,7 +71,6 @@
 
     const oldEmail = ref("")
     const email = ref("")
-    const newEmail = ref("")
     const oldPassword = ref("")
     const newPassword1 = ref("")
     const newPassword2 = ref("")
@@ -89,13 +80,11 @@
     const props = defineProps(['userId'])
 
     const emailAlertVisible = ref(false)
-    const newEmailAlertVisible = ref(false)
     const oldPasswordAlertVisible = ref(false)
     const passwordLengthlAlertVisible = ref(false)
     const passwordDifferencelAlertVisible = ref(false)
 
     const emailWarning = ref('')
-    const newEmailWarning = ref('')
     const oldPasswordWarning = ref('')
     const passwordLengthWarning = ref('')
     const passwordDifferenceWarning = ref('')
@@ -110,13 +99,11 @@
 
     function changePasswordAndEmail () {
         emailAlertVisible.value = false
-        newEmailAlertVisible.value = false
         oldPasswordAlertVisible.value = false
         passwordLengthlAlertVisible.value = false
         passwordDifferencelAlertVisible.value = false
 
         emailWarning.value = ''
-        newEmailWarning.value = ''
         oldPasswordWarning.value = ''
         passwordLengthWarning.value = ''
         passwordDifferenceWarning.value = ''
@@ -135,14 +122,6 @@
             errors.value.add('passwordDifference')
         } else {
             errors.value.delete('passwordDifference')
-        }
-
-        if ( !(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newEmail.value)) && newEmail.value!="") {
-            newEmailAlertVisible.value = true;
-            newEmailWarning.value = 'border-danger'
-            errors.value.add('newEmail')
-        } else {
-            errors.value.delete('newEmail')
         }
 
         console.log("Numer of errors: ", errors.value.size)
@@ -164,11 +143,11 @@
                 );
 
                 user.reauthenticateWithCredential(credentials)
-
                 .then((userCredential) => {
                     firebase.auth().currentUser.updatePassword(newPassword1.value).then(() => {
                         passwordUpdated = true;
                         console.log('password updated');
+                        location.reload()
                     }).catch((err) => {
                         console.error(err);
                         console.log('password not updated')
@@ -182,40 +161,12 @@
                     window.alert(error);
                 })
             }
-
-            if (newEmail.value!="") {
-
-                const user = firebase.auth().currentUser;
-                let credentials = firebase.auth.EmailAuthProvider.credential(
-                    email.value,
-                    passwordUpdated ? newPassword1.value : oldPassword.value
-                );
-
-                user.reauthenticateWithCredential(credentials)
-                .then((userCredential) => {
-                    firebase.auth().currentUser.updateEmail(newEmail.value).then(() => {
-                        console.log('email updated')
-                        oldEmail.value = newEmail.value
-                    }).catch((err) => {
-                        isError = true;
-                        console.log('email not updated')
-                        window.alert(err);
-                    });
-                })
-                .catch((error) => {
-                    isError = true;
-                    console.log("Can't log in, bad username/credentials or problem with server");
-                    console.error(error);
-                    // window.alert(error);
-                })
-            }
     
         }
     }
 
     function refresh() {
         email.value = ""
-        newEmail.value = ""
         oldPassword.value = ""
         newPassword1.value = ""
         newPassword2.value = ""
