@@ -1,5 +1,5 @@
 <template>
-    <h5>Twoje ulubione książki:</h5>
+    <h4>Twoje ulubione książki:</h4>
     <div class="row" v-for="f of favs">
         <div class="col-md-2">
             <img :src="f.cover" class="cover" />

@@ -1,0 +1,207 @@
+<template>
+    <div v-if="!editInfo">
+        <div class="row">
+            <div class="col-md-11">
+                <h4>Informacje o profilu</h4>
+            </div>
+            <div class="col-md-1">
+                <img @click="editInfo = true" class="icon" src="/edit.png" width="30" height="30" style="cursor: pointer;">
+            </div>
+        </div>
+        <p>Nazwa użytkownika: {{ profile.user_name }}</p>
+        <p>Imię: {{ profile.name }}</p>
+        <p>Nazwisko: {{ profile.surname }}</p>
+        <p>Numer telefonu: {{ profile.phone }}</p>
+        <p>Opis:</p>
+        <p>{{ profile.desc }}</p>
+    </div>
+    <div v-if="editInfo">
+        <div class="row">
+            <div class="col-md-11">
+                <h4>Informacje o profilu</h4>
+            </div>
+            <div class="col-md-1">
+                <img @click="changeProfileInfo" class="icon" src="/edit.png" width="30" height="30" style="cursor: pointer;">
+            </div>
+        </div>
+        <form>
+            <div class="row">
+                <div class="col-md-2">
+                    <label for="inputLogin" class="form-label">Nazwa użytkownika: </label>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" id="inputLogin" v-model="profile.user_name" :class="loginWarning">
+                    <small v-show="loginAlertVisible" id="loginHelpBlock" class="form-text text-danger">
+                    Nazwa użytkownika musi mieć co najmniej 5 znaków.
+                    </small>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">
+                    <label for="inputName" class="form-label">Imię: </label>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" id="inputName" v-model="profile.name" :class="nameWarning">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">
+                    <label for="inputSurname" class="form-label">Nazwisko: </label>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" id="inputSurname" v-model="profile.surname" :class="surnameWarning">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">
+                    <label for="inputPhone" class="form-label">Numer telefonu: </label>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" id="inputPhone" v-model="profile.phone" :class="phoneWarning">
+                </div>
+            </div>
+            <label for="inputDesc" class="form-label field">Opis: </label>
+            <textarea class="form-control" id="inputDesc" rows="2" v-model="profile.desc" :class="descWarning"></textarea>
+        </form>
+    </div>
+    <hr>
+    <div>
+        <h4>Dane logowania</h4>
+        <p>Email: </p>
+    </div>
+    <hr>
+
+    <div>
+        <h4>Stan konta</h4>
+        <p v-if="firestore">Wypożyczone: {{ profile.borrowed.length }}</p>
+        <p>Oczekujące: </p>
+        <p>Zaległości: {{ profile.arrears }} zł</p>
+    </div>
+    
+
+    <router-link :to="{name:'ProfileInfoEdit'}">
+        <button type="submit" class="btn btn-primary d-grid" id="btnChangeProfile1">Zmień dane użytkownika</button>
+    </router-link>
+
+    <router-link :to="{name:'ProfilePasswordEdit'}">
+        <button type="submit" class="btn btn-primary d-grid" id="btnChangeProfile2">Zmień email lub hasło</button>
+    </router-link>
+</template>
+
+<script setup>
+    import { onMounted, ref } from 'vue'
+
+    const props = defineProps(['userId'])
+    const errors = ref(new Set([]))
+
+    const auth = firebase.auth()
+    const profile = ref({})
+    const firestore = ref(false)
+    const editInfo = ref(false)
+
+    const loginAlertVisible = ref(false)
+    const descAlertVisible = ref(false)
+    const phoneAlertVisible = ref(false)
+    const nameAlertVisible = ref(false)
+    const surnameAlertVisible = ref(false)
+
+    const loginWarning = ref('')
+    const descWarning = ref('')
+    const phoneWarning = ref('')
+    const nameWarning = ref('')
+    const surnameWarning = ref('')
+
+    onMounted(() => {
+        db.collection("users").doc(props.userId).get().then((doc) => {
+            profile.value["borrowed"] = doc.data().borrowed
+            profile.value["favourites"] = doc.data().favourites
+            profile.value["arrears"] = doc.data().arrears
+            profile.value["user_name"] = doc.data().user_name
+            profile.value["name"] = doc.data().name
+            profile.value["surname"] = doc.data().surname
+            profile.value["phone"] = doc.data().phone
+            profile.value["desc"] = doc.data().desc
+            firestore.value = true
+        })
+    })
+
+    function changeProfileInfo () {
+        loginAlertVisible.value = false
+        descAlertVisible.value = false
+        phoneAlertVisible.value = false
+        nameAlertVisible.value = false
+        surnameAlertVisible.value = false
+
+        loginWarning.value = ''
+        descWarning.value = ''
+        phoneWarning.value = ''
+        nameWarning.value = ''
+        surnameWarning.value = ''
+
+        if (profile.value['user_name'].length < 5 && profile.value['user_name'].length > 0 ) {
+            loginAlertVisible.value = true;
+            loginWarning.value = 'border-danger'
+            errors.value.add('login')
+        } else {
+            errors.value.delete('login')
+        }
+
+        if ( !(/^[0-9]{9}/.test(profile.value['phone']) || profile.value['phone'] ==="" ) ) {
+            phoneAlertVisible.value = true;
+            phoneWarning.value = 'border-danger'
+            errors.value.add('phone')
+        } else {
+            errors.value.delete('phone')
+        }
+
+        if ( profile.value['phone'].length < 3 && profile.value['phone'].length > 0 ) {
+            nameAlertVisible.value = true;
+            nameWarning.value = 'border-danger'
+            errors.value.add('name')
+        } else {
+            errors.value.delete('name')
+        }
+
+        if ( profile.value['phone'].length < 3 && profile.value['phone'].length > 0 ) {
+            surnameAlertVisible.value = true;
+            surnameWarning.value = 'border-danger'
+            errors.value.add('surname')
+        } else {
+            errors.value.delete('surname')
+        }
+
+        if (errors.value.size == 0) {
+            const update = {}
+            if (profile.value['desc']!="") {
+                update.desc = profile.value['desc']
+            }
+            if (profile.value['phone']!="") {
+                update.phone = profile.value['phone']
+            }
+            if (profile.value['name']!="") {
+                update.name = profile.value['name']
+            }
+            if (profile.value['surname']!="") {
+                update.surname = profile.value['surname']
+            }
+            if (profile.value['user_name']!="") {
+                update.user_name = profile.value['user_name']
+            }
+
+            const user = auth.currentUser;
+            db.collection('users').doc(props.userId).update(update)   
+            editInfo.value = false        
+        }
+
+    }
+
+</script>
+
+<style scoped>
+    .d-grid {
+        margin: 0 10px 0 10px;
+    }
+</style>

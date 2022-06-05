@@ -1,6 +1,6 @@
 <template>
 <div>
-    <h5>Twoje wypożyczone książki:</h5>
+    <h4>Twoje wypożyczone książki:</h4>
     <div v-for="book of borrowedBooks" :key="book.id" id='book'>
             <BorrowedBook :borrowDate="book.borrowDate" :returnDate="book.returnDate" :bookId="book.bookId"/>
             <button @click="returnBook(book.bookId)">Zwróć</button>
@@ -85,10 +85,8 @@
                                    })
                                 })
                             })
-                            
                             }
-                    }
-                    
+                    }  
                 }
             })
         })
