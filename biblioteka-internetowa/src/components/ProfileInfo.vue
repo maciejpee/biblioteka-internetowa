@@ -84,7 +84,7 @@
                 <label for="inputDesc" class="form-label field">Opis: </label>
                 <textarea class="form-control" id="inputDesc" rows="2" v-model="profile.desc" :class="descWarning"></textarea>
                 <small v-show="descAlertVisible" id="descHelpBlock" class="form-text text-danger">
-                Niepoprawny opis.
+                    Opis nie może mieć więcej niż 200 znaków.
                 </small>
             </form>
         </div>
@@ -162,7 +162,7 @@
         nameWarning.value = ''
         surnameWarning.value = ''
 
-        if (profile.value['user_name'].length < 5 && profile.value['user_name'].length > 0 ) {
+        if (profile.value['user_name'].length < 5 || profile.value['user_name'] == '' ) {
             loginAlertVisible.value = true;
             loginWarning.value = 'border-danger'
             errors.value.add('login')
@@ -170,58 +170,75 @@
             errors.value.delete('login')
         }
 
-        if ( !(/^[0-9]{9}/.test(profile.value['phone']) || profile.value['phone'] ==="" ) ) {
-            phoneAlertVisible.value = true;
-            phoneWarning.value = 'border-danger'
-            errors.value.add('phone')
-        } else {
-            errors.value.delete('phone')
+        if ( typeof profile.value['phone'] ==='string') {
+            if ( profile.value['phone'].length > 0 &&  !(/^[0-9]{9}$/.test(profile.value['phone'])) ) {
+                phoneAlertVisible.value = true;
+                phoneWarning.value = 'border-danger'
+                errors.value.add('phone')
+            } else {
+                errors.value.delete('phone')
+            }
         }
 
-        if ( profile.value['name'].length < 3 && profile.value['name'].length > 0 ) {
-            nameAlertVisible.value = true;
-            nameWarning.value = 'border-danger'
-            errors.value.add('name')
-        } else {
+        if ( typeof profile.value['name'] ==='string') {
+            if ( profile.value['name'].length < 3 && profile.value['name'].length > 0 ) {
+                nameAlertVisible.value = true;
+                nameWarning.value = 'border-danger'
+                errors.value.add('name')
+            } else {
             errors.value.delete('name')
+            }
         }
 
-        if ( profile.value['surname'].length < 3 && profile.value['surname'].length > 0 ) {
-            surnameAlertVisible.value = true;
-            surnameWarning.value = 'border-danger'
-            errors.value.add('surname')
-        } else {
+        if ( typeof profile.value['surname'] ==='string') {
+            if ( profile.value['surname'].length < 3 && profile.value['surname'].length > 0 ) {
+                surnameAlertVisible.value = true;
+                surnameWarning.value = 'border-danger'
+                errors.value.add('surname')
+            } else {
             errors.value.delete('surname')
+            }
+        }
+
+        if ( typeof profile.value['desc'] ==='string') {
+            let descRemoveSpaces = profile.value['desc'].replace(/ /g, "")
+            if ( profile.value['desc'].length > 0 &&  descRemoveSpaces.length > 200 ) {
+                descAlertVisible.value = true;
+                phoneWarning.value = 'border-danger'
+                errors.value.add('desc')
+            } else {
+                errors.value.delete('desc')
+            }
         }
 
         if (errors.value.size == 0) {
             const update = {}
 
-            if (profile.value['desc']!="") {
+            if (profile.value['desc']!=undefined) {
                 update.desc = profile.value['desc']
             } else {
                 update.desc = ''
             }
 
-            if (profile.value['phone']!="") {
+            if (profile.value['phone']!=undefined) {
                 update.phone = profile.value['phone']
             } else {
                 update.phone = ''
             }
 
-            if (profile.value['name']!="") {
+            if (profile.value['name']!=undefined) {
                 update.name = profile.value['name']
             } else {
                 update.name = ''
             }
 
-            if (profile.value['surname']!="") {
+            if (profile.value['surname']!=undefined) {
                 update.surname = profile.value['surname']
             } else {
                 update.surname = ''
             }
 
-            if (profile.value['user_name']!="") {
+            if (profile.value['user_name']!=undefined) {
                 update.user_name = profile.value['user_name']
             } else {
                 update.user_name = ''
