@@ -10,8 +10,8 @@
             <h1>{{ bookDetails.title }}</h1>
           </div>
           <div class="col-2">
-            <img v-if="fav" src="/heartfull.png" width="50" height="50" style="cursor: pointer;" @click="addToFavourites"/>
-            <img v-if="!fav" src="/heart.png" width="50" height="50" style="cursor: pointer;" @click="addToFavourites"/>
+            <img class="icon" v-if="fav" src="/heartfull.png" width="50" height="50" style="cursor: pointer;" @click="addToFavourites"/>
+            <img class="icon" v-if="!fav" src="/heart.png" width="50" height="50" style="cursor: pointer;" @click="addToFavourites"/>
           </div>
         </div>
         <h3>{{ bookDetails.author }}</h3><hr>

@@ -53,7 +53,7 @@
       </div>
       <form class="d-flex" @submit.prevent="handleSearchBar">
         <input v-model="searchv" class="form-control" placeholder="Wyszukaj..." :class="searchWarning" >
-        <div class="nav-link" @click="handleSearchBar"  ><img src="/magnifier.png" width="30" height="30" style="cursor: pointer;"></div>
+        <div class="nav-link" @click="handleSearchBar"  ><img class="icon" src="/magnifier.png" width="30" height="30" style="cursor: pointer;"></div>
       </form>
     
 
@@ -103,3 +103,10 @@
   }
 
 </script>
+
+<style>
+.icon:hover{
+    transform: scale(1.1);
+    cursor: pointer;
+}
+</style>
