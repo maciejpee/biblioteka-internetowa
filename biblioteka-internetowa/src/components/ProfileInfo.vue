@@ -31,6 +31,8 @@
                 </div>
                 <div class="col-md-3">
                     <input type="text" class="form-control" id="inputLogin" v-model="profile.user_name" :class="loginWarning">
+                </div>
+                <div class="col-md-3">
                     <small v-show="loginAlertVisible" id="loginHelpBlock" class="form-text text-danger">
                     Nazwa użytkownika musi mieć co najmniej 5 znaków.
                     </small>
@@ -44,6 +46,11 @@
                 <div class="col-md-3">
                     <input type="text" class="form-control" id="inputName" v-model="profile.name" :class="nameWarning">
                 </div>
+                <div class="col-md-3">
+                    <small v-show="nameAlertVisible" id="nameHelpBlock" class="form-text text-danger">
+                    Niepoprawne imię.
+                    </small>
+                </div>
             </div>
 
             <div class="row">
@@ -52,6 +59,11 @@
                 </div>
                 <div class="col-md-3">
                     <input type="text" class="form-control" id="inputSurname" v-model="profile.surname" :class="surnameWarning">
+                </div>
+                <div class="col-md-3">
+                    <small v-show="surnameAlertVisible" id="surnameHelpBlock" class="form-text text-danger">
+                    Niepoprawne nazwisko.
+                    </small>
                 </div>
             </div>
 
@@ -62,9 +74,17 @@
                 <div class="col-md-3">
                     <input type="text" class="form-control" id="inputPhone" v-model="profile.phone" :class="phoneWarning">
                 </div>
+                <div class="col-md-3">
+                    <small v-show="phoneAlertVisible" id="phoneHelpBlock" class="form-text text-danger">
+                    Numer telefonu musi składać się z 9 cyfr.
+                    </small>
+                </div>
             </div>
             <label for="inputDesc" class="form-label field">Opis: </label>
             <textarea class="form-control" id="inputDesc" rows="2" v-model="profile.desc" :class="descWarning"></textarea>
+            <small v-show="descAlertVisible" id="descHelpBlock" class="form-text text-danger">
+            Niepoprawny opis.
+            </small>
         </form>
     </div>
     <hr>
