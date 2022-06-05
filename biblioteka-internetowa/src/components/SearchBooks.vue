@@ -25,6 +25,7 @@
     const props = defineProps(['sv'])
     const books = ref([])
     const search = ref(props['sv'])
+    const allFilters = ref([])
 
     onMounted(() => {
     db.collection('books').get().then((snapshot) => {
@@ -34,6 +35,7 @@
           'title': doc.data().title,
           'author': doc.data().author,
           'cover': doc.data().cover,
+          'series': doc.data().series
         }
         books.value.push(data)
       })
@@ -42,8 +44,19 @@
 
     const filteredBooks = computed(() => {
         return books.value.filter((book) => {
+          
             var normalizedTitle = book.title.toLowerCase().replace(/ +/g, '')
-            return normalizedTitle.match(search.value.toLowerCase().replace(/ +/g, ''))
+            var normalizedAuthor = book.author.toLowerCase().replace(/ +/g, '')
+          
+            if (book.series){
+              var normalizedSeries = book.series.toLowerCase().replace(/ +/g, '')
+              return normalizedTitle.match(search.value.toLowerCase().replace(/ +/g, '')) + normalizedAuthor.match(search.value.toLowerCase().replace(/ +/g, '')) + normalizedSeries.match(search.value.toLowerCase().replace(/ +/g, ''))
+              
+            }else{          
+              return normalizedTitle.match(search.value.toLowerCase().replace(/ +/g, '')) + normalizedAuthor.match(search.value.toLowerCase().replace(/ +/g, ''))
+            }
+            
+            
     })
   })
 </script>
