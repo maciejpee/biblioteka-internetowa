@@ -1,2 +1,3 @@
 limit wypożyczanych książek -  done 
 lista waiting w users i w profilu
+jak jest wiele osob w kolecje to eskploduje i wypozycza kazdemu z nich itd - done chyba
