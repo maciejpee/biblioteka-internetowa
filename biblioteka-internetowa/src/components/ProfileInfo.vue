@@ -175,20 +175,35 @@
 
         if (errors.value.size == 0) {
             const update = {}
+
             if (profile.value['desc']!="") {
                 update.desc = profile.value['desc']
+            } else {
+                update.desc = ''
             }
+
             if (profile.value['phone']!="") {
                 update.phone = profile.value['phone']
+            } else {
+                update.phone = ''
             }
+
             if (profile.value['name']!="") {
                 update.name = profile.value['name']
+            } else {
+                update.name = ''
             }
+
             if (profile.value['surname']!="") {
                 update.surname = profile.value['surname']
+            } else {
+                update.surname = ''
             }
+
             if (profile.value['user_name']!="") {
                 update.user_name = profile.value['user_name']
+            } else {
+                update.user_name = ''
             }
 
             const user = auth.currentUser;
