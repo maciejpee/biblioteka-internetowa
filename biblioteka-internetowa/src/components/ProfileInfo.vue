@@ -22,7 +22,7 @@
                     <h4>Informacje o profilu</h4>
                 </div>
                 <div class="col-md-1">
-                    <img @click="changeProfileInfo" class="icon" src="/edit.png" width="28" height="28" style="cursor: pointer;">
+                    <img @click="changeProfileInfo" class="icon" src="/tick.png" width="38" height="38" style="cursor: pointer;">
                 </div>
             </div>
             <form>

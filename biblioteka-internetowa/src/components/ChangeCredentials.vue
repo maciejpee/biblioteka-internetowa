@@ -180,4 +180,8 @@ input {
     margin-bottom: 8px;
 }
 
+.modal-dialog {
+  margin-top: 7%;
+}
+
 </style>
