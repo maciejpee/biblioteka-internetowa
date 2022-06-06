@@ -102,7 +102,7 @@
     if (!searchv.value){
       searchWarning.value = 'border-danger'
     }else{
-      window.location.replace(window.location.protocol + '/search/' + searchv.value)
+      window.location.replace(window.location.protocol + '/search/' + searchv.value.replace(/ +/g, '-'))
     }
   }
 

@@ -46,6 +46,12 @@
             <th>{{ bookDetails.translation }}</th>
           </tr>
         </table>
+        
+      </div>
+      <div class="tags">
+        <div class="tag" v-for="genre of bookDetails.genre" :key="genre.id">
+          <button><router-link :to="{ name : 'Search', params:{sv: genre.replace(' ', '-')}}">{{genre}}</router-link></button>
+        </div>
       </div>
     </div><hr>
     <CopiesV2 v-if="firestore" :copies="bookDetails.copies" :bookId="props.bookId"/>
@@ -142,5 +148,25 @@
   img.cover {
     width: 100%;
     height: auto;
+  }
+  
+  .tags{
+    margin-left: 35%
+       
+  }
+
+  .tag button{
+    float:left;
+    margin-left: 5pt;
+    border-radius: 9px;
+    background: #dee0d9d5;
+   
+    
+  }
+
+  .tag a{
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
   }
 </style>

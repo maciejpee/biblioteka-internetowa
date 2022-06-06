@@ -1,6 +1,6 @@
 <template>
     <div class="mainDiv">
-    <h1>Wyniki wyszukiwania dla: {{search}}</h1>
+    <h1>Wyniki wyszukiwania dla: {{search.replace('-', ' ')}}</h1>
 
     <div class="container">
       <div class="row justify-content-center">
@@ -35,12 +35,16 @@
           'title': doc.data().title,
           'author': doc.data().author,
           'cover': doc.data().cover,
-          'series': doc.data().series
+          'series': doc.data().series,
+          'genre': doc.data().genre
         }
         books.value.push(data)
       })
     })
+   
+    
     })
+    
 
     const filteredBooks = computed(() => {
         return books.value.filter((book) => {
@@ -48,13 +52,15 @@
             var normalizedTitle = book.title.toLowerCase().replace(/ +/g, '')
           
             var normalizedAuthor = book.author.toLowerCase().replace(/ +/g, '')
-          
+
+            var normalizedTags = book.genre.join(' ').toLowerCase().replace(/ +/g, '-')
+            console.log(normalizedTags);
             if (book.series){
               var normalizedSeries = book.series.toLowerCase().replace(/ +/g, '')
-              return normalizedTitle.match(search.value.toLowerCase().replace(/ +/g, '')) + normalizedAuthor.match(search.value.toLowerCase().replace(/ +/g, '')) + normalizedSeries.match(search.value.toLowerCase().replace(/ +/g, ''))
+              return normalizedTitle.match(search.value.toLowerCase().replace(/ +/g, '')) + normalizedAuthor.match(search.value.toLowerCase().replace(/ +/g, '')) + normalizedSeries.match(search.value.toLowerCase().replace(/ +/g, '')) + normalizedTags.match(search.value.toLowerCase().replace(/ +/g, ''))
               
             }else{          
-              return normalizedTitle.match(search.value.toLowerCase().replace(/ +/g, '')) + normalizedAuthor.match(search.value.toLowerCase().replace(/ +/g, ''))
+              return normalizedTitle.match(search.value.toLowerCase().replace(/ +/g, '')) + normalizedAuthor.match(search.value.toLowerCase().replace(/ +/g, '')) + normalizedTags.match(search.value.toLowerCase().replace(/ +/g, ''))
             }
             
             
