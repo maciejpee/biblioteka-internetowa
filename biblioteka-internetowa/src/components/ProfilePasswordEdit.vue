@@ -222,13 +222,6 @@ input {
   border-radius: 6px;
   margin-bottom: 10px;
 }
-
-.form-label {
-    font-size: 14px;
-    opacity: 0.8;
-    margin-bottom: -5px;
-}
-
 .d-grid {
     margin-top: 30px;
     margin-bottom: 8px;

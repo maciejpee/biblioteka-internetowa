@@ -30,13 +30,70 @@ body {
 }
 
 .mainDiv {
-  background-color: #faffff;
+  background-color: #ffffff;
   height: 80%;
   margin-left: 9%;
   margin-right: 9%;
   margin-top: 4%;
   margin-bottom:0px;
   padding: 25px 25px 25px 25px;
-  
+}
+
+/* book card*/
+img.cover-small {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 75%;
+  }
+.card {
+	background: #ffffff;
+	border: 0;
+	border-radius: 8px 8px 8px 8px;
+  padding: 20px 8px 5px 8px;
+}
+.card-title {
+  font-size: 17px;
+	letter-spacing: 0.4px;
+  margin: 8px;
+  font-family: 'Ubuntu, Times New Roman';
+	letter-spacing: 0.5px;
+  font-weight: 600;
+}
+.card-subtitle {
+  font-size: 14px;
+  margin: 0px 5px 8px 5px;
+}
+.card-vol {
+  font-size: 14px;
+  opacity: 70%;
+  margin: 0px 5px 2px 5px;
+}
+.card:hover{
+    box-shadow: 2px 1px 1px 1px rgba(0,0,0,0.06);
+    transform: scale(1.02);
+    cursor: pointer;
+}
+
+/* small book card */
+/*  */
+
+/* modal */
+input.input-modal {
+  padding: 7px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+/* forms */
+.form-label {
+    font-size: 14px;
+    opacity: 0.8;
+    margin-bottom: -5px;
+}
+
+/* profile */
+.profile-title {
+    font-weight: 700;
 }
 </style>

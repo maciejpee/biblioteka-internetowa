@@ -72,36 +72,5 @@
 </script>
 
 
-<style>
-img.cover-small {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 75%;
-  }
-  
-.card {
-	background: #ffffff;
-	border: 0;
-	border-radius: 8px 8px 8px 8px;
-  padding-top: 25px;
-}
-
-.card-title {
-	font-size: 17px;
-	font-family: 'Ubuntu, Times New Roman';
-	letter-spacing: 0.5px;
-  font-weight: 600;
-}
-
-.card-subtitle {
-  font-size: 13px;
-}
-
-.card:hover{
-    box-shadow: 4px 2px 2px rgba(0,0,0,0.1);
-    transform: scale(1.01);
-    cursor: pointer;
-}
-
+<style scoped>
 </style>

@@ -58,25 +58,4 @@
 </script>
 
 <style scoped>
-.card {
-	background: #ffffff;
-	border: 0;
-	border-radius: 8px 8px 8px 8px;
-  padding: 20px 8px 5px 8px;
-}
-
-.card-title {
-	letter-spacing: 0px;
-  margin: 8px;
-}
-
-.card-subtitle {
-  font-size: 15px;
-  margin: 0px 5px 8px 5px;
-}
-.card-vol {
-  font-size: 14px;
-  opacity: 70%;
-  margin: 0px 5px 2px 5px;
-}
 </style>
