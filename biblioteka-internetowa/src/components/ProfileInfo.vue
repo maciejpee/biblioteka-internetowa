@@ -97,6 +97,7 @@
             <p v-if="firestore">Wypożyczone: {{ profile.borrowed.length }}</p>
             <p>Oczekujące: </p>
             <p>Zaległości: {{ profile.arrears }} zł</p>
+            <button @click="payArreras">Ureguluj opłaty</button>
         </div>
     </div>
 </template>
@@ -139,8 +140,8 @@
             firestore.value = true
         })
 
-        //oplaty fix 
-        //checkDelays()
+         
+        checkDelays()
         
 
     })
@@ -252,23 +253,42 @@
     }
 
     function checkDelays(){
+        
         var currentDate = new Date()
         var today = firebase.firestore.Timestamp.fromDate(currentDate)
-        var paidComplete = true
+        console.log('Sprawdzam opłaty na dzień: ', currentDate);
         // month = 2 629 743 sec
         // day = 86 400
         // wychodzi ~ 6zl kary za miesiac
         db.collection('users').doc(props.userId).get().then((doc)=>{
             if (doc.data().borrow_history){
                 for(let [index, record] of Object.entries(doc.data().borrow_history)){
-                    if(!record.paid){
-                        if(record.returnedDate.seconds - record.borrowDate.seconds >= 2629743 ){
+                    if(record.paid != 2){
+                        let paymentDiff = record.returnedDate.seconds - record.borrowDate.seconds
+                        if(paymentDiff >= 2629743 ){
+                            let stemValue = ((paymentDiff - 2629743) / 86400) * 0.2
                             db.collection('users').doc(props.userId).update({
-                                arrears: firebase.firestore.FieldValue.increment(6),
-                                [`borrow_history.${index}.paid`]: true  
+                                arrears: firebase.firestore.FieldValue.increment(stemValue),
+                                [`borrow_history.${index}.paid`]: 1  
                             }) 
                         }
                     }                                      
+                }
+            }     
+        })
+    }
+
+    function payArreras(){
+
+        db.collection('users').doc(props.userId).get().then((doc)=>{
+            if (doc.data().borrow_history){
+                for(let [index, record] of Object.entries(doc.data().borrow_history)){
+                    if (record.paid == 1){
+                        db.collection('users').doc(props.userId).update({
+                                arrears: 0,
+                                [`borrow_history.${index}.paid`]: 2  
+                            }) 
+                    }                        
                 }
             }     
         })

@@ -80,7 +80,7 @@
                 [`borrow_history.${unique_id}.bookId`]: bookId,
                 [`borrow_history.${unique_id}.borrowDate`]: bookDate,
                 [`borrow_history.${unique_id}.returnedDate`]: borrowDate,
-                [`borrow_history.${unique_id}.paid`]: false,
+                [`borrow_history.${unique_id}.paid`]: 0,
                 
                 
                 
