@@ -74,13 +74,17 @@
             }
         }).then(()=>{ // teraz, pierwszy then. jak wykona to wyzej THEN wykonuje to 
         // czyli po prostu nadpisuje obecne borrowed uzytkownika tym, ktore sobie stworzylismy (tym bez tej jednej ksiazki)
-            let unique_id = "id" + Math.random().toString(16).slice(2)
+        // updated then: teraz uzupelnia jeszcze obiekt (firestore - map to sie nazywa) wartosciami.
+
+            let unique_id = "id" + Math.random().toString(16).slice(2) //prowizoryczno pythonowy genrator
+            // unikalnego id dla kazdego obiektu w obiekcie borrow_history
             db.collection('users').doc(props.userId).update({
                 borrowed: borrowedBooks.value,
-                [`borrow_history.${unique_id}.bookId`]: bookId,
+                [`borrow_history.${unique_id}.bookId`]: bookId, // taka skladnia dziwna ma firestore
                 [`borrow_history.${unique_id}.borrowDate`]: bookDate,
                 [`borrow_history.${unique_id}.returnedDate`]: borrowDate,
-                [`borrow_history.${unique_id}.paid`]: 0,
+                [`borrow_history.${unique_id}.paid`]: 0, // 0 oznacza brak kary no bo jeszcze nie wiadomo
+                // czy do łagrów wysyłany delikwent czy nie - czesc druga w profile info
                 
                 
                 

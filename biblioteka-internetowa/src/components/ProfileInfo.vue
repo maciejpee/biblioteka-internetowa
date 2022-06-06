@@ -253,7 +253,8 @@
     }
 
     function checkDelays(){
-        
+        // check delays dziala zawsze jak wejdziecie se na profil to zawsze trigeruej sie raz
+        // zeby sprawdzic czy jestescie wrogiem publicznym
         var currentDate = new Date()
         var today = firebase.firestore.Timestamp.fromDate(currentDate)
         console.log('Sprawdzam opłaty na dzień: ', currentDate);
@@ -261,15 +262,26 @@
         // day = 86 400
         // wychodzi ~ 6zl kary za miesiac
         db.collection('users').doc(props.userId).get().then((doc)=>{
-            if (doc.data().borrow_history){
-                for(let [index, record] of Object.entries(doc.data().borrow_history)){
-                    if(record.paid != 2){
+            if (doc.data().borrow_history){ // jesli istnieje historia
+                for(let [index, record] of Object.entries(doc.data().borrow_history)){ // iterowanie
+                // po obiekcie wyglada tak. Index to id obiektu (tamto wygenreowane pythonowo)
+                // record to sam obiekt w obiekcie, wiec mamy dostep do jego atrybutów
+                    if(record.paid != 2){ // jesli nie jest rowne 2 (2 oznacza uregulowana oplata)
+                    // jesli nie jest 2 tzn ze albo jest 1 - nie oplacona albo 0 - brak kary
                         let paymentDiff = record.returnedDate.seconds - record.borrowDate.seconds
-                        if(paymentDiff >= 2629743 ){
+                        // roznica pomiedzy datami zwrotu a wypozyczenia (w sekundach najlatwiej bo time
+                        // stampy)
+                        if(paymentDiff >= 2629743 ){ // jesli roznica wieksza niz miesiac to do łagrów
                             let stemValue = ((paymentDiff - 2629743) / 86400) * 0.2
+                            // wzor na obliczanie ile do zapłaty, roznica - miesiac (zeby jakby liczylo tylko
+                            // nadwyzke po miesiacu) przez 76400 sekund bo tyle ma dzien, * 0.2 bo 20 groszy za dzien
+                            // 5 dni ponad miesiac (okreslony termin, mozna zmienic ewentualnie) = 1zł kary itd
                             db.collection('users').doc(props.userId).update({
+                                // increment dodaje po prostu do obecnej wartosci, cos jak 
+                                // arrears = arrears + kara
                                 arrears: firebase.firestore.FieldValue.increment(stemValue),
-                                [`borrow_history.${index}.paid`]: 1  
+                                [`borrow_history.${index}.paid`]: 1  // paid jako 1, bo nie uregulowana i mamy
+                                // do zaplaty, czesc 3cia nizej
                             }) 
                         }
                     }                                      
@@ -279,14 +291,17 @@
     }
 
     function payArreras(){
-
+        // magiczne placenie oplaty (rozwiazanie najprostsze bo brak czasu, mozna zmienic potem)
+        // zmiana to pewnie 15-20 min czy cos
         db.collection('users').doc(props.userId).get().then((doc)=>{
             if (doc.data().borrow_history){
                 for(let [index, record] of Object.entries(doc.data().borrow_history)){
-                    if (record.paid == 1){
+                    if (record.paid == 1){ // tym razem patrzy tylko na te nie oplacone
                         db.collection('users').doc(props.userId).update({
-                                arrears: 0,
-                                [`borrow_history.${index}.paid`]: 2  
+                                arrears: 0, // zeruje oplaty (magicznie)
+                                [`borrow_history.${index}.paid`]: 2  // zmienia na oplacone
+                                // przez co funkcja wyzej nie trigeruje sie na nie i nie nalicze za nie
+                                // oplat
                             }) 
                     }                        
                 }
