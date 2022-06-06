@@ -104,14 +104,4 @@ img.cover-small {
     cursor: pointer;
 }
 
-.searchBar{
-  text-align: center;
-  width: 50%;
-  border-radius: 8px 8px 8px 8px;
-  margin-left: 25%;
-  margin-top: 20px;
-  margin-bottom: 40px;
-  padding: 6px 10px 6px 10px;
-}
-
 </style>

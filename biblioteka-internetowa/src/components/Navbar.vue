@@ -3,7 +3,7 @@
     <div class="container-fluid">
 
       <router-link class="navbar-brand" to="/">
-        <img src="/book.png" width="28" height="30" >
+        <img src="/book2.png" width="28" height="30" >
         <text class="logo">Bookworm</text>
       </router-link>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,7 +52,7 @@
         </ul>
       </div>
       <form class="d-flex" @submit.prevent="handleSearchBar">
-        <input v-model="searchv" class="form-control" placeholder="Wyszukaj..." :class="searchWarning" >
+        <input v-model="searchv" class="form-control search" placeholder="Wyszukaj..." :class="searchWarning" >
         <div class="nav-link" @click="handleSearchBar"  ><img class="icon" src="/magnifier-w.png" width="30" height="30" style="cursor: pointer;"></div>
       </form>
     
@@ -115,14 +115,16 @@
     cursor: pointer;
 }
 
-
-
 text.logo {
   font-size: 18px;
   letter-spacing: 2px;
   font-family: Tahoma, Verdana, sans-serif;
   margin-left: 12px;
 }
+
+.form-control.search:focus {
+        box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.144);
+} 
 
 .navbar {
   background-color: #0f7c05;
@@ -150,5 +152,7 @@ text.logo {
   color: #ffffff;
   background-color: #0f7c05;
 }
-
+nav {
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1);
+}
 </style>
