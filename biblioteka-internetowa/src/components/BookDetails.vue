@@ -1,5 +1,5 @@
 <template>
-  <div id="mainDiv">
+  <div class="mainDiv">
     <div class="row">
       <div class="col-4">
         <img :src="bookDetails.cover" class="cover" />

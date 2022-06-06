@@ -1,5 +1,5 @@
 <template>
-    <div id="mainDiv">
+    <div class="mainDiv">
         <div class="container">
             <form class="row g-3 justify-content-md-center" @submit.prevent="addBook">
 

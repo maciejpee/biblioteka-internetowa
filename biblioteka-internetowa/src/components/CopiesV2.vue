@@ -114,16 +114,21 @@
         
     }
 
-    function signToQueue(){
-
-       if (!alreadyInQueue.value){
+    function signToQueue(){ 
+        db.collection('users').doc(user.uid).get().then((doc) => {
+            var waiting = doc.data().waiting
+            waiting.push(props.bookId)
+            db.collection('users').doc(user.uid).update({
+                waiting: waiting
+        })})
+        if (!alreadyInQueue.value){
         db.collection("books").doc(props.bookId).update({
             queue: firebase.firestore.FieldValue.arrayUnion(user.uid)
-       })
-       db.collection("books").doc(props.bookId).get().then((doc) => {
+        })
+        db.collection("books").doc(props.bookId).get().then((doc) => {
             alreadyInQueue.value = true
             queuePosition.value = doc.data().queue.indexOf(user.uid) + 1
-       })
+        })
     }
 }
 

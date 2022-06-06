@@ -1,5 +1,5 @@
 <template>
-    <div id="mainDiv">
+    <div class="mainDiv">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation" @click="refresh">
                 <button class="nav-link active" id="info-tab" data-bs-toggle="tab" data-bs-target="#info" type="button" role="tab" aria-controls="info" aria-selected="true">Dane użytkownika</button>
@@ -16,6 +16,10 @@
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="favourite-tab" data-bs-toggle="tab" data-bs-target="#favourite" type="button" role="tab" aria-controls="favourite" aria-selected="false">Ulubione</button>
             </li>
+
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="history-tab" data-bs-toggle="tab" data-bs-target="#history" type="button" role="tab" aria-controls="history" aria-selected="false">Historia</button>
+            </li>
         </ul>
         
         <div class="tab-content" id="myTabContent">
@@ -29,11 +33,15 @@
             </div>
 
             <div class="tab-pane fade" id="waiting" role="tabpanel" aria-labelledby="waiting-tab">
-                Oczekujące
+                <Waiting v-if="firestore" :userId="props.userId" :waiting="profile.waiting"/>
             </div>
 
             <div class="tab-pane fade" id="favourite" role="tabpanel" aria-labelledby="favourite-tab">
                 <Favourites v-if="firestore" :userId="props.userId" :favs="profile.favourites"/>
+            </div>
+
+            <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
+                Historia wypożyczeń
             </div>
         </div>
     </div>
@@ -44,6 +52,7 @@
     import Favourites from './Favourites.vue'
     import Borrowed from './Borrowed.vue'
     import ProfileInfo from './ProfileInfo.vue'
+    import Waiting from './Waiting.vue'
 
 
     const props = defineProps(['userId'])
@@ -54,6 +63,7 @@
         db.collection("users").doc(props.userId).get().then((doc) => {
             profile.value["borrowed"] = doc.data().borrowed
             profile.value["favourites"] = doc.data().favourites
+            profile.value["waiting"] = doc.data().waiting
             firestore.value = true
         })
     })
@@ -62,6 +72,7 @@
         db.collection("users").doc(props.userId).get().then((doc) => {
             profile.value["arrears"] = doc.data().arrears
             profile.value["borrowed"] = doc.data().borrowed
+            profile.value["waiting"] = doc.data().waiting
         })
     }
 </script>
@@ -69,5 +80,9 @@
 <style scoped>
 .d-grid {
     margin: 0 10px 0 10px;
+}
+
+.nav.nav-tabs {
+    background-color: #ffffff;
 }
 </style>

@@ -5,12 +5,12 @@
                 <h4>Dane logowania</h4>
             </div>
             <div class="col-md-1">
-                <img src="/edit.png" width="30" height="30" type="button" class="icon" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <img src="/edit.png" width="30" height="30" type="button" class="icon" data-bs-toggle="modal" data-bs-target="#staticBackdrop3">
             </div>
         </div>
         <p>Email: {{oldEmail}}</p>
 
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" @click.self="closeModal">
+        <div class="modal fade" id="staticBackdrop3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" @click.self="closeModal">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -22,33 +22,25 @@
                             <div class="container">
                                 <form class="row g-3 justify-content-center" @submit.prevent="addBook">
 
-                                    <div class="col-9">
-                                        <label for="inputEmail" class="form-label">Stary email</label>
-                                        <input type="email" class="form-control" id="inputEmail" v-model="email" :class="emailWarning">
-                                        <small v-show="emailAlertVisible" id="emailHelpBlock" class="form-text text-danger">
-                                        Niepoprawny email.
-                                        </small>
-                                    </div>
-
-                                    <div class="col-9">
-                                        <label for="inputOldPassword" class="form-label">Stare hasło</label>
-                                        <input type="password" class="form-control" :class="oldPasswordWarning" id="inputOldPassword" v-model="oldPassword">
+                                    <div class="col-9 form-floating">
+                                        <input type="password" class="form-control" :class="oldPasswordWarning" id="inputOldPassword" v-model="oldPassword" placeholder="password">
+                                        <label for="inputOldPassword">Stare hasło</label>
                                         <small v-show="oldPasswordAlertVisible" id="oldPasswordHelpBlock" class="form-text text-danger">
                                         Niepoprawne hasło.
                                         </small>
                                     </div>
 
-                                    <div class="col-9">
-                                        <label for="inputNewPassword1" class="form-label">Nowe hasło</label>
-                                        <input type="password" class="form-control" :class="passwordLengthWarning" id="inputNewPassword1" v-model="newPassword1">
+                                    <div class="col-9 form-floating">
+                                        <input type="password" class="form-control" :class="passwordLengthWarning" id="inputNewPassword1" v-model="newPassword1" placeholder="password">
+                                        <label for="inputNewPassword1">Nowe hasło</label>
                                         <small v-show="passwordLengthlAlertVisible" id="newPassword1HelpBlock" class="form-text text-danger">
                                         Hasło powinno mieć co najmniej 8 znaków.
                                         </small>
                                     </div>
 
-                                    <div class="col-9">
-                                        <label for="inputNewPassword2" class="form-label">Powtórz nowe hasło</label>
-                                        <input type="password" class="form-control" :class="passwordDifferenceWarning" id="inputNewPassword2" v-model="newPassword2">
+                                    <div class="col-9 form-floating">
+                                        <input type="password" class="form-control" :class="passwordDifferenceWarning" id="inputNewPassword2" v-model="newPassword2" placeholder="password">
+                                        <label for="inputNewPassword2">Powtórz nowe hasło</label>
                                         <small v-show="passwordDifferencelAlertVisible" id="newPassword2HelpBlock" class="form-text text-danger">
                                         Hasła różnią się.
                                         </small>
@@ -58,7 +50,7 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button @click="changePasswordAndEmail" type="button" class="btn btn-primary">Zatwierdź</button>
+                        <button @click="changePassword" type="button" class="btn btn-primary">Zatwierdź</button>
                     </div>
                 </div>
             </div>
@@ -70,7 +62,6 @@
     import { onMounted, ref } from 'vue'
 
     const oldEmail = ref("")
-    const email = ref("")
     const oldPassword = ref("")
     const newPassword1 = ref("")
     const newPassword2 = ref("")
@@ -79,12 +70,10 @@
     const errors = ref(new Set([]))
     const props = defineProps(['userId'])
 
-    const emailAlertVisible = ref(false)
     const oldPasswordAlertVisible = ref(false)
     const passwordLengthlAlertVisible = ref(false)
     const passwordDifferencelAlertVisible = ref(false)
 
-    const emailWarning = ref('')
     const oldPasswordWarning = ref('')
     const passwordLengthWarning = ref('')
     const passwordDifferenceWarning = ref('')
@@ -97,13 +86,11 @@
         })
     })
 
-    function changePasswordAndEmail () {
-        emailAlertVisible.value = false
+    function changePassword () {
         oldPasswordAlertVisible.value = false
         passwordLengthlAlertVisible.value = false
         passwordDifferencelAlertVisible.value = false
 
-        emailWarning.value = ''
         oldPasswordWarning.value = ''
         passwordLengthWarning.value = ''
         passwordDifferenceWarning.value = ''
@@ -129,8 +116,6 @@
         // login with email and old password and change to the new password
 
         if (errors.value.size == 0) {
-            console.log(email.value)
-            console.log(oldPassword.value)
             let isError = false;
 
             let passwordUpdated = false;
@@ -138,7 +123,7 @@
                 const user = firebase.auth().currentUser;
 
                 let credentials = firebase.auth.EmailAuthProvider.credential(
-                    email.value,
+                    oldEmail.value,
                     oldPassword.value
                 );
 
@@ -166,7 +151,6 @@
     }
 
     function refresh() {
-        email.value = ""
         oldPassword.value = ""
         newPassword1.value = ""
         newPassword2.value = ""

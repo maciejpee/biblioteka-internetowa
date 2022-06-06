@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-md navbar-light bg-light">
+  <nav class="navbar navbar-expand-md">
     <div class="container-fluid">
 
       <router-link class="navbar-brand" to="/">
@@ -40,11 +40,11 @@
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 
               <li class="nav-item">
-                <router-link class="dropdown-item" to="/register">Załóż konto</router-link>
+                <a class="dropdown-item" href="#" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">Załóż konto</a>
               </li>
 
               <li class="nav-item">
-                <router-link class="dropdown-item" to="/login">Zaloguj się</router-link>
+                <a class="dropdown-item" href="#" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Zaloguj się</a>
               </li>
 
             </ul>
@@ -59,13 +59,16 @@
 
     </div>
   </nav>
- 
+  <RegisterModal/>
+  <LoginModal/>
 
 
 </template>
 
 <script setup>
   import { ref, onMounted, reactive, computed } from 'vue'
+  import LoginModal from "./LoginModal.vue"
+  import RegisterModal from "./RegisterModal.vue"
 
   const userName = ref('')
   const id = ref('')
@@ -110,4 +113,9 @@
     transform: scale(1.1);
     cursor: pointer;
 }
+
+.navbar {
+  background-color: #138808;
+}
+
 </style>

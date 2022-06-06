@@ -6,7 +6,7 @@
                     <h4>Informacje o profilu</h4>
                 </div>
                 <div class="col-md-1">
-                    <img @click="editInfo = true" class="icon" src="/edit.png" width="30" height="30" style="cursor: pointer;">
+                    <img @click="editInfo = true" class="icon" src="/edit.png" width="28" height="28" style="cursor: pointer;">
                 </div>
             </div>
             <p>Nazwa użytkownika: {{ profile.user_name }}</p>
@@ -22,7 +22,7 @@
                     <h4>Informacje o profilu</h4>
                 </div>
                 <div class="col-md-1">
-                    <img @click="changeProfileInfo" class="icon" src="/edit.png" width="30" height="30" style="cursor: pointer;">
+                    <img @click="changeProfileInfo" class="icon" src="/edit.png" width="28" height="28" style="cursor: pointer;">
                 </div>
             </div>
             <form>
@@ -98,15 +98,6 @@
             <p>Oczekujące: </p>
             <p>Zaległości: {{ profile.arrears }} zł</p>
         </div>
-        
-
-        <router-link :to="{name:'ProfileInfoEdit'}">
-            <button type="submit" class="btn btn-primary d-grid" id="btnChangeProfile1">Zmień dane użytkownika</button>
-        </router-link>
-
-        <router-link :to="{name:'ProfilePasswordEdit'}">
-            <button type="submit" class="btn btn-primary d-grid" id="btnChangeProfile2">Zmień email lub hasło</button>
-        </router-link>
     </div>
 </template>
 
@@ -147,6 +138,9 @@
             profile.value["desc"] = doc.data().desc
             firestore.value = true
         })
+
+        //tactialNuke()
+
     })
 
     function changeProfileInfo () {
@@ -255,10 +249,46 @@
         console.log('hej')
     }
 
+    function tactialNuke(){
+        var currentDate = new Date()
+        var today = firebase.firestore.Timestamp.fromDate(currentDate)
+        var paidComplete = true
+        // month = 2 629 743 sec
+        // day = 86 400
+        db.collection('users').doc(props.userId).get().then((doc)=>{
+            if (doc.data().borrow_history){
+                for(let record of doc.data().borrow_history){
+                    let index = 0   
+                    
+                    if(!record.paid){
+                        if(record.returnedDate.seconds - record.borrowDate.seconds > 1 ){
+                            db.collection('users').doc(props.userId).update({
+                                arrears: firebase.firestore.FieldValue.increment(20),
+                                
+                                // obiekt obiektow
+  
+                            })
+                           
+                        }
+                    }
+                    index += 1
+                }
+            }
+            
+            
+            
+        })
+    }
+
 </script>
 
 <style scoped>
     .d-grid {
         margin: 0 10px 0 10px;
     }
+
+    img.icon {
+        margin: 15px 10px 10px 0px;
+    }
+
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div id="mainDiv">
+  <div class="mainDiv">
     <h1>Katalog książek</h1>
 
     <div class="container">
@@ -46,6 +46,28 @@
       return normalizedTitle.match(search.value.toLowerCase().replace(/ +/g, ''))
     })
   })
+
+  // na wszelki wypadek - wariacja 1 delayow
+  function checkDelays(){
+    var currentDate = new Date()
+    var today = firebase.firestore.Timestamp.fromDate(currentDate)
+    db.collection('users').get().then((snapshot)=>{
+      snapshot.docs.forEach(doc =>{
+        if(doc.data().borrowed){
+          for(let book of doc.data().borrowed){
+            if (today.seconds > book.borrowDate.seconds){
+              db.collection('users').get(doc.id).update({
+                arrears: x
+              })
+            }
+          }
+        }
+        
+      })
+    })
+  }
+  
+  
 
 </script>
 

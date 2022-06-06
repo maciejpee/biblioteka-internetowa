@@ -15,6 +15,7 @@
     import BorrowedBook from "./BorrowedBook.vue"
     const props = defineProps(["userId", "borrowed"])
     const borrowedBooks = ref([])
+    const waitingBooks = ref([])
 
     let currentDate = new Date() // tworzenie obiektu daty do uzycia na potem
     let borrowDate = firebase.firestore.Timestamp.fromDate(currentDate) // uzywanie funkcji do tworzenia/konwertowania
@@ -52,7 +53,7 @@
         // cala idea tego do pierwszego thena, jest taka ze bierze uzytkownika zalogowanego
         // i buduje arraya ktorego potem bedzie mozna wrzucic do firebase. 
         //Ten array ma zawierac wszystkie ksiazki oprocz tej zmatchowanej, tej ktorej id kliknelismy (bookId).
-
+        
         db.collection('users').doc(props.userId).get().then((doc)=>{
             borrowedBooks.value = [] // uzywamy tej samej tablicy, zerujemy ja
             for (let b of doc.data().borrowed){ // doc.data().borrowed - tam sa wszystkie 
@@ -74,7 +75,13 @@
         }).then(()=>{ // teraz, pierwszy then. jak wykona to wyzej THEN wykonuje to 
         // czyli po prostu nadpisuje obecne borrowed uzytkownika tym, ktore sobie stworzylismy (tym bez tej jednej ksiazki)
             db.collection('users').doc(props.userId).update({
-                borrowed: borrowedBooks.value      
+                borrowed: borrowedBooks.value,
+                borrow_history: firebase.firestore.FieldValue.arrayUnion({
+                    bookId: bookId, 
+                    borrowDate: bookDate, 
+                    returnedDate: borrowDate, 
+                    paid: false
+                    })   
            })
            
         }).then(()=>{ // drugi then. jesli udalo sie wykonac to wyzej to lecimy dalej
@@ -122,6 +129,23 @@
                                     // bo jest zalezna od tego czy user ma w borrowed dana ksiazke
                                             borrowed: firebase.firestore.FieldValue.arrayUnion({bookId:bookId, borrowDate:borrowDate, returnDate:returnDate})  
                                 })
+                                    db.collection('users').doc(b).get().then((doc)=>{
+                                        waitingBooks.value = [] 
+                                        for (let w of doc.data().waiting){ 
+                                            if (w == bookId){ 
+                                                continue
+                                            }
+                                        var data = {
+                                            bookId: b.bookId,
+                                            borrowDate: b.borrowDate,
+                                            returnDate: b.returnDate
+                                        }
+                                        waitingBooks.value.push(data)
+                                    }}).then(()=>{ 
+                                            db.collection('users').doc(b).update({
+                                                waiting: waitingBooks.value,
+                                            })
+                                        })
                                 })
                                 // koniec jungli jak cos nie jasne to na grupce pytajcie
                                 // then counter: 9 :^), tylko czekać az wybuchnie

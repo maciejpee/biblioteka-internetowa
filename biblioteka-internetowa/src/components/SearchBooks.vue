@@ -1,5 +1,5 @@
 <template>
-    <div id="mainDiv">
+    <div class="mainDiv">
     <h1>Wyniki wyszukiwania dla: {{search}}</h1>
 
     <div class="container">
@@ -46,6 +46,7 @@
         return books.value.filter((book) => {
           
             var normalizedTitle = book.title.toLowerCase().replace(/ +/g, '')
+          
             var normalizedAuthor = book.author.toLowerCase().replace(/ +/g, '')
           
             if (book.series){
