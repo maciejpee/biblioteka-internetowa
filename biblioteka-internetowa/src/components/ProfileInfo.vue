@@ -9,12 +9,12 @@
                     <img @click="editInfo = true" class="icon" src="/edit.png" width="28" height="28" style="cursor: pointer;">
                 </div>
             </div>
-            <p>Nazwa użytkownika: {{ profile.user_name }}</p>
-            <p>Imię: {{ profile.name }}</p>
-            <p>Nazwisko: {{ profile.surname }}</p>
-            <p>Numer telefonu: {{ profile.phone }}</p>
-            <p>Opis:</p>
-            <p>{{ profile.desc }}</p>
+            <text class="profile-info">Nazwa użytkownika:</text> <text>{{ profile.user_name }}</text><br/>
+            <text class="profile-info">Imię: </text> <text>{{ profile.name }}</text><br/>
+            <text class="profile-info">Nazwisko: </text> <text>{{ profile.surname }}</text><br/>
+            <text class="profile-info">Numer telefonu: </text> <text>{{ profile.phone }}</text><br/>
+            <text class="profile-info">Opis:</text><br/>
+            <text>{{ profile.desc }}</text>
         </div>
         <div v-if="editInfo">
             <div class="row">
@@ -97,7 +97,7 @@
             <p v-if="firestore">Wypożyczone: {{ profile.borrowed.length }}</p>
             <p>Oczekujące: </p>
             <p>Zaległości: {{ profile.arrears }} zł</p>
-            <button @click="payArreras">Ureguluj opłaty</button>
+            <button class="btn btn-success shadow-none" @click="payArreras">Ureguluj opłaty</button>
         </div>
     </div>
 </template>
@@ -278,7 +278,9 @@
                             // 5 dni ponad miesiac (okreslony termin, mozna zmienic ewentualnie) = 1zł kary itd
                             db.collection('users').doc(props.userId).update({
                                 // increment dodaje po prostu do obecnej wartosci, cos jak 
-                                // arrears = arrears + kara
+                                // arrears = arrears + kara wiesz czemu to chujowo działa to też
+                                // tak bo wzor zobacz wyzej nalicza raz
+                                // tylko ze jak jest minalna rozncia to sie pewnie bugguje  zaraz obczaje chodz fb
                                 arrears: firebase.firestore.FieldValue.increment(stemValue),
                                 [`borrow_history.${index}.paid`]: 1  // paid jako 1, bo nie uregulowana i mamy
                                 // do zaplaty, czesc 3cia nizej
@@ -311,12 +313,20 @@
 </script>
 
 <style scoped>
-.d-grid {
+
+img.icon {
+    margin: 15px 0px 10px 0px;
+}
+.profile-info {
+    font-weight: bold;
+    margin-top: 10px;
+}
+hr {
+    margin: 45px 0px 10px 0px;
+}
+.btn {
     margin: 0 10px 0 10px;
 }
 
-img.icon {
-    margin: 15px 10px 10px 0px;
-}
 
 </style>
