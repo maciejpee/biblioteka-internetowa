@@ -14,7 +14,7 @@
             <img class="icon" v-if="!fav" src="/heart.png" width="50" height="50" style="cursor: pointer;" @click="addToFavourites"/>
           </div>
         </div>
-        <h3>{{ bookDetails.author }}</h3><hr>
+        <h3><router-link :to="{ name : 'Search', params:{sv: bookDetails.author}}">{{ bookDetails.author }}</router-link></h3><hr>
         <p>{{ bookDetails.desc }}</p><hr>
         <table>
           <tr v-if="bookDetails.original_title">
@@ -41,7 +41,6 @@
             <th>ISBN: </th>
             <th>{{ bookDetails.isbn }}</th>
           </tr>
-          <tr v-if="canNuke"><button @click="nukeBook">NUKE BOOK</button></tr>
           <tr v-if="bookDetails.translation">
             <th>Przekład: </th>
             <th>{{ bookDetails.translation }}</th>
@@ -63,7 +62,6 @@
   import GenreRecommend from "./GenreRecommend.vue"
   import Copies from "./Copies.vue"
   import CopiesV2 from "./CopiesV2.vue"
-  const canNuke = ref(false)
   const props = defineProps(["bookId"])
 
   const bookDetails = ref({})
@@ -109,10 +107,7 @@
         }
       })
 
-      firestore.value = true  
-      if (!doc.data().queue){
-        canNuke.value = true
-      }
+      firestore.value = true 
     })
   })
 
@@ -139,19 +134,7 @@
         console.log('not logged in');
         }
     })
-  }
-    function nukeBook(){
-        db.collection("books").doc(props.bookId).get().then((doc) => {
-            if (!doc.data().queue){
-              db.collection("books").doc(props.bookId).update({
-                queue: []
-              })
-            }
-        })
-
-           
-    }
-    
+  }    
     
 </script>
 
