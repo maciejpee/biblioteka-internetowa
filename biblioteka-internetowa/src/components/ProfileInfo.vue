@@ -139,7 +139,7 @@
             firestore.value = true
         })
 
-        // oplaty 
+        //oplaty fix 
         //checkDelays()
         
 
