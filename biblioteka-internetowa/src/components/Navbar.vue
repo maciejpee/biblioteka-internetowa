@@ -4,7 +4,7 @@
 
       <router-link class="navbar-brand" to="/">
         <img src="/book.png" width="28" height="30" >
-        Bookworm
+        <text class="logo">Bookworm</text>
       </router-link>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -53,7 +53,7 @@
       </div>
       <form class="d-flex" @submit.prevent="handleSearchBar">
         <input v-model="searchv" class="form-control" placeholder="Wyszukaj..." :class="searchWarning" >
-        <div class="nav-link" @click="handleSearchBar"  ><img class="icon" src="/magnifier.png" width="30" height="30" style="cursor: pointer;"></div>
+        <div class="nav-link" @click="handleSearchBar"  ><img class="icon" src="/magnifier-w.png" width="30" height="30" style="cursor: pointer;"></div>
       </form>
     
 
@@ -109,13 +109,46 @@
 </script>
 
 <style>
+
 .icon:hover{
     transform: scale(1.1);
     cursor: pointer;
 }
 
+
+
+text.logo {
+  font-size: 18px;
+  letter-spacing: 2px;
+  font-family: Tahoma, Verdana, sans-serif;
+  margin-left: 12px;
+}
+
 .navbar {
-  background-color: #138808;
+  background-color: #0f7c05;
+}
+.navbar .navbar-brand {
+  color: #ffffff;
+}
+.navbar .navbar-nav .nav-link {
+  color: #ffffff;
+}
+.navbar .navbar-nav .nav-link:not(.disabled):hover {
+  color: #b1c9a6;
+}
+.navbar .navbar-nav .dropdown-menu {
+  border-color: #b1c9a6;
+}
+.navbar .navbar-nav .dropdown-menu .dropdown-divider {
+  border-top-color: #579c50;
+}
+.navbar .navbar-nav .dropdown-menu .dropdown-item:hover {
+  color: #ffffff;
+  background-color: #89c283;
+}
+.navbar .navbar-nav .dropdown-menu .dropdown-item:focus {
+  color: #ffffff;
+  background-color: #0f7c05;
 }
 
 </style>

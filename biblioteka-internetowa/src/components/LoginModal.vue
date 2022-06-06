@@ -104,4 +104,8 @@ input {
     margin-bottom: -5px;
 }
 
+.modal-dialog {
+  margin-top: 10%;
+}
+
 </style>

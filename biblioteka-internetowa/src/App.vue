@@ -25,7 +25,7 @@ html {
     font-size: 100%;
 }
 body {
-    background: #f5f5d6;
+    background: #efefe8ff;
     height: 100%;
 }
 
