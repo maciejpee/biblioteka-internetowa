@@ -74,14 +74,22 @@
             }
         }).then(()=>{ // teraz, pierwszy then. jak wykona to wyzej THEN wykonuje to 
         // czyli po prostu nadpisuje obecne borrowed uzytkownika tym, ktore sobie stworzylismy (tym bez tej jednej ksiazki)
+            let unique_id = "id" + Math.random().toString(16).slice(2)
             db.collection('users').doc(props.userId).update({
                 borrowed: borrowedBooks.value,
-                borrow_history: firebase.firestore.FieldValue.arrayUnion({
-                    bookId: bookId, 
-                    borrowDate: bookDate, 
-                    returnedDate: borrowDate, 
-                    paid: false
-                    })   
+                [`borrow_history.${unique_id}.bookId`]: bookId,
+                [`borrow_history.${unique_id}.borrowDate`]: bookDate,
+                [`borrow_history.${unique_id}.returnedDate`]: borrowDate,
+                [`borrow_history.${unique_id}.paid`]: false,
+                
+                
+                
+                //firebase.firestore.FieldValue.arrayUnion({
+                    //bookId: bookId, 
+                    //borrowDate: bookDate, 
+                    //returnedDate: borrowDate, 
+                    //paid: false
+                   // })   
            })
            
         }).then(()=>{ // drugi then. jesli udalo sie wykonac to wyzej to lecimy dalej

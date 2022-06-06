@@ -139,7 +139,9 @@
             firestore.value = true
         })
 
-        //tactialNuke()
+        //oplaty fix 
+        //checkDelays()
+        
 
     })
 
@@ -249,37 +251,28 @@
         console.log('hej')
     }
 
-    function tactialNuke(){
+    function checkDelays(){
         var currentDate = new Date()
         var today = firebase.firestore.Timestamp.fromDate(currentDate)
         var paidComplete = true
         // month = 2 629 743 sec
         // day = 86 400
+        // wychodzi ~ 6zl kary za miesiac
         db.collection('users').doc(props.userId).get().then((doc)=>{
             if (doc.data().borrow_history){
-                for(let record of doc.data().borrow_history){
-                    let index = 0   
-                    
+                for(let [index, record] of Object.entries(doc.data().borrow_history)){
                     if(!record.paid){
-                        if(record.returnedDate.seconds - record.borrowDate.seconds > 1 ){
+                        if(record.returnedDate.seconds - record.borrowDate.seconds >= 2629743 ){
                             db.collection('users').doc(props.userId).update({
-                                arrears: firebase.firestore.FieldValue.increment(20),
-                                
-                                // obiekt obiektow
-  
-                            })
-                           
+                                arrears: firebase.firestore.FieldValue.increment(6),
+                                [`borrow_history.${index}.paid`]: true  
+                            }) 
                         }
-                    }
-                    index += 1
+                    }                                      
                 }
-            }
-            
-            
-            
+            }     
         })
     }
-
 </script>
 
 <style scoped>
