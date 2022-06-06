@@ -109,12 +109,6 @@
 </script>
 
 <style>
-
-.icon:hover{
-    transform: scale(1.1);
-    cursor: pointer;
-}
-
 text.logo {
   font-size: 18px;
   letter-spacing: 2px;
@@ -125,6 +119,11 @@ text.logo {
 .form-control.search:focus {
         box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.144);
 } 
+
+.icon:hover{
+    transform: scale(1.1);
+    cursor: pointer;
+}
 
 .navbar {
   background-color: #0f7c05;

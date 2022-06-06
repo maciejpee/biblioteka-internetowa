@@ -1,5 +1,5 @@
 <template>
-  <div class="newsDiv">
+  <div class="mainDiv">
     <div v-for="n of news" :key="n.id">
       <div id="newsCard">
         <h3 id="newsTitle">{{ n.title }}</h3>
@@ -48,17 +48,6 @@ export default {
 </script>
 
 <style>
-
-.newsDiv {
-  padding: 2.5%;
-  height: 80%;
-  margin-left: 7%;
-  margin-right: 7%;
-  margin-top: 4%;
-  margin-bottom:0px;
-  padding: 25px 25px 25px 25px;
-  background-color: rgb(245, 255, 245);
-}
 
 #newsCard {
   width: 100%;

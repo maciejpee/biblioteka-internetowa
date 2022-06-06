@@ -2,7 +2,7 @@
     <div>
         <div class="row">
             <div class="col-md-11">
-                <h4>Dane logowania</h4>
+                <h4 class="profile-title">Dane logowania</h4>
             </div>
             <div class="col-md-1">
                 <img src="/edit.png" width="30" height="30" type="button" class="icon" data-bs-toggle="modal" data-bs-target="#staticBackdrop3">
@@ -169,12 +169,6 @@ input {
   margin-bottom: 10px;
 }
 
-.form-label {
-    font-size: 14px;
-    opacity: 0.8;
-    margin-bottom: -5px;
-}
-
 .d-grid {
     margin-top: 30px;
     margin-bottom: 8px;
@@ -183,5 +177,4 @@ input {
 .modal-dialog {
   margin-top: 7%;
 }
-
 </style>

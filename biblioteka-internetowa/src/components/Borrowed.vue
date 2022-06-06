@@ -173,3 +173,6 @@
       return realDate.getDate() + '/' + (realDate.getMonth() + 1) + '/' + realDate.getFullYear()
     }
 </script>
+
+<style scoped>
+</style>
