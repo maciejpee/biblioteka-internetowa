@@ -3,7 +3,7 @@
         <div v-if="!editInfo">
             <div class="row">
                 <div class="col-md-11">
-                    <h4>Informacje o profilu</h4>
+                    <h4 class="profile-title">Informacje o profilu</h4>
                 </div>
                 <div class="col-md-1">
                     <img @click="editInfo = true" class="icon" src="/edit.png" width="28" height="28" style="cursor: pointer;">
@@ -19,7 +19,7 @@
         <div v-if="editInfo">
             <div class="row">
                 <div class="col-md-11">
-                    <h4>Informacje o profilu</h4>
+                    <h4 class="profile-title">Informacje o profilu</h4>
                 </div>
                 <div class="col-md-1">
                     <img @click="changeProfileInfo" class="icon" src="/tick.png" width="38" height="38" style="cursor: pointer;">
@@ -93,7 +93,7 @@
         <hr>
 
         <div>
-            <h4>Stan konta</h4>
+            <h4 class="profile-title">Stan konta</h4>
             <p v-if="firestore">Wypożyczone: {{ profile.borrowed.length }}</p>
             <p>Oczekujące: </p>
             <p>Zaległości: {{ profile.arrears }} zł</p>
@@ -296,12 +296,12 @@
 </script>
 
 <style scoped>
-    .d-grid {
-        margin: 0 10px 0 10px;
-    }
+.d-grid {
+    margin: 0 10px 0 10px;
+}
 
-    img.icon {
-        margin: 15px 10px 10px 0px;
-    }
+img.icon {
+    margin: 15px 10px 10px 0px;
+}
 
 </style>

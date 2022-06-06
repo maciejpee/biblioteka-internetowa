@@ -125,18 +125,6 @@
 </script>
 
 <style scoped>
-input {
-  padding: 7px;
-  border-radius: 6px;
-  margin-bottom: 10px;
-}
-
-.form-label {
-    font-size: 14px;
-    opacity: 0.8;
-    margin-bottom: -5px;
-}
-
 .modal-dialog {
   margin-top: 5%;
 }

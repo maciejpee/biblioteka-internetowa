@@ -34,7 +34,9 @@
 
     function getRealDate(date) {
       var realDate = new Date(date * 1000)
-      return realDate.getDate() + '/' + (realDate.getMonth() + 1) + '/' + realDate.getFullYear()
+      var day = realDate.getDate() < 10 ? "0" + realDate.getDate(): realDate.getDate()
+      var month = (realDate.getMonth() + 1) < 10 ? "0" + (realDate.getMonth() + 1): (realDate.getMonth() + 1)
+      return day + '/' + month + '/' + realDate.getFullYear()
     }
 </script>
 

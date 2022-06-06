@@ -142,13 +142,11 @@ input, textarea {
   border: 0;
   box-shadow: 0 0 15px 4px rgba(0,0,0,0.03);
   border-radius: 6px;
-  margin-bottom: 11px;
+  margin-bottom: 10px;
 }
 
+/* ok */
 .form-label {
-    font-size: 14px;
-    opacity: 0.8;
-    margin-bottom: -5px;
     margin-top: 15px;
 }
 

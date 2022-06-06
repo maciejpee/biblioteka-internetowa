@@ -41,7 +41,7 @@
             </div>
 
             <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
-                Historia wypożyczeń
+                <History v-if="firestore" :userId="props.userId" :borrowHistory="profile.borrow_history"/>
             </div>
         </div>
     </div>
@@ -53,6 +53,7 @@
     import Borrowed from './Borrowed.vue'
     import ProfileInfo from './ProfileInfo.vue'
     import Waiting from './Waiting.vue'
+    import History from './History.vue'
 
 
     const props = defineProps(['userId'])
@@ -64,6 +65,7 @@
             profile.value["borrowed"] = doc.data().borrowed
             profile.value["favourites"] = doc.data().favourites
             profile.value["waiting"] = doc.data().waiting
+            profile.value["borrow_history"] = doc.data().borrow_history
             firestore.value = true
         })
     })
@@ -73,6 +75,7 @@
             profile.value["arrears"] = doc.data().arrears
             profile.value["borrowed"] = doc.data().borrowed
             profile.value["waiting"] = doc.data().waiting
+            profile.value["borrow_history"] = doc.data().borrow_history
         })
     }
 </script>
