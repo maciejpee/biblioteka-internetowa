@@ -5,7 +5,7 @@
                 <h4 class="profile-title">Dane logowania</h4>
             </div>
             <div class="col-md-1">
-                <img src="/edit.png" width="30" height="30" type="button" class="icon" data-bs-toggle="modal" data-bs-target="#staticBackdrop3">
+                <img src="/edit.png" width="28" height="28" type="button" class="icon" data-bs-toggle="modal" data-bs-target="#staticBackdrop3">
             </div>
         </div>
         <p>Email: {{oldEmail}}</p>

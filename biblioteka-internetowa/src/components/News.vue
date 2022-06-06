@@ -1,5 +1,6 @@
 <template>
-  <div class="mainDiv">
+  <div class="container">
+    <h3 class="title">Aktualności</h3>
     <div v-for="n of news" :key="n.id">
       <div id="newsCard">
         <h3 id="newsTitle">{{ n.title }}</h3>
@@ -49,6 +50,20 @@ export default {
 
 <style>
 
+.container {
+  margin-top: 70px;
+  padding: 25px;
+}
+
+.title {
+  font-weight: 800;
+  font-size: 28px;
+  letter-spacing: 1.2px;
+  text-align: center;
+  margin-bottom: 40px;
+  color: #106e07;
+}
+
 #newsCard {
   width: 100%;
   background-color: #Ffffff;
@@ -68,7 +83,8 @@ export default {
   margin-top: 10px;
   letter-spacing: 1px;
   font-weight: 650;
-  font-size: 26px;
+  font-size: 18px;
+  color: #0f7c05;
 }
 
 #newsDate {

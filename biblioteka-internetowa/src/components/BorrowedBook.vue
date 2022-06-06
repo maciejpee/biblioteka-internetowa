@@ -4,7 +4,7 @@
             <img :src="bookDetails.cover" class="cover" />
         </div>
         <div class="col-md-8">
-            <p>{{bookDetails.title}}</p>
+            <p><router-link :to="{ name : 'Details', params:{bookId: props.bookId}}">{{ bookDetails.title }}</router-link></p>
             <p>{{bookDetails.author}}</p>
             <p v-if="bookDetails.series">{{bookDetails.series}} Tom {{bookDetails.volume}}</p>
             <p>Wypożyczono: {{getRealDate(props.borrowDate.seconds)}}</p>

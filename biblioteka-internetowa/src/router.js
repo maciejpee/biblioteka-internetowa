@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Books from './components/Books.vue'
+import MainPage from './components/MainPage.vue'
 import News from './components/News.vue'
 import BookDetails from './components/BookDetails.vue'
 import Register from './components/Register.vue'
@@ -14,7 +14,7 @@ import ProfilePasswordEdit from './components/ProfilePasswordEdit.vue'
 export default createRouter({
     history:createWebHistory(),
     routes:[
-        {path:'/', name: 'Home', component: Books},
+        {path:'/', name: 'Home', component: MainPage},
         {path:'/news', name: 'News', component: News},
         {path:'/details/:bookId', name: 'Details', component: BookDetails, props:true},
         {path:'/register', name: 'Register', component: Register},

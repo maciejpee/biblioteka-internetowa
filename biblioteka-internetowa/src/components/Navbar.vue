@@ -3,7 +3,7 @@
     <div class="container-fluid">
 
       <router-link class="navbar-brand" to="/">
-        <img src="/book2.png" width="28" height="30" >
+        <img class="main-logo" src="/book2.png" width="28" height="30" >
         <text class="logo">Bookworm</text>
       </router-link>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
@@ -102,7 +102,18 @@
     if (!searchv.value){
       searchWarning.value = 'border-danger'
     }else{
-      window.location.replace(window.location.protocol + '/search/' + searchv.value.replace(/ +/g, '-'))
+      window.location.replace('/search/' + searchv.value.replace(/ +/g, '_'))
+      //tutaj zamienia te spacje na myslink zeby zbydowac adres jak usuniesz to tak też powinno działać
+      // mniejsza jak usuniesz tutaj to ten myslnik cnie, to zmieni sie tez prop bo on go z pobiera stad
+      // dlatego mozemy uzyc znaku ktory nie wystapi w tytule i potem go po prostu odmienic 
+      // robimy test
+      // tak to od ans XDD
+      // chuj go wie aaa wiem moze jest jak to sie mowi ze zaklepany dla czegos wlasnie
+      //to dawaj ten % bo z propami jest domyślnie chyba chociaż u Ciebie niby nie XD
+      // ale coto za blad to od nas?
+      //możliwe dlatego tam jest automatycznie ale to troche szkoda w sumie xd 
+      //ci
+    // podloga dziala, bezie w tytule? nie powinna być
     }
   }
 
@@ -110,7 +121,7 @@
 
 <style>
 text.logo {
-  font-size: 18px;
+  font-size: 24px;
   letter-spacing: 2px;
   font-family: Tahoma, Verdana, sans-serif;
   margin-left: 12px;
@@ -119,6 +130,10 @@ text.logo {
 .form-control.search:focus {
         box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.144);
 } 
+
+img.main-logo {
+  margin-bottom: 5px;
+}
 
 .icon:hover{
     transform: scale(1.1);

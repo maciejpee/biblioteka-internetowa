@@ -5,11 +5,10 @@
 </template>
 
 <script>
-  import Books from './components/Books.vue'
   import Navbar from './components/Navbar.vue'
   
   export default {
-    components: { Books, Navbar, },
+    components: { Navbar, },
     data() {
       return {
         url: location.href
@@ -35,8 +34,7 @@ body {
   margin-left: 9%;
   margin-right: 9%;
   margin-top: 4%;
-  margin-bottom:0px;
-  padding: 25px 25px 25px 25px;
+  padding: 35px 50px 35px 50px;
 }
 
 /* book card*/
@@ -95,5 +93,16 @@ input.input-modal {
 /* profile */
 .profile-title {
     font-weight: 700;
+    margin-top: 15px;
+    margin-bottom: 25px;
+    color: #0f7c05;
 }
+
+.btn-success, .btn-success:active, .btn-success:visited {
+    background-color: #0f7c05;
+}
+.btn-success:hover {
+    background-color: #0e6406;
+}
+
 </style>

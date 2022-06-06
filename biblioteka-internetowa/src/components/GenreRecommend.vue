@@ -1,6 +1,6 @@
 <template>
     <div v-if="series.length > 0">
-      <h4>Książki o podobnej tematyce ({{ genre }})</h4>
+      <h4>Książki o podobnej tematyce</h4>
       <div class="row justify-content-center">
         <div v-for="b of series.slice(0, 6)" class="col-xl-2 col-lg-2 col-md-3 col-sm-6 col-6 py-2" :key="b">
           <div class="card h-100" @click="pageReload(b.id)">

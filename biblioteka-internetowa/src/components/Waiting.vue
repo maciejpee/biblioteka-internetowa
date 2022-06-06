@@ -1,27 +1,30 @@
 <template>
-    <h4>Twoje oczekujące książki:</h4>
-    <div class="row" v-for="w of waiting">
-        <div class="col-md-2">
-            <img :src="w.cover" class="cover" />
-        </div>
-        <div class="col-md-8">
-            <p>{{w.title}}</p>
-            <p>{{w.author}}</p>
-            <p v-if="w.series">{{w.series}} Tom {{w.volume}}</p>
-            
-        </div>
+    <div>
+        <h4 class="profile-title">Twoje oczekujące książki:</h4>
+        <div class="row" v-for="w of waitingBooks">
+            <div class="col-md-2">
+                <img :src="w.cover" class="cover" />
+            </div>
+            <div class="col-md-8">
+                <p><router-link :to="{ name : 'Details', params:{bookId: w.id}}">{{ w.title }}</router-link></p>
+                <p>{{w.author}}</p>
+                <p v-if="w.series">{{w.series}} Tom {{w.volume}}</p>
+                <button @click="leaveQueue(w.id)">Wyjdź z kolejki</button>
+            </div>
+        </div>  
     </div>
 </template>
 
 <script setup>
+
     import { ref, onMounted } from 'vue'
-
+    
     const props = defineProps(["userId", "waiting"])
-    const waiting = ref([])
+    const waitingBooks = ref([])
 
-    onMounted(() => {
-        for (let i = 0; i < props.waiting.length; i++) {
-            db.collection("books").doc(props.waiting[i]).get().then((doc) => {
+    onMounted(()=>{
+        for (let w of props.waiting) {
+            db.collection("books").doc(w).get().then((doc) => {
                 var data = {
                     "author": doc.data().author,
                     "title": doc.data().title,
@@ -29,13 +32,22 @@
                     "volume": doc.data().volume,
                     "genre": doc.data().genre,
                     "cover": doc.data().cover,
+                    "id": doc.id
                 }
-                waiting.value.push(data)
+                waitingBooks.value.push(data)
             })
         }
     })
+
+    function leaveQueue (bookId) {
+        db.collection('users').doc(props.userId).update({
+                waiting: firebase.firestore.FieldValue.arrayRemove(bookId)
+            })
+
+        db.collection('books').doc(bookId).update({
+                queue: firebase.firestore.FieldValue.arrayRemove(props.userId)
+            })
+    }
+   
 </script>
 
-
-<style scoped>
-</style>

@@ -2,23 +2,23 @@
     <div class="mainDiv">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation" @click="refresh">
-                <button class="nav-link active" id="info-tab" data-bs-toggle="tab" data-bs-target="#info" type="button" role="tab" aria-controls="info" aria-selected="true">Dane użytkownika</button>
+                <button class="nav-link active" id="info-tab" data-bs-toggle="tab" data-bs-target="#info" type="button" role="tab" aria-controls="info" aria-selected="true"><text>Dane użytkownika</text></button>
             </li>
 
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="borrowed-tab" data-bs-toggle="tab" data-bs-target="#borrowed" type="button" role="tab" aria-controls="borrowed" aria-selected="false">Wypożyczone</button>
+                <button class="nav-link" id="borrowed-tab" data-bs-toggle="tab" data-bs-target="#borrowed" type="button" role="tab" aria-controls="borrowed" aria-selected="false"><text>Wypożyczone</text></button>
             </li>
 
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="waiting-tab" data-bs-toggle="tab" data-bs-target="#waiting" type="button" role="tab" aria-controls="waiting" aria-selected="false">Oczekujące</button>
+                <button class="nav-link" id="waiting-tab" data-bs-toggle="tab" data-bs-target="#waiting" type="button" role="tab" aria-controls="waiting" aria-selected="false"><text>Oczekujące</text></button>
             </li>
 
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="favourite-tab" data-bs-toggle="tab" data-bs-target="#favourite" type="button" role="tab" aria-controls="favourite" aria-selected="false">Ulubione</button>
+                <button class="nav-link" id="favourite-tab" data-bs-toggle="tab" data-bs-target="#favourite" type="button" role="tab" aria-controls="favourite" aria-selected="false"><text>Ulubione</text></button>
             </li>
 
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="history-tab" data-bs-toggle="tab" data-bs-target="#history" type="button" role="tab" aria-controls="history" aria-selected="false">Historia</button>
+                <button class="nav-link" id="history-tab" data-bs-toggle="tab" data-bs-target="#history" type="button" role="tab" aria-controls="history" aria-selected="false"><text>Historia</text></button>
             </li>
         </ul>
         
@@ -88,4 +88,18 @@
 .nav.nav-tabs {
     background-color: #ffffff;
 }
+
+.nav-tabs li text {
+  color: rgb(61, 61, 61);
+}
+
+.nav-tabs .nav-item .nav-link.active text {
+  color: #0f7c05;
+}
+.tab-content {
+  border: 1px solid #dee2e6;
+  border-top: transparent;
+  padding: 25px 0px 25px 25px;
+}
+
 </style>

@@ -1,11 +1,11 @@
 <template>
-    <h4>Twoje ulubione książki:</h4>
+    <h4 class="profile-title">Twoje ulubione książki:</h4>
     <div class="row" v-for="f of favs">
         <div class="col-md-2">
             <img :src="f.cover" class="cover" />
         </div>
         <div class="col-md-8">
-            <p>{{f.title}}</p>
+            <p><router-link :to="{ name : 'Details', params:{bookId: f.id}}">{{ f.title }}</router-link></p>
             <p>{{f.author}}</p>
             <p v-if="f.series">{{f.series}} Tom {{f.volume}}</p>
         </div>
@@ -29,6 +29,7 @@
                     "volume": doc.data().volume,
                     "genre": doc.data().genre,
                     "cover": doc.data().cover,
+                    "id": doc.id,
                 }
                 favs.value.push(data)
             })
