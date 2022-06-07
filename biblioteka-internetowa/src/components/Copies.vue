@@ -14,7 +14,7 @@
             <p>Dostępny egzemplarz</p>
         </div>
         <div class="col-auto">
-            <button class="btn btn-success" type="button">Wypożycz</button>
+            <button class="btn btn-success shadow-none" type="button">Wypożycz</button>
         </div>
         
     </div>

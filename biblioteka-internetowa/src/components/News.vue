@@ -1,13 +1,13 @@
 <template>
   <div class="container">
-    <h3 class="title">Aktualności</h3>
+    <h3 class="title">Aktualności</h3><hr>
     <div v-for="n of news" :key="n.id">
       <div id="newsCard">
         <h3 id="newsTitle">{{ n.title }}</h3>
         <p id="newsContent">{{ n.content }}</p>
         <span id="newsDate">{{ n.about }}, {{ getRealDate(n.date.seconds) }}</span>
         <div id="tags">tagi: {{ tagsHandler(n.tags) }}</div>
-      </div>
+      </div><hr>
     </div>
   </div>
 </template>
@@ -53,6 +53,7 @@ export default {
 .container {
   margin-top: 70px;
   padding: 25px;
+  background-color: #ffffff;
 }
 
 .title {
@@ -66,12 +67,11 @@ export default {
 
 #newsCard {
   width: 100%;
-  background-color: #Ffffff;
+  background-color: #ffffff;
   border: 0;
   margin-bottom: 35px;
   border-radius: 3px;
   padding: 20px 25px 20px 25px;
-  box-shadow: 0 2px 6px 0.5px grey;
 }
 
 #tags {

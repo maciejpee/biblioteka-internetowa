@@ -41,7 +41,7 @@
                 <div class="col-md-1"></div>
                 
                 <div class="col-md-6 d-grid text-center">
-                    <button class="btn btn-primary" type="submit" style="width:250px">Dodaj post</button>
+                    <button class="btn btn-success shadow-none" type="submit" style="width:250px">Dodaj post</button>
                 </div>
             </form>
         </div>
@@ -140,7 +140,6 @@
 input, textarea {
   padding: 8px;
   border: 0;
-  box-shadow: 0 0 15px 4px rgba(0,0,0,0.03);
   border-radius: 6px;
   margin-bottom: 10px;
 }

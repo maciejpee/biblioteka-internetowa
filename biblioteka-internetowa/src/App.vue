@@ -24,9 +24,13 @@ html {
     font-size: 100%;
 }
 body {
-    background: #efefe8ff;
+    background: rgb(182, 221, 162);
     height: 100%;
 }
+/* rgb(194, 211, 190); */
+/* rgb(182, 221, 162); */
+/* rgb(182, 221, 175); */
+/* rgb(182, 221, 150); */
 
 .mainDiv {
   background-color: #ffffff;
@@ -93,11 +97,17 @@ input.input-modal {
 /* profile */
 .profile-title {
     font-weight: 700;
-    margin-top: 15px;
+    margin-top: 10px;
     margin-bottom: 25px;
+    margin-left: 20px;
     color: #0f7c05;
+    letter-spacing: 0.5;
+}
+.profile-title-list {
+    margin-bottom: 40px;
 }
 
+/* button */
 .btn-success, .btn-success:active, .btn-success:visited {
     background-color: #0f7c05;
 }

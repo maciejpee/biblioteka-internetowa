@@ -9,7 +9,7 @@
                     <img @click="editInfo = true" class="icon" src="/edit.png" width="28" height="28" style="cursor: pointer;">
                 </div>
             </div>
-            <text class="profile-info">Nazwa użytkownika:</text> <text>{{ profile.user_name }}</text><br/>
+            <text class="profile-info">Nick:</text> <text>{{ profile.user_name }}</text><br/>
             <text class="profile-info">Imię: </text> <text>{{ profile.name }}</text><br/>
             <text class="profile-info">Nazwisko: </text> <text>{{ profile.surname }}</text><br/>
             <text class="profile-info">Numer telefonu: </text> <text>{{ profile.phone }}</text><br/>
@@ -28,7 +28,7 @@
             <form>
                 <div class="row">
                     <div class="col-md-2">
-                        <label for="inputLogin" class="form-label">Nazwa użytkownika: </label>
+                        <label for="inputLogin" class="profile-info">Nick: </label>
                     </div>
                     <div class="col-md-3">
                         <input type="text" class="form-control" id="inputLogin" v-model="profile.user_name" :class="loginWarning">
@@ -42,7 +42,7 @@
 
                 <div class="row">
                     <div class="col-md-2">
-                        <label for="inputName" class="form-label">Imię: </label>
+                        <label for="inputName" class="profile-info">Imię: </label>
                     </div>
                     <div class="col-md-3">
                         <input type="text" class="form-control" id="inputName" v-model="profile.name" :class="nameWarning">
@@ -56,7 +56,7 @@
 
                 <div class="row">
                     <div class="col-md-2">
-                        <label for="inputSurname" class="form-label">Nazwisko: </label>
+                        <label for="inputSurname" class="profile-info">Nazwisko: </label>
                     </div>
                     <div class="col-md-3">
                         <input type="text" class="form-control" id="inputSurname" v-model="profile.surname" :class="surnameWarning">
@@ -70,7 +70,7 @@
 
                 <div class="row">
                     <div class="col-md-2">
-                        <label for="inputPhone" class="form-label">Numer telefonu: </label>
+                        <label for="inputPhone" class="profile-info">Numer telefonu: </label>
                     </div>
                     <div class="col-md-3">
                         <input type="text" class="form-control" id="inputPhone" v-model="profile.phone" :class="phoneWarning">
@@ -81,7 +81,7 @@
                         </small>
                     </div>
                 </div>
-                <label for="inputDesc" class="form-label field">Opis: </label>
+                <label for="inputDesc" class="profile-info field">Opis: </label>
                 <textarea class="form-control" id="inputDesc" rows="2" v-model="profile.desc" :class="descWarning"></textarea>
                 <small v-show="descAlertVisible" id="descHelpBlock" class="form-text text-danger">
                     Opis nie może mieć więcej niż 200 znaków.
@@ -94,9 +94,9 @@
 
         <div>
             <h4 class="profile-title">Stan konta</h4>
-            <p v-if="firestore">Wypożyczone: {{ profile.borrowed.length }}</p>
-            <p>Oczekujące: </p>
-            <p>Zaległości: {{ profile.arrears }} zł</p>
+            <text class="profile-info">Wypożyczone: </text><text v-if="firestore">{{ profile.borrowed.length }}</text><br/>
+            <text class="profile-info">Oczekujące: </text><br/>
+            <text class="profile-info">Zaległości: </text><text>{{ profile.arrears }} zł</text><br/>
             <button class="btn btn-success shadow-none" @click="payArreras">Ureguluj opłaty</button>
         </div>
     </div>
@@ -258,6 +258,7 @@
         var currentDate = new Date()
         var today = firebase.firestore.Timestamp.fromDate(currentDate)
         console.log('Sprawdzam opłaty na dzień: ', currentDate);
+        let stemValue = 0
         // month = 2 629 743 sec
         // day = 86 400
         // wychodzi ~ 6zl kary za miesiac
@@ -272,16 +273,12 @@
                         // roznica pomiedzy datami zwrotu a wypozyczenia (w sekundach najlatwiej bo time
                         // stampy)
                         if(paymentDiff >= 2629743 ){ // jesli roznica wieksza niz miesiac to do łagrów
-                            let stemValue = ((paymentDiff - 2629743) / 86400) * 0.2
+                            stemValue += Math.ceil(((paymentDiff - 2629743) / 86400)) * 0.2                         
                             // wzor na obliczanie ile do zapłaty, roznica - miesiac (zeby jakby liczylo tylko
                             // nadwyzke po miesiacu) przez 76400 sekund bo tyle ma dzien, * 0.2 bo 20 groszy za dzien
                             // 5 dni ponad miesiac (okreslony termin, mozna zmienic ewentualnie) = 1zł kary itd
-                            db.collection('users').doc(props.userId).update({
-                                // increment dodaje po prostu do obecnej wartosci, cos jak 
-                                // arrears = arrears + kara wiesz czemu to chujowo działa to też
-                                // tak bo wzor zobacz wyzej nalicza raz
+                            db.collection('users').doc(props.userId).update({                               
                                 // tylko ze jak jest minalna rozncia to sie pewnie bugguje  zaraz obczaje chodz fb
-                                arrears: firebase.firestore.FieldValue.increment(stemValue),
                                 [`borrow_history.${index}.paid`]: 1  // paid jako 1, bo nie uregulowana i mamy
                                 // do zaplaty, czesc 3cia nizej
                             }) 
@@ -289,6 +286,11 @@
                     }                                      
                 }
             }     
+        }).then(() =>{
+            db.collection('users').doc(props.userId).update({
+                    arrears: stemValue.toFixed(2)  
+            })
+            profile.value.arrears = stemValue.toFixed(2)
         })
     }
 
@@ -300,7 +302,7 @@
                 for(let [index, record] of Object.entries(doc.data().borrow_history)){
                     if (record.paid == 1){ // tym razem patrzy tylko na te nie oplacone
                         db.collection('users').doc(props.userId).update({
-                                arrears: 0, // zeruje oplaty (magicznie)
+                                arrears: '0.00', // zeruje oplaty (magicznie)
                                 [`borrow_history.${index}.paid`]: 2  // zmienia na oplacone
                                 // przez co funkcja wyzej nie trigeruje sie na nie i nie nalicze za nie
                                 // oplat
@@ -308,25 +310,32 @@
                     }                        
                 }
             }     
+        }).then(() => {
+            var zero = 0
+            profile.value.arrears = zero.toFixed(2)
         })
+        
     }
 </script>
 
 <style scoped>
-
-img.icon {
-    margin: 15px 0px 10px 0px;
-}
 .profile-info {
     font-weight: bold;
     margin-top: 10px;
+    margin-left: 20px;
 }
-hr {
-    margin: 45px 0px 10px 0px;
-}
-.btn {
-    margin: 0 10px 0 10px;
+img.icon {
+    margin: 15px 0px 10px 0px;
 }
 
+hr {
+    margin: 35px 0px 25px 0px;
+    height: 1px;
+}
+
+.btn {
+    margin-top: 20px;
+    margin-left: 20px;
+}
 
 </style>

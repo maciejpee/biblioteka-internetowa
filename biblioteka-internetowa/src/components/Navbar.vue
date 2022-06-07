@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-md">
+  <nav class="navbar navbar-expand-md navbar-light bg-light">
     <div class="container-fluid">
 
       <router-link class="navbar-brand" to="/">
@@ -53,7 +53,7 @@
       </div>
       <form class="d-flex" @submit.prevent="handleSearchBar">
         <input v-model="searchv" class="form-control search" placeholder="Wyszukaj..." :class="searchWarning" >
-        <div class="nav-link" @click="handleSearchBar"  ><img class="icon" src="/magnifier-w.png" width="30" height="30" style="cursor: pointer;"></div>
+        <div class="nav-link" @click="handleSearchBar"  ><img class="icon" src="/magnifier.png" width="30" height="30" style="cursor: pointer;"></div>
       </form>
     
 
@@ -128,7 +128,7 @@ text.logo {
 }
 
 .form-control.search:focus {
-        box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.144);
+  box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.144);
 } 
 
 img.main-logo {
@@ -140,7 +140,38 @@ img.main-logo {
     cursor: pointer;
 }
 
+
 .navbar {
+  background-color: #0f7c05;
+}
+.navbar .navbar-brand {
+  color: #0f7c05;
+}
+.navbar .navbar-nav .nav-link {
+  color: #0f7c05;
+}
+.navbar .navbar-nav .nav-link:not(.disabled):hover {
+  color: #b1c9a6;
+}
+.navbar .navbar-nav .dropdown-menu {
+  border-color: #b1c9a6;
+}
+.navbar .navbar-nav .dropdown-menu .dropdown-divider {
+  border-top-color: #579c50;
+}
+.navbar .navbar-nav .dropdown-menu .dropdown-item:hover {
+  color: #ffffff;
+  background-color: #89c283;
+}
+.navbar .navbar-nav .dropdown-menu .dropdown-item:focus {
+  color: #ffffff;
+  background-color: #0f7c05;
+}
+nav {
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1);
+}
+
+/* .navbar {
   background-color: #0f7c05;
 }
 .navbar .navbar-brand {
@@ -168,5 +199,7 @@ img.main-logo {
 }
 nav {
   box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1);
-}
+} */
+
+/* <nav class="navbar navbar-expand-md navbar-light bg-light"> */
 </style>

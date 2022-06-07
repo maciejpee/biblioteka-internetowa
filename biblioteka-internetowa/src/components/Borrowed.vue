@@ -1,9 +1,10 @@
 <template>
 <div>
-    <h4 class="profile-title">Twoje wypożyczone książki:</h4>
-    <div v-for="book of borrowedBooks" :key="book.id" id='book'>
+    <h4 class="profile-title-list">Twoje wypożyczone książki:</h4>
+    <div class="row" v-for="book of borrowedBooks" :key="book.id" id='book'>
             <BorrowedBook :borrowDate="book.borrowDate" :returnDate="book.returnDate" :bookId="book.bookId"/>
-            <button class="btn btn-success" @click="returnBook(book.bookId)">Zwróć</button>
+            <button class="btn btn-success shadow-none" @click="returnBook(book.bookId)">Zwróć</button>
+            <hr>
     </div>
 
    

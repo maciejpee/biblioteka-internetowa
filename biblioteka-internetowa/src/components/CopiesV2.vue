@@ -13,7 +13,7 @@
             <p>Dostępnych egzemplarzy: {{copiesAvailable}}</p>
         </div>
         <div v-if="canBorrow" class="col-auto">
-            <button  class="btn btn-success" type="button" @click="borrowBook">Wypożycz</button>
+            <button  class="btn btn-success shadow-none" type="button" @click="borrowBook">Wypożycz</button>
         </div>
         <div v-else>
             <p>Osiągnałeś limit wypożyczeń (maksymalnie 5 książek).</p>

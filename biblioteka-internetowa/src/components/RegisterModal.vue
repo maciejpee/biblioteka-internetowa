@@ -48,7 +48,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button @click="register" type="button" class="btn btn-primary">Zarejestruj się</button>
+                    <button @click="register" type="button" class="btn btn-success shadow-none">Zarejestruj się</button>
                 </div>
             </div>
         </div>

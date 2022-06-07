@@ -41,7 +41,7 @@
 
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
               <div class="form-group text-center">
-                <button type="submit" class="btn btn-primary d-grid" id="btnRegisterTest" style="width:250px" @click="register()">Zarejestruj się</button>     
+                <button type="submit" class="btn btn-success shadow-none d-grid" id="btnRegisterTest" style="width:250px" @click="register()">Zarejestruj się</button>     
               </div>          
           </div>
         </div>

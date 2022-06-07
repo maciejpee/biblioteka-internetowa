@@ -81,25 +81,19 @@
 </script>
 
 <style scoped>
-.d-grid {
-    margin: 0 10px 0 10px;
-}
-
 .nav.nav-tabs {
     background-color: #ffffff;
 }
-
 .nav-tabs li text {
   color: rgb(61, 61, 61);
 }
-
 .nav-tabs .nav-item .nav-link.active text {
   color: #0f7c05;
 }
 .tab-content {
   border: 1px solid #dee2e6;
   border-top: transparent;
-  padding: 25px 0px 25px 25px;
+  padding: 25px 25px 25px 25px;
 }
 
 </style>

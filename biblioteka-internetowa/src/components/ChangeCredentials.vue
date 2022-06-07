@@ -8,7 +8,7 @@
                 <img src="/edit.png" width="28" height="28" type="button" class="icon" data-bs-toggle="modal" data-bs-target="#staticBackdrop3">
             </div>
         </div>
-        <p>Email: {{oldEmail}}</p>
+        <text class="profile-info">Email: </text><text>{{oldEmail}}</text>
 
         <div class="modal fade" id="staticBackdrop3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" @click.self="closeModal">
             <div class="modal-dialog">
@@ -50,7 +50,7 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button @click="changePassword" type="button" class="btn btn-primary">Zatwierdź</button>
+                        <button @click="changePassword" type="button" class="btn btn-success shadow-none">Zatwierdź</button>
                     </div>
                 </div>
             </div>
@@ -176,5 +176,10 @@ input {
 
 .modal-dialog {
   margin-top: 7%;
+}
+.profile-info {
+    font-weight: bold;
+    margin-top: 10px;
+    margin-left: 20px;
 }
 </style>
