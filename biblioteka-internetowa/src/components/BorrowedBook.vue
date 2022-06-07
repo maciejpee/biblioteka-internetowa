@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-3">
             <img :src="bookDetails.cover" class="cover" />
         </div>
         <div class="col-md-8">
@@ -9,8 +9,8 @@
             <p v-if="bookDetails.series">{{bookDetails.series}} Tom {{bookDetails.volume}}</p>
             <p>Wypożyczono: {{getRealDate(props.borrowDate.seconds)}}</p>
             <p>Oczekiwany zwrot: {{getRealDate(props.returnDate.seconds)}}</p>
-
         </div>
+        
     </div>
 </template>
 

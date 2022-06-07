@@ -15,45 +15,48 @@
           </div>
         </div>
         <h3><router-link :to="{ name : 'Search', params:{sv: bookDetails.author}}">{{ bookDetails.author }}</router-link></h3><hr>
-        <p>{{ bookDetails.desc }}</p><hr>
-        <table>
-          <tr v-if="bookDetails.original_title">
-            <th>Tytuł oryginału: </th>
-            <th>{{ bookDetails.original_title }}</th>
-          </tr>
-          <tr v-if="bookDetails.series">
-            <th>Cykl: </th>
-            <th>{{ bookDetails.series }} (tom {{ bookDetails.volume }})</th>
-          </tr>
-          <tr v-if="bookDetails.release_year">
-            <th>Rok wydania: </th>
-            <th>{{ bookDetails.release_year }}</th>
-          </tr>
-          <tr v-if="bookDetails.page_count">
-            <th>Liczba stron: </th>
-            <th>{{ bookDetails.page_count }}</th>
-          </tr>
-          <tr v-if="bookDetails.publishing">
-            <th>Wydawca: </th>
-            <th>{{ bookDetails.publishing }}</th>
-          </tr>
-          <tr v-if="bookDetails.isbn">
-            <th>ISBN: </th>
-            <th>{{ bookDetails.isbn }}</th>
-          </tr>
-          <tr v-if="bookDetails.translation">
-            <th>Przekład: </th>
-            <th>{{ bookDetails.translation }}</th>
-          </tr>
+        <table class="table">
+          <tbody>
+            <tr v-if="bookDetails.original_title">
+              <td>Tytuł oryginału: </td>
+              <td>{{ bookDetails.original_title }}</td>
+            </tr>
+            <tr v-if="bookDetails.series">
+              <td>Cykl: </td>
+              <td>{{ bookDetails.series }} (tom {{ bookDetails.volume }})</td>
+            </tr>
+            <tr v-if="bookDetails.release_year">
+              <td>Rok wydania: </td>
+              <td>{{ bookDetails.release_year }}</td>
+            </tr>
+            <tr v-if="bookDetails.page_count">
+              <td>Liczba stron: </td>
+              <td>{{ bookDetails.page_count }}</td>
+            </tr>
+            <tr v-if="bookDetails.publishing">
+              <td>Wydawca: </td>
+              <td>{{ bookDetails.publishing }}</td>
+            </tr>
+            <tr v-if="bookDetails.isbn">
+              <td>ISBN: </td>
+              <td>{{ bookDetails.isbn }}</td>
+            </tr>
+            <tr v-if="bookDetails.translation">
+              <td>Przekład: </td>
+              <td>{{ bookDetails.translation }}</td>
+            </tr>
+          </tbody>
         </table>
-        
-      </div>
-      <div class="tags">
-        <div class="tag" v-for="genre of bookDetails.genre" :key="genre.id">
-          <button><router-link :to="{ name : 'Search', params:{sv: genre.replace(' ', '-')}}">{{genre}}</router-link></button>
+        <div class="tags">
+          <div class="tag" v-for="genre of bookDetails.genre" :key="genre.id">
+            <button class="tag"><router-link :to="{ name : 'Search', params:{sv: genre}}">{{genre}}</router-link></button>
+          </div>
         </div>
       </div>
+      
+      
     </div><hr>
+    <p>{{ bookDetails.desc }}</p><hr>
     <CopiesV2 v-if="firestore" :copies="bookDetails.copies" :bookId="props.bookId"/>
     <hr>
     <SeriesRecommend v-if="firestore" :bookSeries="bookDetails.series" :currentBook="bookDetails.title"/>
