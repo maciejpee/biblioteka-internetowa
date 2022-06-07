@@ -12,7 +12,7 @@
             </div>
         
             <div class="card-footer">
-              <text class="card-subtitle">{{ b.author }}</text>
+              <text class="card-author">{{ b.author }}</text>
             </div>
           </div>
           </router-link>
@@ -28,28 +28,51 @@
     const genreBooks = ref([])
 
     onMounted(() => {
-        db.collection('books').get().then((snapshot) => {
-            snapshot.docs.forEach(doc => {
-                for (let g of doc.data().genre) {
-                    if (g == props.genre) {
-                        if (genreBooks.value.length <= 5) {
-                            const data = {
-                        'id': doc.id,
-                        'title': doc.data().title,
-                        'author': doc.data().author,
-                        'cover': doc.data().cover,
-                        }
-                        genreBooks.value.push(data)
-                        break
-                        }
-                    }
-                }
-            })
+      db.collection('books').where("genre", "array-contains", props.genre).get().then((snapshot) => {
+        snapshot.docs.forEach(doc => {
+          if (doc.data().series) {
+            if (doc.data().volume == 1) {
+              var data = {
+              'id': doc.id,
+            }
+            genreBooks.value.push(data)
+            }
+          } else {
+            var data = {
+              'id': doc.id,
+            }
+            genreBooks.value.push(data)
+          } 
+            
         })
+        console.log(props.genre, genreBooks.value)
+      })
     })
 
 </script>
 
 
 <style scoped>
+
+.card-author {
+  font-size: 12px;
+  margin: 0px 5px 8px 5px;
+}
+
+.card-footer {
+  text-align: center;
+}
+
+.card-body {
+  text-align: center;
+}
+
+.card-title {
+  font-size: 15px;
+	letter-spacing: 0.4px;
+  margin: 8px;
+  font-family: 'Ubuntu, Times New Roman';
+	letter-spacing: 0.5px;
+  font-weight: 600;
+}
 </style>

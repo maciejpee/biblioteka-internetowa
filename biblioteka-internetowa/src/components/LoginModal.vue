@@ -12,7 +12,7 @@
                             <form class="row g-3 justify-content-center" @submit.prevent="addBook">
 
                                 <div class="col-9 form-floating">
-                                    <input :class="emailWarning" type="email" class="form-control input-modal" id="loginEmail" aria-describedby="emailHelp" v-model="email" placeholder="name@example.com">
+                                    <input :class="emailWarning" type="email" class="form-control input-modal green" id="loginEmail" aria-describedby="emailHelp" v-model="email" placeholder="name@example.com">
                                     <label for="loginEmail">Adres email</label>
                                     <small v-show="wrongEmailAlertVisible" id="emailHelpBlock" class="form-text text-danger">
                                         Błędny adres email.
@@ -23,7 +23,7 @@
                                 </div>
 
                                 <div class="col-9 form-floating">
-                                    <input :class="passwordWarning"  type="password" class="form-control input-modal" id="txtPassword" v-model="pass" placeholder="password">
+                                    <input :class="passwordWarning"  type="password" class="form-control input-modal green" id="txtPassword" v-model="pass" placeholder="password">
                                     <label for="txtPassword" required>Hasło</label>
                                     <small v-show="wrongPasswordAlertVisible" id="passwordHelpBlock" class="form-text text-danger">
                                         Hasło jest nieprawidłowe.
@@ -95,5 +95,7 @@
 .modal-dialog {
   margin-top: 10%;
 }
-
+.container {
+  margin: 30px 0px 20px 0px;
+}
 </style>

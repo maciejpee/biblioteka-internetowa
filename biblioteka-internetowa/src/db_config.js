@@ -9,8 +9,8 @@ const firebaseConfig = {
     measurementId: "G-2NQPM7PP0B"
   };
 
-/*
-const firebaseConfig = {
+
+const firebaseConfig2 = {
   apiKey: "AIzaSyDOUi5NX9Q1WaKwIpne0pS3a86rreiShdg",
   authDomain: "biblioteka-internetowa-awaria.firebaseapp.com",
   projectId: "biblioteka-internetowa-awaria",
@@ -18,9 +18,9 @@ const firebaseConfig = {
   messagingSenderId: "1077684950551",
   appId: "1:1077684950551:web:88c82e462f15dd6fd66e52"
 };
-*/
+
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig2);
 
 
 // Initialize Cloud Firestore and get a reference to the service

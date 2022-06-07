@@ -2,8 +2,12 @@
 <div>
     <h4 class="profile-title-list">Twoje wypożyczone książki:</h4>
     <div class="row" v-for="book of borrowedBooks" :key="book.id" id='book'>
+        <div class="col-md-11">
             <BorrowedBook :borrowDate="book.borrowDate" :returnDate="book.returnDate" :bookId="book.bookId"/>
+        </div>
+        <div class="col-md-1">
             <button class="btn btn-success shadow-none" @click="returnBook(book.bookId)">Zwróć</button>
+        </div>
             <hr class="list">
     </div>
 
@@ -142,22 +146,8 @@
                                     // bo jest zalezna od tego czy user ma w borrowed dana ksiazke
                                             borrowed: firebase.firestore.FieldValue.arrayUnion({bookId:bookId, borrowDate:borrowDate, returnDate:returnDate})  
                                 })
-                                    db.collection('users').doc(b).get().then((doc)=>{
-                                        waitingBooks.value = [] 
-                                        for (let w of doc.data().waiting){ 
-                                            if (w == bookId){ 
-                                                continue
-                                            }
-                                        var data = {
-                                            bookId: b.bookId,
-                                            borrowDate: b.borrowDate,
-                                            returnDate: b.returnDate
-                                        }
-                                        waitingBooks.value.push(data)
-                                    }}).then(()=>{ 
-                                            db.collection('users').doc(b).update({
-                                                waiting: waitingBooks.value,
-                                            })
+                                    db.collection('users').doc(b).update({
+                                        waiting: firebase.firestore.FieldValue.arrayRemove(bookId)
                                         })
                                 })
                                 // koniec jungli jak cos nie jasne to na grupce pytajcie

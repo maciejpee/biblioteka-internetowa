@@ -1,6 +1,8 @@
 <template>
   <div class="container">
-    <h3 class="title">Aktualności</h3><hr>
+    <h3 class="title">Aktualności</h3>
+    <hr class="hr-title">
+
     <div v-for="n of news" :key="n.id">
       <div id="newsCard">
         <h3 id="newsTitle">{{ n.title }}</h3>
@@ -49,13 +51,20 @@ export default {
 </script>
 
 <style scoped>
+
+.container {
+  margin-top: 70px;
+  padding: 25px;
+  background-color: #ffffff;
+}
+
 #newsCard {
   width: 100%;
   background-color: #ffffff;
   border: 0;
   margin-bottom: 35px;
   border-radius: 3px;
-  padding: 20px 25px 20px 25px;
+  padding: 30px 35px 30px 35px;
 }
 
 #tags {
@@ -64,7 +73,7 @@ export default {
 }
 
 #newsTitle {
-  margin-top: 10px;
+  margin-top: 15px;
   letter-spacing: 1px;
   font-weight: 650;
   font-size: 18px;
@@ -80,5 +89,10 @@ export default {
   margin-top: 16px;
   text-align: justify;
 }
-
+hr {
+  width:97%;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom:25px;
+}
 </style>

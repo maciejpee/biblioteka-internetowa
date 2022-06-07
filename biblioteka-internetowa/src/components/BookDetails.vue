@@ -14,7 +14,7 @@
             <img class="icon" v-if="!fav" src="/heart.png" width="50" height="50" style="cursor: pointer;" @click="addToFavourites"/>
           </div>
         </div>
-        <h3><router-link :to="{ name : 'Search', params:{sv: bookDetails.author}}">{{ bookDetails.author }}</router-link></h3><hr>
+        <h3 class="betterLink" ><router-link :to="{ name : 'Search', params:{sv: bookDetails.author}}">{{ bookDetails.author }}</router-link></h3><hr>
         <table class="table">
           <tbody>
             <tr v-if="bookDetails.original_title">
@@ -148,6 +148,8 @@
 </script>
 
 <style>
+  /*@import "../../node_modules/rfs/scss";*/
+
   img.cover {
     width: 100%;
     height: auto;
@@ -171,5 +173,10 @@
     text-decoration: none;
     color: black;
     font-weight: bold;
+  }
+
+  .betterLink a{
+    text-decoration: none;
+    cursor: pointer;
   }
 </style>

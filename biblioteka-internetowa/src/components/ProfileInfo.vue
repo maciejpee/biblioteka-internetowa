@@ -9,12 +9,12 @@
                     <img @click="editInfo = true" class="icon" src="/edit.png" width="28" height="28" style="cursor: pointer;">
                 </div>
             </div>
-            <text class="profile-info">Nick:</text> <text>{{ profile.user_name }}</text><br/>
-            <text class="profile-info">Imię: </text> <text>{{ profile.name }}</text><br/>
-            <text class="profile-info">Nazwisko: </text> <text>{{ profile.surname }}</text><br/>
-            <text class="profile-info">Numer telefonu: </text> <text>{{ profile.phone }}</text><br/>
-            <text class="profile-info">Opis:</text><br/>
-            <text>{{ profile.desc }}</text>
+            <p class="profile-info"><b>Nick:</b> {{ profile.user_name }}</p>
+            <p class="profile-info"><b>Imię:</b>  {{ profile.name }}</p>
+            <p class="profile-info"><b>Nazwisko:</b> {{ profile.surname }}</p>
+            <p class="profile-info"><b>Numer telefonu:</b> {{ profile.phone }}</p>
+            <p class="profile-info"><b>Opis:</b></p>
+            <p class="profile-info">{{ profile.desc }}</p>
         </div>
         <div v-if="editInfo">
             <div class="row">
@@ -28,10 +28,10 @@
             <form>
                 <div class="row">
                     <div class="col-md-2">
-                        <label for="inputLogin" class="profile-info">Nick: </label>
+                        <label for="inputLogin" class="profile-info"><b>Nick: </b></label>
                     </div>
                     <div class="col-md-3">
-                        <input type="text" class="form-control" id="inputLogin" v-model="profile.user_name" :class="loginWarning">
+                        <input type="text" class="form-control edit green" id="inputLogin" v-model="profile.user_name" :class="loginWarning">
                     </div>
                     <div class="col-md-3">
                         <small v-show="loginAlertVisible" id="loginHelpBlock" class="form-text text-danger">
@@ -42,10 +42,10 @@
 
                 <div class="row">
                     <div class="col-md-2">
-                        <label for="inputName" class="profile-info">Imię: </label>
+                        <label for="inputName" class="profile-info"><b>Imię: </b></label>
                     </div>
                     <div class="col-md-3">
-                        <input type="text" class="form-control" id="inputName" v-model="profile.name" :class="nameWarning">
+                        <input type="text" class="form-control edit green" id="inputName" v-model="profile.name" :class="nameWarning">
                     </div>
                     <div class="col-md-3">
                         <small v-show="nameAlertVisible" id="nameHelpBlock" class="form-text text-danger">
@@ -56,10 +56,10 @@
 
                 <div class="row">
                     <div class="col-md-2">
-                        <label for="inputSurname" class="profile-info">Nazwisko: </label>
+                        <label for="inputSurname" class="profile-info"><b>Nazwisko: </b></label>
                     </div>
                     <div class="col-md-3">
-                        <input type="text" class="form-control" id="inputSurname" v-model="profile.surname" :class="surnameWarning">
+                        <input type="text" class="form-control edit green" id="inputSurname" v-model="profile.surname" :class="surnameWarning">
                     </div>
                     <div class="col-md-3">
                         <small v-show="surnameAlertVisible" id="surnameHelpBlock" class="form-text text-danger">
@@ -70,10 +70,10 @@
 
                 <div class="row">
                     <div class="col-md-2">
-                        <label for="inputPhone" class="profile-info">Numer telefonu: </label>
+                        <label for="inputPhone" class="profile-info"><b>Numer telefonu: </b></label>
                     </div>
                     <div class="col-md-3">
-                        <input type="text" class="form-control" id="inputPhone" v-model="profile.phone" :class="phoneWarning">
+                        <input type="text" class="form-control edit green" id="inputPhone" v-model="profile.phone" :class="phoneWarning">
                     </div>
                     <div class="col-md-3">
                         <small v-show="phoneAlertVisible" id="phoneHelpBlock" class="form-text text-danger">
@@ -81,8 +81,11 @@
                         </small>
                     </div>
                 </div>
-                <label for="inputDesc" class="profile-info field">Opis: </label>
-                <textarea class="form-control" id="inputDesc" rows="2" v-model="profile.desc" :class="descWarning"></textarea>
+
+                <label for="inputDesc" class="profile-info"><b>Opis: </b></label>
+                <div class="col-md-11">
+                    <textarea class="form-control desc green" id="inputDesc" rows="3" v-model="profile.desc" :class="descWarning"></textarea>
+                </div>
                 <small v-show="descAlertVisible" id="descHelpBlock" class="form-text text-danger">
                     Opis nie może mieć więcej niż 200 znaków.
                 </small>
@@ -94,9 +97,9 @@
 
         <div>
             <h4 class="profile-title">Stan konta</h4>
-            <text class="profile-info">Wypożyczone: </text><text v-if="firestore">{{ profile.borrowed.length }}</text><br/>
-            <text class="profile-info">Oczekujące: </text><br/>
-            <text class="profile-info">Zaległości: </text><text>{{ profile.arrears }} zł</text><br/>
+            <p v-if="firestore" class="profile-info"><b>Wypożyczone: </b>{{ profile.borrowed.length }}</p>
+            <p class="profile-info"><b>Oczekujące: </b></p>
+            <p class="profile-info"><b>Zaległości: </b>{{ profile.arrears }} zł</p>
             <button class="btn btn-success shadow-none" @click="payArreras">Ureguluj opłaty</button>
         </div>
     </div>
@@ -320,7 +323,6 @@
 
 <style scoped>
 .profile-info {
-    font-weight: bold;
     margin-top: 10px;
     margin-left: 20px;
 }
@@ -337,5 +339,12 @@ hr {
     margin-top: 20px;
     margin-left: 20px;
 }
-
+textarea.desc {
+    margin-left: 20px;
+    margin-top: 15px;
+}
+input.edit {
+    margin: 4px 0px 4px 0px;
+    padding: 6px 10px 6px 10px;
+}
 </style>

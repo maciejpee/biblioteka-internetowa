@@ -12,7 +12,7 @@
                             <form class="row g-3 justify-content-center">
 
                                 <div class="col-9 form-floating">
-                                    <input type="text" class="form-control" :class="loginWarning" id="txtLogin" aria-describedby="emailHelp" placeholder="Podaj nick"  v-model="login">
+                                    <input type="text" class="form-control green" :class="loginWarning" id="txtLogin" aria-describedby="emailHelp" placeholder="Podaj nick"  v-model="login">
                                     <label for="inputLogin">Twój nick</label>
                                     <small v-show="loginAlertVisible" id="loginHelpBlock" class="form-text text-danger">
                                         Nick powinien mieć co najmniej 5 znaków.
@@ -20,7 +20,7 @@
                                 </div>
 
                                 <div class="col-9 form-floating">
-                                    <input type="email" class="form-control" :class="emailWarning" id="txtEmail" aria-describedby="emailHelp" placeholder="Podaj email" v-model="email">
+                                    <input type="email" class="form-control green" :class="emailWarning" id="txtEmail" aria-describedby="emailHelp" placeholder="Podaj email" v-model="email">
                                     <label for="exampleInputEmail1">Adres email</label>
                                     <small v-show="emailAlertVisible" id="emailHelpBlock" class="form-text text-danger">
                                         Niepoprawny adres email.
@@ -28,7 +28,7 @@
                                 </div>
 
                                 <div class="col-9 form-floating">
-                                    <input type="password" class="form-control" :class="password1Warning" id="txtPassword" placeholder="Podaj hasło" v-model="password1">
+                                    <input type="password" class="form-control green" :class="password1Warning" id="txtPassword" placeholder="Podaj hasło" v-model="password1">
                                     <label for="exampleInputPassword1" minlength="8" >Hasło</label>
                                     <small v-show="passwordLengthlAlertVisible" id="passwordHelpBlock" class="form-text text-danger">
                                         Hasło powinno mieć co najmniej 6 znaków.
@@ -36,7 +36,7 @@
                                 </div>
 
                                 <div class="col-9 form-floating">
-                                    <input type="password" class="form-control" :class="password2Warning" id="txtPassword2" placeholder="Powtórz hasło" v-model="password2">
+                                    <input type="password" class="form-control green" :class="password2Warning" id="txtPassword2" placeholder="Powtórz hasło" v-model="password2">
                                     <label for="exampleInputPassword2" minlength="8" >Powtórz hasło</label>
                                     <small v-show="passwordDifferencelAlertVisible" id="passwordHelpBlock" class="form-text text-danger">
                                         Hasła różnią się.
@@ -128,5 +128,7 @@
 .modal-dialog {
   margin-top: 5%;
 }
-
+.container {
+  margin: 25px 0px 15px 0px;
+}
 </style>

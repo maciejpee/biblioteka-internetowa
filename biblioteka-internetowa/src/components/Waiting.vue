@@ -5,10 +5,12 @@
             <div class="col-md-3">
                 <img :src="w.cover" class="cover-list" />
             </div>
-            <div class="col-md-9">
+            <div class="col-md-7">
                 <p class="title-link"><router-link :to="{ name : 'Details', params:{bookId: w.id}}">{{ w.title }}</router-link></p>
                 <p class="author-list">{{w.author}}</p>
                 <p v-if="w.series">{{w.series}} Tom {{w.volume}}</p>
+            </div>
+            <div class="col-md-2">
                 <button class="btn btn-success shadow-none" @click="leaveQueue(w.id)">Wyjdź z kolejki</button>
             </div>
         </div>  
@@ -43,7 +45,10 @@
         db.collection('users').doc(props.userId).update({
                 waiting: firebase.firestore.FieldValue.arrayRemove(bookId)
             })
-
+            
+        let bookIndex = waitingBooks.value.indexOf(bookId)
+        waitingBooks.value.splice(bookIndex, 1)
+        
         db.collection('books').doc(bookId).update({
                 queue: firebase.firestore.FieldValue.arrayRemove(props.userId)
             })
@@ -53,7 +58,7 @@
 
 <style scoped>
 a:link, a:visited{
-	text-decoration: underline;
+	text-decoration: none;
 	color: #0f7c05;
     font-weight: 600;
 }

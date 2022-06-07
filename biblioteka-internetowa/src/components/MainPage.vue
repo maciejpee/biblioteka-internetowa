@@ -11,8 +11,8 @@
     import { ref } from 'vue'
     import GenreBooks from './GenreBooks.vue'
     import NewBooks from './NewBooks.vue'
-
-    const genres = ref(['fantasy', 'thriller', 'literatura piękna'])
+    //['kryminał', 'fantasy', 'thriller', 'literatura piękna', 'science fiction', 'sensacja', 'pamiętniki', 'biografia', 'autobiografia', 'klasyka', 'popularnonaukowa', 'horror', 'komedia', 'dramat', 'tragedia', 'literatura młodzieżowa']
+    const genres = ref([])
 
 </script>
 

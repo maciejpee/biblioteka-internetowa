@@ -2,12 +2,13 @@
     <div class="mainDiv">
         <div class="container">
             <h3 class="title">Dodaj post</h3>
+            <hr class="hr-title">
             <form class="row g-3 justify-content-md-center" @submit.prevent="addPost">
 
                 <div class="col-md-1"></div>
                 <div class="col-md-10">
                     <label for="inputTitle" class="form-label" >Tytuł</label>
-                    <input type="text" class="form-control add" id="inputTitle" v-model="title" :class="titleWarning">
+                    <input type="text" class="form-control green" id="inputTitle" v-model="title" :class="titleWarning">
                     <small v-show="titleAlertVisible" id="titleHelpBlock" class="form-text text-danger">
                     Tytuł powinien mieć co najmniej 10 znaków.
                     </small>
@@ -17,7 +18,7 @@
                 <div class="col-md-1"></div>
                 <div class="col-md-10">
                     <label for="inputContent" class="form-label">Treść</label>
-                    <textarea class="form-control add" id="inputContent" rows="8" v-model="content" :class="contentWarning"></textarea>
+                    <textarea class="form-control green" id="inputContent" rows="8" v-model="content" :class="contentWarning"></textarea>
                     <small v-show="contentAlertVisible" id="contentHelpBlock" class="form-text text-danger">
                     Treść powinina zawierać co najmniej 50 znaków.
                     </small>
@@ -27,14 +28,14 @@
                 <div class="col-md-1"></div>
                 <div class="col-md-5">
                     <label for="inputAbout" class="form-label">Opis</label>
-                    <input type="text" class="form-control add" id="inputAbout" v-model="about" :class="aboutWarning">
+                    <input type="text" class="form-control green" id="inputAbout" v-model="about" :class="aboutWarning">
                     <small v-show="aboutAlertVisible" id="aboutHelpBlock" class="form-text text-danger">
                     Opis powinien mieć co najmniej 10 znaków (data dodawana jest od razu).
                     </small>
                 </div>
                 <div class="col-md-5">
                     <label for="inputTags" class="form-label">Tagi</label>
-                    <input type="text" class="form-control add" id="inputTags" v-model="tags" :class="tagsWarning">
+                    <input type="text" class="form-control green" id="inputTags" v-model="tags" :class="tagsWarning">
                     <small v-show="tagsAlertVisible" id="tagsHelpBlock" class="form-text text-danger">
                     Należy podać conajmniej 1 tag.
                     </small>

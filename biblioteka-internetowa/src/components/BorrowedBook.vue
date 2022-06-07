@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <div class="col-3">
+        <div class="col-md-3">
             <img :src="bookDetails.cover" class="cover-list" />
         </div>
         <div class="col-md-8">
@@ -42,7 +42,7 @@
 
 <style scoped>
 a:link, a:visited{
-	text-decoration: underline;
+	text-decoration: none;
 	color: #0f7c05;
     font-weight: 600;
 }

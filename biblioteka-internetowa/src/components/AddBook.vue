@@ -2,12 +2,13 @@
     <div class="mainDiv">
         <div class="container">
             <h3 class="title">Dodaj książkę</h3>
+            <hr class="hr-title">
             <form class="row g-3 justify-content-md-center" @submit.prevent="addBook">
 
                 <div class="col-md-1"></div>
                 <div class="col-md-5">
                     <label for="inputTitle" class="form-label">Tytuł</label>
-                    <input type="text" class="form-control add" id="inputTitle" v-model="title" :class="titleWarning">
+                    <input type="text" class="form-control green" id="inputTitle" v-model="title" :class="titleWarning">
                     <small v-show="titleAlertVisible" id="titleHelpBlock" class="form-text text-danger">
                     Tytuł nie może być pusty.
                     </small>
@@ -16,7 +17,7 @@
                 
                 <div class="col-md-4">
                     <label for="inputAuthor" class="form-label">Autor</label>
-                    <input type="text" class="form-control add" id="inputAuthor" v-model="author" :class="authorWarning">
+                    <input type="text" class="form-control green" id="inputAuthor" v-model="author" :class="authorWarning">
                     <small v-show="authorAlertVisible" id="authorHelpBlock" class="form-text text-danger">
                     Autor nie może być pusty.
                     </small>
@@ -26,7 +27,7 @@
                 <div class="col-md-1"></div>
                 <div class="col-md-5">
                     <label for="inputOriginalTitle" class="form-label">Tytuł oryginału</label>
-                    <input type="text" class="form-control add" id="inputOriginalTitle" v-model="originalTitle" :class="originalTitleWarning">
+                    <input type="text" class="form-control green" id="inputOriginalTitle" v-model="originalTitle" :class="originalTitleWarning">
                     <small v-show="originalTitleAlertVisible" id="originalTitleHelpBlock" class="form-text text-danger">
                     Tytuł oryginału nie może być pusty.
                     </small>
@@ -35,7 +36,7 @@
 
                 <div class="col-md-4">
                     <label for="inputTranslation" class="form-label">Tłumaczenie</label>
-                    <input type="text" class="form-control add" id="inputTranslation" v-model="translation" :class="translationWarning">
+                    <input type="text" class="form-control green" id="inputTranslation" v-model="translation" :class="translationWarning">
                     <small v-show="translationAlertVisible" id="translationHelpBlock" class="form-text text-danger">
                     Pole tłumaczenia nie może być puste.
                     </small>
@@ -45,7 +46,7 @@
                 <div class="col-md-1"></div>
                 <div class="col-md-5">
                     <label for="inputSeries" class="form-label">Cykl</label>
-                    <input type="text" class="form-control add" id="inputSeries" v-model="series" :class="seriesWarning">
+                    <input type="text" class="form-control green" id="inputSeries" v-model="series" :class="seriesWarning">
                     <small v-show="seriesAlertVisible" id="cycleHelpBlock" class="form-text text-danger">
                     Cykl nie może być pusty.
                     </small>
@@ -54,14 +55,14 @@
                 <div class="col-md-1"></div>
                 <div class="col-md-2">
                     <label for="inputVolume" class="form-label">Numer tomu</label>
-                    <input type="number" class="form-control add" id="inputVolume" v-model="volume" :class="volumeWarning">
+                    <input type="number" class="form-control green" id="inputVolume" v-model="volume" :class="volumeWarning">
                     <small v-show="volumeAlertVisible" id="tomeHelpBlock" class="form-text text-danger">
                     Numer tomu nie może być pusty.
                     </small>
                 </div>
                 <div class="col-md-2">
                     <label for="inputPages" class="form-label">Ilość stron</label>
-                    <input type="number" class="form-control add" id="inputPages" v-model="pageCount" :class="pageWarning">
+                    <input type="number" class="form-control green" id="inputPages" v-model="pageCount" :class="pageWarning">
                     <small v-show="pageAlertVisible" id="pageHelpBlock" class="form-text text-danger">
                     Ilość stron nie może być pusta.
                     </small>
@@ -71,7 +72,7 @@
                 <div class="col-md-1"></div>
                 <div class="col-md-5">
                     <label for="inputPublishing" class="form-label">Wydawnictwo</label>
-                    <input type="text" class="form-control add" id="inputPublishing" v-model="publishing" :class="publishingWarning">
+                    <input type="text" class="form-control green" id="inputPublishing" v-model="publishing" :class="publishingWarning">
                     <small v-show="publishingAlertVisible" id="publishingHelpBlock" class="form-text text-danger">
                     Wydawca nie może być pusty.
                     </small>
@@ -80,14 +81,14 @@
                 <div class="col-md-1"></div>
                 <div class="col-md-2">
                     <label for="inputRelease" class="form-label">Rok wydania</label>
-                    <input type="number" class="form-control add" id="inputRelease" v-model="releaseYear" :class="releaseYearWarning">
+                    <input type="number" class="form-control green" id="inputRelease" v-model="releaseYear" :class="releaseYearWarning">
                     <small v-show="releaseYearAlertVisible" id="releaseYearHelpBlock" class="form-text text-danger">
                     Rok wydania nie może być pusty.
                     </small>
                 </div>
                 <div class="col-md-2">
                     <label for="inputCopies" class="form-label">Ilość egzemplarzy</label>
-                    <input type="number" class="form-control add" id="inputCopies" v-model="copies" :class="copiesWarning">
+                    <input type="number" class="form-control green" id="inputCopies" v-model="copies" :class="copiesWarning">
                     <small v-show="copiesAlertVisible" id="copiesHelpBlock" class="form-text text-danger">
                     Ilość egzemplarzy nie może być pusta.
                     </small>
@@ -97,7 +98,7 @@
                 <div class="col-md-1"></div>
                 <div class="col-md-5">
                     <label for="inputGenre" class="form-label">Gatunki</label>
-                    <input type="text" class="form-control add" id="inputGenre" v-model="genre" :class="genreWarning">
+                    <input type="text" class="form-control green" id="inputGenre" v-model="genre" :class="genreWarning">
                     <small v-show="genreAlertVisible" id="genreHelpBlock" class="form-text text-danger">
                     Gatunek nie może być pusty.
                     </small>
@@ -106,7 +107,7 @@
                 <div class="col-md-1"></div>
                 <div class="col-md-4">
                     <label for="inputIsbn" class="form-label">ISBN</label>
-                    <input type="text" class="form-control add" id="inputIsbn" v-model="isbn" :class="isbnWarning">
+                    <input type="text" class="form-control green" id="inputIsbn" v-model="isbn" :class="isbnWarning">
                     <small v-show="isbnAlertVisible" id="isbnHelpBlock" class="form-text text-danger">
                     Numer ISBN nie może być pusty.
                     </small>
@@ -115,8 +116,8 @@
 
                 <div class="col-md-1"></div>
                 <div class="col-md-10">
-                    <label for="inputDesc" class="form-label field">Opis</label>
-                    <textarea class="form-control add" id="inputDesc" rows="8" v-model="desc" :class="descWarning"></textarea>
+                    <label for="inputDesc" class="form-label">Opis</label>
+                    <textarea class="form-control green" id="inputDesc" rows="8" v-model="desc" :class="descWarning"></textarea>
                     <small v-show="descAlertVisible" id="descHelpBlock" class="form-text text-danger">
                     Opis nie może być pusty.
                     </small>
@@ -125,8 +126,8 @@
 
                 <div class="col-md-1"></div>
                 <div class="col-md-10">
-                    <label for="formFile" class="form-label field">Okładka</label>
-                    <input class="form-control add" type="file" id="formFile" @change="handleFileUpload( $event )" :class="coverWarning">
+                    <label for="formFile" class="form-label">Okładka</label>
+                    <input class="form-control green" type="file" id="formFile" @change="handleFileUpload( $event )" :class="coverWarning">
                     <small v-show="coverAlertVisible" id="coverHelpBlock" class="form-text text-danger">
                     Okładka nie może być pusta.
                     </small>
@@ -391,7 +392,7 @@
     padding-top: 0px;
     padding-bottom: 30px;
 }
-h3.title {
-    margin-bottom: 70px;
+hr.hr-title {
+    margin-bottom:45px;
 }
 </style>

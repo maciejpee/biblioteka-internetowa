@@ -19,25 +19,20 @@
     import { ref, onMounted } from 'vue'
 
     const newBooks = ref([])
-    const year = ref(2022)
 
     onMounted(() => {
-        db.collection('books').get().then((snapshot) => {
-            snapshot.docs.forEach(doc => {
-                if (doc.data().release_year == year.value) {
-                    if (newBooks.value.length <= 5) {
-                        const data = {
-                    'id': doc.id,
-                    'title': doc.data().title,
-                    'author': doc.data().author,
-                    'cover': doc.data().cover,
-                    }
-                    newBooks.value.push(data)
-                    }
-                }
-            })
+      db.collection('books').where("release_year", "==", 2022).limit(6).get().then((snapshot) => {
+        snapshot.docs.forEach(doc => {
+          var data = {
+            'id': doc.id,
+            'title': doc.data().title,
+            'author': doc.data().author,
+            'cover': doc.data().cover,
+          }
+          newBooks.value.push(data)
         })
-        console.log(newBooks.value)
+        console.log(newBooks.value.length)
+      })
     })
 
 </script>

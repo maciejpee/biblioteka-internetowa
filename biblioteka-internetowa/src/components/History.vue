@@ -56,7 +56,7 @@
 
 <style scoped>
 a:link, a:visited{
-	text-decoration: underline;
+	text-decoration: none;
 	color: #0f7c05;
     font-weight: 600;
 }

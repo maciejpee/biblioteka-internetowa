@@ -1,7 +1,8 @@
 <template>
-  <Navbar/>
-  <router-view></router-view>
-
+  <div>
+    <Navbar/>
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
@@ -81,11 +82,7 @@ img.cover-small {
 /*  */
 
 /* modal */
-input.input-modal {
-  padding: 7px;
-  border-radius: 6px;
-  margin-bottom: 10px;
-}
+
 
 /* forms */
 .form-label {
@@ -117,9 +114,6 @@ img.cover-list {
     width: 65%;
     height: auto;
     margin-left: 20px;
-  }
-a.title-link {
-    font-size: 18px;
 }
 p.author-list {
   font-size: 15px;
@@ -142,40 +136,47 @@ hr.list {
 }
 
 /* forms */
-input.add, textarea.add {
+input.green, textarea.green {
   padding: 8px;
   border-radius: 6px;
   margin-bottom: 10px;
-  border: 1px solid rgb(94, 95, 93);
+  border: 1px solid rgb(148, 166, 124);
   -webkit-transition: all 0.15s ease-out;
   -moz-transition: all 0.1s ease-out;
   -ms-transition: all 0.1s ease-out;
   -o-transition: all 0.1s ease-out; 
   transition: all 0.1s ease-out;
 } 
-input.add:focus,textarea.add:focus {
-  border: 1px solid rgba(61, 148, 26, 0.74);
+input.green:focus,textarea.green:focus {
+  border: 1px solid rgba(69, 171, 29, 0.453);
   border-radius: 6px;
   outline: 2px ridge rgba(96, 236, 41, 0.573);
   -webkit-box-shadow: none;
+  box-shadow: none;
 }
-
-/* ??? */
-.container {
-  margin-top: 70px;
-  padding: 25px;
-  background-color: #ffffff;
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px rgba(182, 221, 162, 0.13) inset !important;
+    box-shadow: none;
 }
 
 /* titles and text */
 h3.title {
-  font-weight: 800;
+  font-weight: 700;
   font-size: 28px;
   letter-spacing: 1.2px;
   text-align: center;
   margin-bottom: 30px;
-  margin-top: 20px;
+  margin-top: 24px;
   color: #106e07;
+}
+hr.hr-title {
+  width:27%;
+  margin: auto;
+  margin-top:-5px;
+  margin-bottom:25px;
 }
 
 </style>

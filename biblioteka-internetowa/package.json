@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "firebase": "^9.7.0",
+    "rfs": "^9.0.6",
     "vue": "^3.2.25",
     "vue-router": "^4.0.14"
   },
