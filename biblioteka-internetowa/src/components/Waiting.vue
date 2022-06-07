@@ -1,15 +1,15 @@
 <template>
     <div>
-        <h4 class="profile-title">Twoje oczekujące książki:</h4>
+        <h4 class="profile-title-list">Twoje oczekujące książki:</h4>
         <div class="row" v-for="w of waitingBooks">
-            <div class="col-md-2">
-                <img :src="w.cover" class="cover" />
+            <div class="col-md-3">
+                <img :src="w.cover" class="cover-list" />
             </div>
-            <div class="col-md-8">
-                <p><router-link :to="{ name : 'Details', params:{bookId: w.id}}">{{ w.title }}</router-link></p>
-                <p>{{w.author}}</p>
+            <div class="col-md-9">
+                <p class="title-link"><router-link :to="{ name : 'Details', params:{bookId: w.id}}">{{ w.title }}</router-link></p>
+                <p class="author-list">{{w.author}}</p>
                 <p v-if="w.series">{{w.series}} Tom {{w.volume}}</p>
-                <button @click="leaveQueue(w.id)">Wyjdź z kolejki</button>
+                <button class="btn btn-success shadow-none" @click="leaveQueue(w.id)">Wyjdź z kolejki</button>
             </div>
         </div>  
     </div>
@@ -51,3 +51,13 @@
    
 </script>
 
+<style scoped>
+a:link, a:visited{
+	text-decoration: underline;
+	color: #0f7c05;
+    font-weight: 600;
+}
+a:hover, a:active{
+  color: #0e6406;
+}
+</style>

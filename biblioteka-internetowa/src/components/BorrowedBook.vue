@@ -1,14 +1,14 @@
 <template>
     <div class="row">
         <div class="col-3">
-            <img :src="bookDetails.cover" class="cover" />
+            <img :src="bookDetails.cover" class="cover-list" />
         </div>
         <div class="col-md-8">
             <p><router-link :to="{ name : 'Details', params:{bookId: props.bookId}}">{{ bookDetails.title }}</router-link></p>
-            <p>{{bookDetails.author}}</p>
-            <p v-if="bookDetails.series">{{bookDetails.series}} Tom {{bookDetails.volume}}</p>
-            <p>Wypożyczono: {{getRealDate(props.borrowDate.seconds)}}</p>
-            <p>Oczekiwany zwrot: {{getRealDate(props.returnDate.seconds)}}</p>
+            <p class="author-list">{{bookDetails.author}}</p>
+            <p v-if="bookDetails.series" class="title-link">{{bookDetails.series}} Tom {{bookDetails.volume}}</p>
+            <p class="info-list">Wypożyczono: {{getRealDate(props.borrowDate.seconds)}}</p>
+            <p class="info-list">Oczekiwany zwrot: {{getRealDate(props.returnDate.seconds)}}</p>
         </div>
         
     </div>
@@ -40,9 +40,13 @@
     }
 </script>
 
-<style>
-img.cover {
-    width: 80%;
-    height: auto;
-  }
+<style scoped>
+a:link, a:visited{
+	text-decoration: underline;
+	color: #0f7c05;
+    font-weight: 600;
+}
+a:hover, a:active{
+  color: #0e6406;
+}
 </style>

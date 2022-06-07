@@ -1,18 +1,20 @@
 <template>
-    <h4 class="profile-title">Historia wypożyczeń:</h4>
-    <div class="row" v-for="h of history">
-        <div class="col-md-2">
-            <img :src="h.cover" class="cover" />
-        </div>
-        <div class="col-md-8">
-            <p><router-link :to="{ name : 'Details', params:{bookId: h.id}}">{{ h.title }}</router-link></p>
-            <p>{{h.author}}</p>
-            <p v-if="h.series">{{h.series}} Tom {{h.volume}}</p>
-            <p>Wypożyczono: {{getRealDate(h.borrowDate.seconds)}}</p>
-            <p>Zwrócono: {{getRealDate(h.returnedDate.seconds)}}</p>
+    <div>
+        <h4 class="profile-title-list">Historia wypożyczeń:</h4>
+        <div class="row" v-for="h of history">
+            <div class="col-md-3">
+                <img :src="h.cover" class="cover-list" />
+            </div>
+            <div class="col-md-9">
+                <p class="title-link"><router-link :to="{ name : 'Details', params:{bookId: h.id}}">{{ h.title }}</router-link></p>
+                <p class="author-list">{{h.author}}</p>
+                <p v-if="h.series" class="info-list">{{h.series}} Tom {{h.volume}}</p>
+                <p class="info-list">Wypożyczono: {{getRealDate(h.borrowDate.seconds)}}</p>
+                <p class="info-list">Zwrócono: {{getRealDate(h.returnedDate.seconds)}}</p>
+            </div>
+            <hr class="list">
         </div>
     </div>
-
 </template>
 
 <script setup>
@@ -51,3 +53,14 @@
       return day + '/' + month + '/' + realDate.getFullYear()
     }
 </script>
+
+<style scoped>
+a:link, a:visited{
+	text-decoration: underline;
+	color: #0f7c05;
+    font-weight: 600;
+}
+a:hover, a:active{
+  color: #0e6406;
+}
+</style>

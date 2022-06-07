@@ -50,7 +50,7 @@ img.cover-small {
   }
 .card {
 	background: #ffffff;
-	border: 0;
+	border: 1;
 	border-radius: 8px 8px 8px 8px;
   padding: 20px 8px 5px 8px;
 }
@@ -104,7 +104,33 @@ input.input-modal {
     letter-spacing: 0.5;
 }
 .profile-title-list {
+    font-weight: 700;
+    margin-top: 10px;
     margin-bottom: 40px;
+    margin-left: 20px;
+    color: #0f7c05;
+    letter-spacing: 0.5;
+}
+
+/* profile book list */
+img.cover-list {
+    width: 65%;
+    height: auto;
+    margin-left: 20px;
+  }
+a.title-link {
+    font-size: 18px;
+}
+p.author-list {
+  font-size: 15px;
+  opacity: 0.9;
+}
+hr.list {
+    margin: 50px 0px 40px 0px;
+}
+.info-list {
+  font-size: 14px;
+  opacity: 0.7;
 }
 
 /* button */
@@ -114,5 +140,6 @@ input.input-modal {
 .btn-success:hover {
     background-color: #0e6406;
 }
+
 
 </style>

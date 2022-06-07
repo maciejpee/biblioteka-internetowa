@@ -6,8 +6,14 @@
           <router-link :to="{name:'Details', params:{bookId: b.id}}" custom v-slot="{ navigate }">
           <div class="card h-100" role="link" @click="navigate">
             <img :src=b.cover class="card-img cover-small">
-            <span class="card-title">{{ b.title }}</span>
-            <span class="card-subtitle">{{ b.author }}</span>
+            
+            <div class="card-body">
+              <text class="card-title">{{ b.title }}</text>
+            </div>
+        
+            <div class="card-footer">
+              <text class="card-subtitle">{{ b.author }}</text>
+            </div>
           </div>
           </router-link>
         </div>

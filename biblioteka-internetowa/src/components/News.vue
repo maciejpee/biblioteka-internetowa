@@ -61,7 +61,8 @@ export default {
   font-size: 28px;
   letter-spacing: 1.2px;
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
+  margin-top: 20px;
   color: #106e07;
 }
 

@@ -1,21 +1,18 @@
 <template>
-    <h4 class="profile-title-list">Twoje ulubione książki:</h4>
-    <div class="row" v-for="f of favs">
-
-        <!-- <div class="profile-book"> -->
+    <div>
+        <h4 class="profile-title-list">Twoje ulubione książki:</h4>
+        <div class="row" v-for="f of favs">
             <div class="col-md-3">
-                <img :src="f.cover" class="cover" />
+                <img :src="f.cover" class="cover-list" />
             </div>
             <div class="col-md-9">
-                <p><router-link :to="{ name : 'Details', params:{bookId: f.id}}">{{ f.title }}</router-link></p>
-                <p>{{f.author}}</p>
-                <p v-if="f.series">{{f.series}} Tom {{f.volume}}</p>
+                <p class="title-link"><router-link :to="{ name : 'Details', params:{bookId: f.id}}">{{ f.title }}</router-link></p>
+                <p class="author-list">{{f.author}}</p>
+                <p v-if="f.series" class="info-list">{{f.series}} Tom {{f.volume}}</p>
             </div>
-            <hr>
-        <!-- </div> -->
-
+            <hr class="list">
+        </div>
     </div>
-
 </template>
 
 <script setup>
@@ -43,22 +40,6 @@
 </script>
 
 <style scoped>
-img.cover {
-    width: 65%;
-    height: auto;
-    margin-left: 20px;
-  }
-a {
-    font-size: 18px;
-}
-p {
-  font-size: 15px;
-  opacity: 0.8;
-}
-hr {
-    margin: 50px 0px 40px 0px;
-}
-
 a:link, a:visited{
 	text-decoration: underline;
 	color: #0f7c05;
@@ -67,6 +48,4 @@ a:link, a:visited{
 a:hover, a:active{
   color: #0e6406;
 }
-
-
 </style>
