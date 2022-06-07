@@ -7,49 +7,50 @@
       <div class="col-8">
         <div class="row">
           <div class="col-10">
-            <h1>{{ bookDetails.title }}</h1>
+            <h2 >{{ bookDetails.title }}</h2>
           </div>
           <div class="col-2">
             <img class="icon" v-if="fav" src="/heartfull.png" width="50" height="50" style="cursor: pointer;" @click="addToFavourites"/>
             <img class="icon" v-if="!fav" src="/heart.png" width="50" height="50" style="cursor: pointer;" @click="addToFavourites"/>
           </div>
         </div>
-        <h3 class="betterLink" ><router-link :to="{ name : 'Search', params:{sv: bookDetails.author}}">{{ bookDetails.author }}</router-link></h3><hr>
+        <h4 class="green-link" ><router-link :to="{ name : 'Search', params:{sv: bookDetails.author}}">{{ bookDetails.author }}</router-link></h4>
         <table class="table">
           <tbody>
             <tr v-if="bookDetails.original_title">
-              <td>Tytuł oryginału: </td>
+              <td><text class="details-b">Tytuł oryginału: </text></td>
               <td>{{ bookDetails.original_title }}</td>
             </tr>
             <tr v-if="bookDetails.series">
-              <td>Cykl: </td>
+              <td><text class="details-b">Cykl: </text></td>
               <td>{{ bookDetails.series }} (tom {{ bookDetails.volume }})</td>
             </tr>
             <tr v-if="bookDetails.release_year">
-              <td>Rok wydania: </td>
+              <td><text class="details-b">Rok wydania: </text></td>
               <td>{{ bookDetails.release_year }}</td>
             </tr>
             <tr v-if="bookDetails.page_count">
-              <td>Liczba stron: </td>
+              <td><text class="details-b">Liczba stron: </text></td>
               <td>{{ bookDetails.page_count }}</td>
             </tr>
             <tr v-if="bookDetails.publishing">
-              <td>Wydawca: </td>
+              <td><text class="details-b">Wydawca: </text></td>
               <td>{{ bookDetails.publishing }}</td>
             </tr>
             <tr v-if="bookDetails.isbn">
-              <td>ISBN: </td>
+              <td><text class="details-b">ISBN: </text></td>
               <td>{{ bookDetails.isbn }}</td>
             </tr>
             <tr v-if="bookDetails.translation">
-              <td>Przekład: </td>
+              <td><text class="details-b">Przekład: </text></td>
               <td>{{ bookDetails.translation }}</td>
             </tr>
           </tbody>
         </table>
         <div class="tags">
+
           <div class="tag" v-for="genre of bookDetails.genre" :key="genre.id">
-            <button class="tag"><router-link :to="{ name : 'Search', params:{sv: genre}}">{{genre}}</router-link></button>
+            <button class="tag"><router-link :to="{ name : 'Search', params:{sv: genre.replace(/ +/g, '-')}}">{{genre}}</router-link></button>
           </div>
         </div>
       </div>
@@ -148,35 +149,39 @@
 </script>
 
 <style>
-  /*@import "../../node_modules/rfs/scss";*/
-
   img.cover {
-    width: 100%;
+    width: 90%;
     height: auto;
   }
-  
   .tags{
-    margin-left: 35%
-       
+    margin-left: 35%   
   }
-
   .tag button{
     float:left;
-    margin-left: 5pt;
-    border-radius: 9px;
-    background: #dee0d9d5;
-   
-    
+    margin-left: 12px;
+    border-radius: 6px;
+    background: #257c1dd5;
+    padding: 2px 8px 4px 8px;
+    border-color: #1c9411d5;
   }
-
   .tag a{
     text-decoration: none;
-    color: black;
-    font-weight: bold;
+    color: #ffffff;
   }
 
-  .betterLink a{
+  .green-link a{
     text-decoration: none;
     cursor: pointer;
+    color:#0f7c05;
   }
+h2 {
+  font-size: 34px;
+}
+
+text.details-b {
+  font-weight: bold;
+}
+h4 {
+  margin-bottom: 50px;
+}
 </style>

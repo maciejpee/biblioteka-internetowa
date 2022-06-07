@@ -45,7 +45,7 @@
         db.collection('users').doc(props.userId).update({
                 waiting: firebase.firestore.FieldValue.arrayRemove(bookId)
             })
-            
+
         let bookIndex = waitingBooks.value.indexOf(bookId)
         waitingBooks.value.splice(bookIndex, 1)
         

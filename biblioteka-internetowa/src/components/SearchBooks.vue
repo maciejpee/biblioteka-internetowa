@@ -1,6 +1,6 @@
 <template>
   <div class="mainDiv">
-    <h1>Wyniki wyszukiwania dla: {{props.sv.replace('_', ' ')}}</h1>
+    <h3 class="title">Wyniki wyszukiwania dla: {{props.sv.replace('-', ' ')}}</h3>
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12 py-2" v-for="b of filteredBooks" :key="b.id">
@@ -25,9 +25,9 @@
     const books = ref([])
     const search = ref(props['sv'])
     const allFilters = ref([])
-
+/*
     onMounted(() => {
-    /*
+    
     db.collection('books').get().then((snapshot) => {
       snapshot.docs.forEach(doc => {
         const data = {
@@ -41,12 +41,12 @@
         books.value.push(data)
       })
     })
-   */
+   
     
     })
     
-
-   /*  const filteredBooks = computed(() => {
+    
+     const filteredBooks = computed(() => {
         return books.value.filter((book) => {
           
             var normalizedTitle = book.title.toLowerCase().replace(/ +/g, '')
@@ -64,8 +64,9 @@
             
             
     })
-  }) */
-
+    
+  }) 
+*/
 </script>
 
 

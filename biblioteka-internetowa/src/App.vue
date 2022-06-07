@@ -19,7 +19,6 @@
 </script>
  
 <style>
-
 html {
     height: 100%;
     font-size: 100%;
@@ -48,7 +47,7 @@ img.cover-small {
   margin-left: auto;
   margin-right: auto;
   width: 75%;
-  }
+}
 .card {
 	background: #ffffff;
 	border: 1;
@@ -80,8 +79,6 @@ img.cover-small {
 
 /* small book card */
 /*  */
-
-/* modal */
 
 
 /* forms */

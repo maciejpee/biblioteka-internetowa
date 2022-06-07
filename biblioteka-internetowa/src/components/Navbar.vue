@@ -16,6 +16,12 @@
               <router-link class="nav-link" to="/news">Aktualności <span class="sr-only">(current)</span></router-link>
             </li>
 
+            <li class="nav-item">
+              <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+                Kategorie
+              </a>
+            </li>
+
             <li class="nav-item dropdown" v-if="loggedIn">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{userName}}</a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -62,6 +68,7 @@
     </nav>
     <RegisterModal/>
     <LoginModal/>
+    <GenreOffcanvas/>
   </div>
 </template>
 
@@ -69,6 +76,7 @@
   import { ref, onMounted, reactive, computed } from 'vue'
   import LoginModal from "./LoginModal.vue"
   import RegisterModal from "./RegisterModal.vue"
+  import GenreOffcanvas from './GenreOffcanvas.vue';
 
   const userName = ref('')
   const id = ref('')
@@ -102,7 +110,7 @@
     if (!searchv.value){
       searchWarning.value = 'border-danger'
     }else{
-      window.location.replace('/search/' + searchv.value.replace(/ +/g, '_'))
+      window.location.replace('/search/' + searchv.value.replace(/ +/g, '-'))
       //tutaj zamienia te spacje na myslink zeby zbydowac adres jak usuniesz to tak też powinno działać
       // mniejsza jak usuniesz tutaj to ten myslnik cnie, to zmieni sie tez prop bo on go z pobiera stad
       // dlatego mozemy uzyc znaku ktory nie wystapi w tytule i potem go po prostu odmienic 
