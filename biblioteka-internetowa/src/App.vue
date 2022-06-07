@@ -141,5 +141,41 @@ hr.list {
     background-color: #0e6406;
 }
 
+/* forms */
+input.add, textarea.add {
+  padding: 8px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  border: 1px solid rgb(94, 95, 93);
+  -webkit-transition: all 0.15s ease-out;
+  -moz-transition: all 0.1s ease-out;
+  -ms-transition: all 0.1s ease-out;
+  -o-transition: all 0.1s ease-out; 
+  transition: all 0.1s ease-out;
+} 
+input.add:focus,textarea.add:focus {
+  border: 1px solid rgba(61, 148, 26, 0.74);
+  border-radius: 6px;
+  outline: 2px ridge rgba(96, 236, 41, 0.573);
+  -webkit-box-shadow: none;
+}
+
+/* ??? */
+.container {
+  margin-top: 70px;
+  padding: 25px;
+  background-color: #ffffff;
+}
+
+/* titles and text */
+h3.title {
+  font-weight: 800;
+  font-size: 28px;
+  letter-spacing: 1.2px;
+  text-align: center;
+  margin-bottom: 30px;
+  margin-top: 20px;
+  color: #106e07;
+}
 
 </style>

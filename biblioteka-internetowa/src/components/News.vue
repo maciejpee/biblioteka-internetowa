@@ -48,24 +48,7 @@ export default {
 
 </script>
 
-<style>
-
-.container {
-  margin-top: 70px;
-  padding: 25px;
-  background-color: #ffffff;
-}
-
-.title {
-  font-weight: 800;
-  font-size: 28px;
-  letter-spacing: 1.2px;
-  text-align: center;
-  margin-bottom: 30px;
-  margin-top: 20px;
-  color: #106e07;
-}
-
+<style scoped>
 #newsCard {
   width: 100%;
   background-color: #ffffff;
