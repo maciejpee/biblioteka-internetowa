@@ -2,7 +2,7 @@
     <div>
       <h4 class="genre-title"><router-link class="genre-title" :to="{ name : 'Search', params:{sv: genre}}">{{ genre.charAt(0).toUpperCase() + genre.slice(1) }}</router-link></h4>
       <div class="row justify-content-center">
-        <div v-for="b of genreBooks" :key="b" class="col-xl-2 col-lg-2 col-md-3 col-sm-4 col-6 py-2">
+        <div v-for="b of genreBooks" :key="b" class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12 py-2">
           <router-link :to="{name:'Details', params:{bookId: b.bookId}}" custom v-slot="{ navigate }">
           <div class="card h-100 card-columns" role="link" @click="navigate">
             <img :src=b.cover class="card-img cover-small">
@@ -31,7 +31,7 @@
         'fantasy': [
             "CK2X54CfyG3RJFgUVTqT", "Dv475VsxfgCF6yfUORSz", "I5rmOxfUHAJvoI5z6RD2", "Krv3C671UgFlor50GnKd", 
             "LT1HUIroCNArvfymICkF", "MUmmgDF9tqJRvSAefxYb", "fhUWX6ux6uMHchEkAh5O", "htIOLzMeyx1BWz9ooceT", 
-            "llHrzeYHowrcSxao7Dph", "rERgJRb7e2lMsslNMzME", "xrNVRJDkpNii1GgoVEFO", "IXH13qPxMGjBIKyg3Dgq"],
+            "llHrzeYHowrcSxao7Dph", "rERgJRb7e2lMsslNMzME", "xrNVRJDkpNii1GgoVEFO"],
           'kryminał': [
             "0Iuhd7iMFaJx86DYsZyt", "7JcWuIoQBsokLmY42CR6", "EJAJIFsLo73WSyDfAjNs", "P9Y2a7GboQIwyhdN9Z4x",
             "TJW0k2m2NOoupfmPHzZz", "VlAUBA73GIXriKdIZdes", "arsN8K25wIgQUNP61JKg", "jGMwdzGudHPVwqjCwQjV", 
@@ -67,12 +67,11 @@
         })
 
     onMounted(() => {
-        // ilosc obiektow do zapisania
+        
         var genre = genresObj.value[props.genre]
         let nBooks = 6
         for (let i=0; i<nBooks; i++){
-            // branie randomowego id z obiektu dla klucza fantasy
-            // jak chcemy do innego to po prostu zamiast fantasy co innego
+            
             let randomBookId = genre.sample()
             db.collection("books").doc(randomBookId).get().then((doc) => {
                 var data = {
@@ -84,7 +83,7 @@
                 }
                 genreBooks.value.push(data)
             })
-            // upewnianie sie ze id sie nie powtarzaja
+           
             genre.splice(genre.indexOf(randomBookId), 1)
          } 
 
@@ -92,8 +91,7 @@
     
     })
 
-    // tworzenie metody sample dla obiektow typu array
-    // losowe zwracanie elementu
+    
     Array.prototype.sample = function() {
       return this[Math.floor(Math.random()*this.length)]
     }

@@ -100,7 +100,7 @@
             <p v-if="firestore" class="profile-info"><b>Wypożyczone: </b>{{ profile.borrowed.length }}</p>
             <p v-if="firestore" class="profile-info"><b>Oczekujące: </b>{{profile.waiting.length}}</p>
             <p class="profile-info"><b>Zaległości: </b>{{ profile.arrears }} zł</p>
-            <button class="btn btn-success shadow-none" @click="payArreras">Ureguluj opłaty</button>
+            <button v-if="profile.arrears > 0" class="btn btn-success shadow-none" @click="payArreras">Ureguluj opłaty</button>
         </div>
     </div>
 </template>
@@ -257,34 +257,26 @@
     }
 
     function checkDelays(){
-        // check delays dziala zawsze jak wejdziecie se na profil to zawsze trigeruej sie raz
-        // zeby sprawdzic czy jestescie wrogiem publicznym
+        
         var currentDate = new Date()
         var today = firebase.firestore.Timestamp.fromDate(currentDate)
         console.log('Sprawdzam opłaty na dzień: ', currentDate);
         let stemValue = 0
-        // month = 2 629 743 sec
-        // day = 86 400
-        // wychodzi ~ 6zl kary za miesiac
+        
         db.collection('users').doc(props.userId).get().then((doc)=>{
-            if (doc.data().borrow_history){ // jesli istnieje historia
-                for(let [index, record] of Object.entries(doc.data().borrow_history)){ // iterowanie
-                // po obiekcie wyglada tak. Index to id obiektu (tamto wygenreowane pythonowo)
-                // record to sam obiekt w obiekcie, wiec mamy dostep do jego atrybutów
-                    if(record.paid != 2){ // jesli nie jest rowne 2 (2 oznacza uregulowana oplata)
-                    // jesli nie jest 2 tzn ze albo jest 1 - nie oplacona albo 0 - brak kary
+            if (doc.data().borrow_history){
+                for(let [index, record] of Object.entries(doc.data().borrow_history)){
+                
+                    if(record.paid != 2){ 
                         let paymentDiff = record.returnedDate.seconds - record.borrowDate.seconds
-                        // roznica pomiedzy datami zwrotu a wypozyczenia (w sekundach najlatwiej bo time
-                        // stampy)
-                        if(paymentDiff >= 2629743 ){ // jesli roznica wieksza niz miesiac to do łagrów
+                        
+                        if(paymentDiff >= 2629743 ){
                             stemValue += Math.ceil(((paymentDiff - 2629743) / 86400)) * 0.2                         
-                            // wzor na obliczanie ile do zapłaty, roznica - miesiac (zeby jakby liczylo tylko
-                            // nadwyzke po miesiacu) przez 76400 sekund bo tyle ma dzien, * 0.2 bo 20 groszy za dzien
-                            // 5 dni ponad miesiac (okreslony termin, mozna zmienic ewentualnie) = 1zł kary itd
+                            
                             db.collection('users').doc(props.userId).update({                               
-                                // tylko ze jak jest minalna rozncia to sie pewnie bugguje  zaraz obczaje chodz fb
-                                [`borrow_history.${index}.paid`]: 1  // paid jako 1, bo nie uregulowana i mamy
-                                // do zaplaty, czesc 3cia nizej
+                                
+                                [`borrow_history.${index}.paid`]: 1 
+                                
                             }) 
                         }
                     }                                      
@@ -299,17 +291,14 @@
     }
 
     function payArreras(){
-        // magiczne placenie oplaty (rozwiazanie najprostsze bo brak czasu, mozna zmienic potem)
-        // zmiana to pewnie 15-20 min czy cos
         db.collection('users').doc(props.userId).get().then((doc)=>{
             if (doc.data().borrow_history){
                 for(let [index, record] of Object.entries(doc.data().borrow_history)){
-                    if (record.paid == 1){ // tym razem patrzy tylko na te nie oplacone
+                    if (record.paid == 1){ 
                         db.collection('users').doc(props.userId).update({
-                                arrears: '0.00', // zeruje oplaty (magicznie)
-                                [`borrow_history.${index}.paid`]: 2  // zmienia na oplacone
-                                // przez co funkcja wyzej nie trigeruje sie na nie i nie nalicze za nie
-                                // oplat
+                                arrears: '0.00', 
+                                [`borrow_history.${index}.paid`]: 2  
+                                
                             }) 
                     }                        
                 }

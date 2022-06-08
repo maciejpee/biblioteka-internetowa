@@ -1,7 +1,7 @@
 <template>
   <div class="mainDiv">
     <h3 class="title">Aktualności</h3>
-    <hr class="hr-title">
+    <hr>
 
     <div v-for="n of news" :key="n.id">
       <div id="newsCard">
