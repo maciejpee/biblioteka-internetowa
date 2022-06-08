@@ -253,11 +253,11 @@
     }
 
     function closeModal() {
-        console.log('hej')
+        console.log('closed')
     }
 
+    // sprawdzanie zaległości
     function checkDelays(){
-        
         var currentDate = new Date()
         var today = firebase.firestore.Timestamp.fromDate(currentDate)
         console.log('Sprawdzam opłaty na dzień: ', currentDate);
@@ -267,15 +267,15 @@
             if (doc.data().borrow_history){
                 for(let [index, record] of Object.entries(doc.data().borrow_history)){
                 
-                    if(record.paid != 2){ 
+                    if(record.paid != 2){  // 2 - opłata uregulowana, 1 - nieuregulowana, 0 - brak kary
                         let paymentDiff = record.returnedDate.seconds - record.borrowDate.seconds
                         
-                        if(paymentDiff >= 2629743 ){
+                        if(paymentDiff >= 2629743 ){ // różnica większa niż miesiąc
                             stemValue += Math.ceil(((paymentDiff - 2629743) / 86400)) * 0.2                         
                             
                             db.collection('users').doc(props.userId).update({                               
                                 
-                                [`borrow_history.${index}.paid`]: 1 
+                                [`borrow_history.${index}.paid`]: 1  // nieuregulowana
                                 
                             }) 
                         }
@@ -294,9 +294,9 @@
         db.collection('users').doc(props.userId).get().then((doc)=>{
             if (doc.data().borrow_history){
                 for(let [index, record] of Object.entries(doc.data().borrow_history)){
-                    if (record.paid == 1){ 
+                    if (record.paid == 1){  // 1 - nieopłacone
                         db.collection('users').doc(props.userId).update({
-                                arrears: '0.00', 
+                                arrears: '0.00', // regulowanie opłat
                                 [`borrow_history.${index}.paid`]: 2  
                                 
                             }) 

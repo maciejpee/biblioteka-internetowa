@@ -41,6 +41,7 @@
         }
     })
 
+    // do przycisku opuszczania kolejki dla danej książki
     function leaveQueue (bookId) {
         db.collection('users').doc(props.userId).update({
                 waiting: firebase.firestore.FieldValue.arrayRemove(bookId)

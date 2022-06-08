@@ -30,9 +30,7 @@
     let returnDate = firebase.firestore.Timestamp.fromDate(currentDate)
      
     onMounted(()=>{
-
-
-        
+        // wyswietlanie pozyczonych książek
         for (let b of props.borrowed){
             db.collection('books').doc(b.bookId).get().then((doc)=>{
                 var data = {
@@ -45,7 +43,8 @@
         }
     })
    
-    function returnBook(bookId){
+    // oddanie książki (i ew. wypożyczenie następnej osobie w kolejce)
+    function returnBook(bookId){ // przyjmuje id z przycisku "zwróć"
         var bookDate = null
         
         db.collection('users').doc(props.userId).get().then((doc)=>{
@@ -61,28 +60,22 @@
                         borrowDate: b.borrowDate,
                         returnDate: b.returnDate
                     }
-                borrowedBooks.value.push(data)//tutaj tez
+                borrowedBooks.value.push(data)
             }
         }).then(()=>{
-
-            let unique_id = "id" + Math.random().toString(16).slice(2)
+            // generator unique id dla obiektów w obiekcie user_history
+            let unique_id = "id" + Math.random().toString(16).slice(2) 
             db.collection('users').doc(props.userId).update({
                 borrowed: borrowedBooks.value,
                 [`borrow_history.${unique_id}.bookId`]: bookId,
                 [`borrow_history.${unique_id}.borrowDate`]: bookDate,
                 [`borrow_history.${unique_id}.returnedDate`]: borrowDate,
-                [`borrow_history.${unique_id}.paid`]: 0,
+                [`borrow_history.${unique_id}.paid`]: 0, // 0 - brak kary
                 
                 
-                
-                //firebase.firestore.FieldValue.arrayUnion({
-                    //bookId: bookId, 
-                    //borrowDate: bookDate, 
-                    //returnedDate: borrowDate, 
-                    //paid: false
-                   // })   
+                  
            })
-           
+           // zwiększanie ilości dostępnych egzemplarzy po oddaniu o 1
         }).then(()=>{
                 db.collection('books').doc(bookId).update({
                    copies: firebase.firestore.FieldValue.arrayRemove(bookDate)
@@ -93,7 +86,7 @@
            }).then(()=>{ 
             db.collection('books').doc(bookId).get().then((doc)=>{
             
-                if(doc.data().queue.length > 0){
+                if(doc.data().queue.length > 0){ // sprawdzanie czy ktoś czeka w kolejce
                     
 
                         var b = doc.data().queue[0] 
@@ -101,7 +94,7 @@
                         if(doc.data().copies.includes('') || doc.data().copies.includes(null)){ 
                         
                             db.collection('books').doc(bookId).update({ 
-                                queue: firebase.firestore.FieldValue.arrayRemove(b) 
+                                queue: firebase.firestore.FieldValue.arrayRemove(b) // usunięcie 1 osoby z kolejki
                             }).then(()=>{
                                 db.collection('books').doc(bookId).update({ 
                                 
@@ -117,11 +110,11 @@
                                     
                                     
                                     
-                                    
+                                            // dodanie książki do "wypożyczonych" użytkownika
                                             borrowed: firebase.firestore.FieldValue.arrayUnion({bookId:bookId, borrowDate:borrowDate, returnDate:returnDate})  
                                 })
                                     db.collection('users').doc(b).update({
-                                        waiting: firebase.firestore.FieldValue.arrayRemove(bookId)
+                                        waiting: firebase.firestore.FieldValue.arrayRemove(bookId) // usunięcie książki z "oczekujących" użytkownika
                                         })
                                 })
                                 
