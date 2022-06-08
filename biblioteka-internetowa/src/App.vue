@@ -20,7 +20,8 @@
  
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway&family=Roboto:wght@300&display=swap');
+
 html {
     height: 100%;
     font-size: 100%;
@@ -58,9 +59,7 @@ img.cover-small {
   padding: 20px 8px 5px 8px;
 }
 .card-title {
-  font-size: 17px;
-	letter-spacing: 0.4px;
-  margin: 8px;
+  letter-spacing: 0.4px;
   font-family: 'Open Sans', sans-serif;
 	letter-spacing: 0.5px;
   font-weight: 600;
@@ -75,6 +74,15 @@ img.cover-small {
   opacity: 70%;
   margin: 0px 5px 2px 5px;
 }
+.card-footer {
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+}
+
+.card-body {
+  text-align: center;
+}
+
 .card:hover{
     box-shadow: 2px 1px 1px 1px rgba(0,0,0,0.06);
     transform: scale(1.02);
@@ -185,5 +193,12 @@ hr.hr-title {
    hr.hr-marg2 {
     margin: 45px 0px 45px 0px;
   }
+
+.genre-title {
+  color: #106e07;
+  margin-bottom: 20px;
+  margin-top: 40px;
+  text-align: center;
+}
 
 </style>

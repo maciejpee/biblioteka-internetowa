@@ -53,7 +53,7 @@
           
             var normalizedAuthor = book.author.toLowerCase().replace(/ +/g, '')
 
-            var normalizedTags = book.genre.join(' ').toLowerCase().replace(/ +/g, '-')
+            var normalizedTags = book.genre.join(' ').toLowerCase().replace(/ +/g, '')
             if (book.series){
               var normalizedSeries = book.series.toLowerCase().replace(/ +/g, '')
               return normalizedTitle.match(search.value.toLowerCase().replace(/ +/g, '')) + normalizedAuthor.match(search.value.toLowerCase().replace(/ +/g, '')) + normalizedSeries.match(search.value.toLowerCase().replace(/ +/g, '')) + normalizedTags.match(search.value.toLowerCase().replace(/ +/g, ''))

@@ -11,7 +11,6 @@
     import { ref } from 'vue'
     import GenreBooks from './GenreBooks.vue'
     import NewBooks from './NewBooks.vue'
-    import RandomGenre from './RandomGenre.vue';
     const genres = ref(['fantasy', 'kryminał', 'science fiction', 'literatura piękna',  'romans', 'horror', 'popularnonaukowa', 'literatura młodzieżowa', 'literatura faktu'])
 
 </script>

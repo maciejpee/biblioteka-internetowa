@@ -110,18 +110,7 @@
     if (!searchv.value){
       searchWarning.value = 'border-danger'
     }else{
-      window.location.replace('/search/' + searchv.value.replace(/ +/g, '-'))
-      //tutaj zamienia te spacje na myslink zeby zbydowac adres jak usuniesz to tak też powinno działać
-      // mniejsza jak usuniesz tutaj to ten myslnik cnie, to zmieni sie tez prop bo on go z pobiera stad
-      // dlatego mozemy uzyc znaku ktory nie wystapi w tytule i potem go po prostu odmienic 
-      // robimy test
-      // tak to od ans XDD
-      // chuj go wie aaa wiem moze jest jak to sie mowi ze zaklepany dla czegos wlasnie
-      //to dawaj ten % bo z propami jest domyślnie chyba chociaż u Ciebie niby nie XD
-      // ale coto za blad to od nas?
-      //możliwe dlatego tam jest automatycznie ale to troche szkoda w sumie xd 
-      //ci
-    // podloga dziala, bezie w tytule? nie powinna być
+      window.location.replace('/search/' + searchv.value)
     }
   }
 
@@ -200,36 +189,4 @@ img.main-logo {
 nav {
   box-shadow: 0 2px 4px 0 rgba(0,0,0,0.13);
 }
-
-/* .navbar {
-  background-color: #0f7c05;
-}
-.navbar .navbar-brand {
-  color: #ffffff;
-}
-.navbar .navbar-nav .nav-link {
-  color: #ffffff;
-}
-.navbar .navbar-nav .nav-link:not(.disabled):hover {
-  color: #b1c9a6;
-}
-.navbar .navbar-nav .dropdown-menu {
-  border-color: #b1c9a6;
-}
-.navbar .navbar-nav .dropdown-menu .dropdown-divider {
-  border-top-color: #579c50;
-}
-.navbar .navbar-nav .dropdown-menu .dropdown-item:hover {
-  color: #ffffff;
-  background-color: #89c283;
-}
-.navbar .navbar-nav .dropdown-menu .dropdown-item:focus {
-  color: #ffffff;
-  background-color: #0f7c05;
-}
-nav {
-  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1);
-} */
-
-/* <nav class="navbar navbar-expand-md navbar-light bg-light"> */
 </style>

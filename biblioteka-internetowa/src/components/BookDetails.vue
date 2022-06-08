@@ -14,7 +14,7 @@
             <img class="icon" v-if="!fav" src="/heart.png" width="50" height="50" style="cursor: pointer;" @click="addToFavourites"/>
           </div>
         </div>
-        <h4 class="green-link" ><router-link :to="{ name : 'Search', params:{sv: bookDetails.author}}">{{ bookDetails.author }}</router-link></h4>
+        <h5 class="green-link" ><router-link :to="{ name : 'Search', params:{sv: bookDetails.author}}">{{ bookDetails.author }}</router-link></h5>
         <table class="table">
           <tbody>
             <tr v-if="bookDetails.original_title">
@@ -49,7 +49,7 @@
         </table>
         <div class="rows">
             <div class="tag" v-for="genre of bookDetails.genre" :key="genre.id">
-              <button class="tag"><router-link :to="{ name : 'Search', params:{sv: genre.replace(/ +/g, '-')}}">{{genre}}</router-link></button>
+              <button class="tag"><router-link :to="{ name : 'Search', params:{sv: genre}}">{{genre}}</router-link></button>
           </div>
         </div>
       </div>
@@ -70,7 +70,6 @@
   import { ref, onMounted } from 'vue'
   import SeriesRecommend from "./SeriesRecommend.vue"
   import GenreRecommend from "./GenreRecommend.vue"
-  import Copies from "./Copies.vue"
   import CopiesV2 from "./CopiesV2.vue"
   const props = defineProps(["bookId"])
 
@@ -158,7 +157,8 @@
   }
   .tag button{
     float:left;
-    margin-left: 12px;
+    margin-left: 20px;
+    margin-top: 12px;
     border-radius: 6px;
     background: #257c1dd5;
     padding: 2px 8px 4px 8px;
@@ -172,7 +172,7 @@
   .green-link a{
     text-decoration: none;
     cursor: pointer;
-    color:#0f7c05;
+    color:#464646;
   }
 text.details-b {
   font-weight: bold;
@@ -180,8 +180,9 @@ text.details-b {
 h2 {
   font-size: 34px;
   margin-left:20px;
+  color: #257c1dd5;
 }
-h4 {
+h4, h5 {
   margin-bottom: 50px;
   margin-left:20px;
 }
@@ -196,4 +197,5 @@ table.table {
   margin-left:20px;
   margin-top: 50px;
 }
+
 </style>

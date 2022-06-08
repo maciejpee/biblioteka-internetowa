@@ -1,7 +1,7 @@
 <template>
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Kategorie</h5>
+        <h5 class="offcanvas-title genre-title" id="offcanvasExampleLabel">Kategorie</h5>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
@@ -19,7 +19,7 @@
   // ['fantasy', 'kryminał', 'science fiction', 'literatura piękna', 'romans', 'horror', 'popularnonaukowa', 'literatura młodzieżowa', 'literatura faktu', 'powieść historyczna', 'klasyka', 'thriller', 'sensacja', 'literatura dziecięca', 'dramat']
   
   function handleOffcanvas(category){
-      window.location.replace('/search/' + category.replace(/ +/g, '-'))
+      window.location.replace('/search/' + category)
       
   }
 

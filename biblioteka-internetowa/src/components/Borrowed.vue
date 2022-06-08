@@ -23,8 +23,7 @@
     const waitingBooks = ref([])
 
     let currentDate = new Date() // tworzenie obiektu daty do uzycia na potem
-    let borrowDate = firebase.firestore.Timestamp.fromDate(currentDate) // uzywanie funkcji do tworzenia/konwertowania
-    // firebasowej daty (timestampa) z innego obiektu (w tym wypadku daty dzisiejszej)
+    let borrowDate = firebase.firestore.Timestamp.fromDate(currentDate)
         
     currentDate.setMonth(currentDate.getMonth()+1) // to samo ale miesiac pozniej, bo taki ustalismy 
     //defaultowy limit zwracania ze po miesiacu sie zwroci
