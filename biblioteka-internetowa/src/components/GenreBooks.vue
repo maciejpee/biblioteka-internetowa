@@ -4,15 +4,15 @@
       <div class="row justify-content-center">
         <div v-for="b of genreBooks" :key="b" class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12 py-2">
           <router-link :to="{name:'Details', params:{bookId: b.bookId}}" custom v-slot="{ navigate }">
-          <div class="card h-100 card-columns" role="link" @click="navigate">
+          <div class="card h-100" role="link" @click="navigate">
             <img :src=b.cover class="card-img cover-small">
             
-            <div class="card-body">
+            <div class="card-body align-items-center d-flex justify-content-center">
               <text class="card-title">{{ b.title }}</text>
             </div>
         
             <div class="card-footer">
-              <text class="card-author">{{ b.author }}</text>
+              <text class="card-subtitle">{{ b.author }}</text>
             </div>
           </div>
           </router-link>

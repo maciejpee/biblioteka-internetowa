@@ -1,7 +1,7 @@
 <template>
     <div>
         <h4 class="profile-title-list">Twoje ulubione książki:</h4>
-        <div class="row" v-for="f of favs">
+        <div class="row align-items-center" v-for="f of favs">
             <div class="col-md-3">
                 <img :src="f.cover" class="cover-list" />
             </div>

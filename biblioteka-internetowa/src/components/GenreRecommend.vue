@@ -5,9 +5,12 @@
         <div v-for="b of series.slice(0, 6)" class="col-xl-2 col-lg-2 col-md-3 col-sm-6 col-6 py-2" :key="b">
           <div class="card h-100" @click="pageReload(b.id)">
             <img :src=b.cover class="card-img cover-small">
-            <span class="card-title">{{ b.title }}</span>
-            <span v-if="b.volume" class="card-vol">Tom {{ b.volume }}</span>
-            <span class="card-subtitle">{{ b.author }}</span>
+            <div class="card-body align-items-center d-flex justify-content-center">
+              <text class="card-title">{{ b.title }}</text>
+            </div>
+            <div class="card-footer">
+              <text class="card-subtitle">{{ b.author }}</text>
+            </div>
           </div>
         </div>
       </div><hr class="hr-marg">

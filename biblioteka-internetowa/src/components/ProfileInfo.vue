@@ -315,6 +315,7 @@
 .profile-info {
     margin-top: 10px;
     margin-left: 20px;
+    line-height: 1.87;
 }
 img.icon {
     margin: 15px 0px 10px 0px;

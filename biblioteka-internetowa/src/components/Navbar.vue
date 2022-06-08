@@ -125,7 +125,11 @@ text.logo {
   font-family: 'Montserrat', sans-serif;
   margin: 0px 5px 0px 12px;
   color: #006600;
+  font-weight: bold;
 }
+ .nav-link {
+   font-weight: 500;
+ }
 
 img.main-logo {
   margin: 0px 5px 4px 12px;

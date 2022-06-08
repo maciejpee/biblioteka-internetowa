@@ -1,7 +1,7 @@
 <template>
     <div>
         <h4 class="profile-title-list">Twoje oczekujące książki:</h4>
-        <div class="row" v-for="w of waitingBooks">
+        <div class="row align-items-center" v-for="w of waitingBooks">
             <div class="col-md-3">
                 <img :src="w.cover" class="cover-list" />
             </div>

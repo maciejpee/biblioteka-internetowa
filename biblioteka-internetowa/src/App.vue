@@ -54,15 +54,15 @@ img.cover-small {
 }
 .card {
 	background: #ffffff;
-	border: 1;
 	border-radius: 8px 8px 8px 8px;
-  padding: 20px 8px 5px 8px;
+  padding: 20px 0px 0px 0px;
 }
 .card-title {
-  letter-spacing: 0.4px;
+  letter-spacing: 0.1px;
   font-family: 'Open Sans', sans-serif;
-	letter-spacing: 0.5px;
   font-weight: 600;
+  font-size: 14px;
+  
 }
 .card-subtitle {
   font-size: 14px;
@@ -85,7 +85,7 @@ img.cover-small {
 
 .card:hover{
     box-shadow: 2px 1px 1px 1px rgba(0,0,0,0.06);
-    transform: scale(1.02);
+    transform: scale(1.01);
     cursor: pointer;
 }
 
@@ -198,6 +198,14 @@ hr.hr-title {
   color: #106e07;
   margin-bottom: 20px;
   margin-top: 40px;
+  text-align: center;
+}
+
+.modal-title {
+  color: #106e07;
+}
+
+.modal-header {
   text-align: center;
 }
 

@@ -1,7 +1,7 @@
 <template>
     <div>
         <h4 class="profile-title-list">Historia wypożyczeń:</h4>
-        <div class="row" v-for="h of history">
+        <div class="row align-items-center" v-for="h of history">
             <div class="col-md-3">
                 <img :src="h.cover" class="cover-list" />
             </div>
