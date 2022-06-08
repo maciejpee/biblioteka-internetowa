@@ -98,7 +98,7 @@
         <div>
             <h4 class="profile-title">Stan konta</h4>
             <p v-if="firestore" class="profile-info"><b>Wypożyczone: </b>{{ profile.borrowed.length }}</p>
-            <p class="profile-info"><b>Oczekujące: </b></p>
+            <p v-if="firestore" class="profile-info"><b>Oczekujące: </b>{{profile.waiting.length}}</p>
             <p class="profile-info"><b>Zaległości: </b>{{ profile.arrears }} zł</p>
             <button class="btn btn-success shadow-none" @click="payArreras">Ureguluj opłaty</button>
         </div>
@@ -140,6 +140,7 @@
             profile.value["surname"] = doc.data().surname
             profile.value["phone"] = doc.data().phone
             profile.value["desc"] = doc.data().desc
+            profile.value["waiting"] = doc.data().waiting
             firestore.value = true
         })
 

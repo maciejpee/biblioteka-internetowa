@@ -52,7 +52,5 @@
     cursor: pointer;
     color:#0f7c05;
   }
-  hr.hr-marg {
-    margin: 40px 0px 30px 0px;
-  }
+
 </style>

@@ -10,7 +10,7 @@
             <span class="card-subtitle">{{ b.author }}</span>
           </div>
         </div>
-      </div><hr>
+      </div><hr class="hr-marg">
     </div>
 </template>
 

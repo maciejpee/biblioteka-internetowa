@@ -25,7 +25,7 @@
     const books = ref([])
     const search = ref(props['sv'])
     const allFilters = ref([])
-/*
+
     onMounted(() => {
     
     db.collection('books').get().then((snapshot) => {
@@ -66,7 +66,7 @@
     })
     
   }) 
-*/
+
 </script>
 
 

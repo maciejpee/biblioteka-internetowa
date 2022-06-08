@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <p><router-link :to="{ name : 'Details', params:{bookId: props.bookId}}">{{ bookDetails.title }}</router-link></p>
             <p class="author-list">{{bookDetails.author}}</p>
-            <p v-if="bookDetails.series" class="title-link">{{bookDetails.series}} Tom {{bookDetails.volume}}</p>
+            <p v-if="bookDetails.series" class="info-list">{{bookDetails.series}} Tom {{bookDetails.volume}}</p>
             <p class="info-list">Wypożyczono: {{getRealDate(props.borrowDate.seconds)}}</p>
             <p class="info-list">Oczekiwany zwrot: {{getRealDate(props.returnDate.seconds)}}</p>
         </div>

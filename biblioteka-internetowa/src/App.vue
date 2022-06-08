@@ -19,6 +19,8 @@
 </script>
  
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
 html {
     height: 100%;
     font-size: 100%;
@@ -38,7 +40,8 @@ body {
   margin-left: 9%;
   margin-right: 9%;
   margin-top: 4%;
-  padding: 35px 50px 35px 50px;
+  padding: 45px 50px 35px 50px;
+  border-radius: 20px;
 }
 
 /* book card*/
@@ -58,13 +61,14 @@ img.cover-small {
   font-size: 17px;
 	letter-spacing: 0.4px;
   margin: 8px;
-  font-family: 'Ubuntu, Times New Roman';
+  font-family: 'Open Sans', sans-serif;
 	letter-spacing: 0.5px;
   font-weight: 600;
 }
 .card-subtitle {
   font-size: 14px;
   margin: 0px 5px 8px 5px;
+  font-family: 'Roboto', sans-serif;
 }
 .card-vol {
   font-size: 14px;
@@ -175,5 +179,11 @@ hr.hr-title {
   margin-top:-5px;
   margin-bottom:25px;
 }
+  hr.hr-marg {
+    margin: 25px 0px 30px 0px;
+  }
+   hr.hr-marg2 {
+    margin: 45px 0px 45px 0px;
+  }
 
 </style>

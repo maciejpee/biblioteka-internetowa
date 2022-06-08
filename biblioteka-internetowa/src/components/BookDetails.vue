@@ -6,10 +6,10 @@
       </div>
       <div class="col-8">
         <div class="row">
-          <div class="col-10">
+          <div class="col-11">
             <h2 >{{ bookDetails.title }}</h2>
           </div>
-          <div class="col-2">
+          <div class="col-1">
             <img class="icon" v-if="fav" src="/heartfull.png" width="50" height="50" style="cursor: pointer;" @click="addToFavourites"/>
             <img class="icon" v-if="!fav" src="/heart.png" width="50" height="50" style="cursor: pointer;" @click="addToFavourites"/>
           </div>
@@ -47,19 +47,19 @@
             </tr>
           </tbody>
         </table>
-        <div class="tags">
-
-          <div class="tag" v-for="genre of bookDetails.genre" :key="genre.id">
-            <button class="tag"><router-link :to="{ name : 'Search', params:{sv: genre.replace(/ +/g, '-')}}">{{genre}}</router-link></button>
+        <div class="rows">
+            <div class="tag" v-for="genre of bookDetails.genre" :key="genre.id">
+              <button class="tag"><router-link :to="{ name : 'Search', params:{sv: genre.replace(/ +/g, '-')}}">{{genre}}</router-link></button>
           </div>
         </div>
       </div>
       
       
-    </div><hr>
-    <p>{{ bookDetails.desc }}</p><hr>
+    </div>
+    <p class="desc-details">{{ bookDetails.desc }}</p>
+    <hr class="hr-marg">
     <CopiesV2 v-if="firestore" :copies="bookDetails.copies" :bookId="props.bookId"/>
-    <hr>
+    <hr class="hr-marg">
     <SeriesRecommend v-if="firestore" :bookSeries="bookDetails.series" :currentBook="bookDetails.title"/>
     
     <GenreRecommend v-if="firestore" :bookSeries="bookDetails.series"  :genre="bookDetails.genre[0]" :id="props.bookId"/>
@@ -174,14 +174,26 @@
     cursor: pointer;
     color:#0f7c05;
   }
-h2 {
-  font-size: 34px;
-}
-
 text.details-b {
   font-weight: bold;
 }
+h2 {
+  font-size: 34px;
+  margin-left:20px;
+}
 h4 {
   margin-bottom: 50px;
+  margin-left:20px;
+}
+p.desc-details {
+  padding: 30px 0px 30px 0px;
+  margin-top: 35px;
+}
+table.table {
+  border-collapse: collapse;
+  border-bottom: #7f7f7f2e;
+  width: 85%;
+  margin-left:20px;
+  margin-top: 50px;
 }
 </style>

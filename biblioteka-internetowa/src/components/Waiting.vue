@@ -8,7 +8,7 @@
             <div class="col-md-7">
                 <p class="title-link"><router-link :to="{ name : 'Details', params:{bookId: w.id}}">{{ w.title }}</router-link></p>
                 <p class="author-list">{{w.author}}</p>
-                <p v-if="w.series">{{w.series}} Tom {{w.volume}}</p>
+                <p class="info-list" v-if="w.series">{{w.series}} Tom {{w.volume}}</p>
             </div>
             <div class="col-md-2">
                 <button class="btn btn-success shadow-none" @click="leaveQueue(w.id)">Wyjdź z kolejki</button>

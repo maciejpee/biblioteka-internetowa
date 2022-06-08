@@ -131,4 +131,9 @@
 .container {
   margin: 25px 0px 15px 0px;
 }
+
+.modal-content {
+  border-radius: 10px;
+}
+
 </style>

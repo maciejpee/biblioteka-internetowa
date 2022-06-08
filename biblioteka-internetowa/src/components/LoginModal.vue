@@ -94,8 +94,16 @@
 <style scoped>
 .modal-dialog {
   margin-top: 10%;
+  border-radius: 25px;
+
 }
 .container {
   margin: 30px 0px 20px 0px;
 }
+
+.modal-content {
+  border-radius: 10px;
+}
+
+
 </style>

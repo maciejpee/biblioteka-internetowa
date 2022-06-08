@@ -6,11 +6,8 @@
     </div>
     <div class="offcanvas-body">
         <ul class="canvasLinks list-group list-group-flush" v-for="category of categoriesAll" :key="category">
-          <li class="list-group-item" @click="handleOffcanvas(category)">{{category.charAt(0).toUpperCase() + category.slice(1)}}</li>  
+          <a class="list-group-item list-group-item-action" @click="handleOffcanvas(category)">{{category.charAt(0).toUpperCase() + category.slice(1)}}</a>  
         </ul>
-    <!--<div class="canvasLinks" v-for="category of categoriesAll" :key="category">
-          <a @click="handleOffcanvas(category)">{{category.charAt(0).toUpperCase() + category.slice(1)}}</a>  
-        </div>--> 
     </div>
 </div>    
 
@@ -32,12 +29,12 @@
 
 
 <style scoped>
-
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap');
 .canvasLinks a{
     text-decoration: none;
-    color: green;
+    color: #006600;
     cursor: pointer;
-
+    font-family: 'Raleway', sans-serif;
 }
 
 </style>

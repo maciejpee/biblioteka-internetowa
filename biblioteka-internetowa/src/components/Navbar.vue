@@ -128,15 +128,18 @@
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
 text.logo {
   font-size: 24px;
-  letter-spacing: 2px;
-  font-family: Tahoma, Verdana, sans-serif;
-  margin-left: 12px;
+  font-family: 'Montserrat', sans-serif;
+  margin: 0px 5px 0px 12px;
+  color: #006600;
 }
 
 img.main-logo {
-  margin-bottom: 5px;
+  margin: 0px 5px 4px 12px;
 }
 
 .icon:hover{
@@ -164,6 +167,7 @@ img.main-logo {
 }
 .navbar .navbar-nav .nav-link {
   color: #0f7c05;
+  font-family: 'Raleway', sans-serif;
 }
 .navbar .navbar-nav .nav-link:not(.disabled):hover {
   color: #7bbe5c;
@@ -174,9 +178,17 @@ img.main-logo {
 .navbar .navbar-nav .dropdown-menu {
   border-color: #b1c9a6;
 }
+.navbar .navbar-nav .dropdown-menu .nav-item {
+  font-family: 'Raleway', sans-serif;
+}
+
 .navbar .navbar-nav .dropdown-menu .dropdown-divider {
   border-top-color: #579c50;
 }
+.navbar .navbar-nav .dropdown-menu .dropdown-item {
+  font-family: 'Raleway', sans-serif;
+}
+
 .navbar .navbar-nav .dropdown-menu .dropdown-item:hover {
   color: #ffffff;
   background-color: #89c283;

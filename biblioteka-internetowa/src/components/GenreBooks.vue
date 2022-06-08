@@ -3,7 +3,7 @@
       <h4>{{ genre.charAt(0).toUpperCase() + genre.slice(1) }}</h4>
       <div class="row justify-content-center">
         <div v-for="b of genreBooks" :key="b" class="col-xl-2 col-lg-2 col-md-2 col-sm-6 col-6 py-2">
-          <router-link :to="{name:'Details', params:{bookId: b.id}}" custom v-slot="{ navigate }">
+          <router-link :to="{name:'Details', params:{bookId: b.bookId}}" custom v-slot="{ navigate }">
           <div class="card h-100" role="link" @click="navigate">
             <img :src=b.cover class="card-img cover-small">
             
@@ -25,29 +25,70 @@
     import { ref, onMounted } from 'vue'
 
     const props = defineProps(["genre"])
+    const genre = props.genre
     const genreBooks = ref([])
+    const genresObj = ref({
+        'fantasy': [
+            '6QFu4m2jOIqjHO8lET1J', '6k243kM53SAMYHgMeyu6', '7JywpMTEj93SQfgFnAXj', 'CXxCw4w1pzGAAIi7MOck',
+            'GvgzEXGoElZNZn8c5y2J', 'IyTldfMn4m0EHZV04p9O', 'Nxr7BWexah2pr68g9e6Q', 'iDdIrOxxmWuKUPaYkPxv'],
+          'kryminał': [
+            '6QFu4m2jOIqjHO8lET1J', '6k243kM53SAMYHgMeyu6', '7JywpMTEj93SQfgFnAXj', 'CXxCw4w1pzGAAIi7MOck',
+            'GvgzEXGoElZNZn8c5y2J', 'IyTldfMn4m0EHZV04p9O', 'Nxr7BWexah2pr68g9e6Q', 'iDdIrOxxmWuKUPaYkPxv'], 
+          'science fiction': [
+            '6QFu4m2jOIqjHO8lET1J', '6k243kM53SAMYHgMeyu6', '7JywpMTEj93SQfgFnAXj', 'CXxCw4w1pzGAAIi7MOck',
+            'GvgzEXGoElZNZn8c5y2J', 'IyTldfMn4m0EHZV04p9O', 'Nxr7BWexah2pr68g9e6Q', 'iDdIrOxxmWuKUPaYkPxv'], 
+          'literatura piękna': [
+            '6QFu4m2jOIqjHO8lET1J', '6k243kM53SAMYHgMeyu6', '7JywpMTEj93SQfgFnAXj', 'CXxCw4w1pzGAAIi7MOck',
+            'GvgzEXGoElZNZn8c5y2J', 'IyTldfMn4m0EHZV04p9O', 'Nxr7BWexah2pr68g9e6Q', 'iDdIrOxxmWuKUPaYkPxv'], 
+          'romans': [
+            '6QFu4m2jOIqjHO8lET1J', '6k243kM53SAMYHgMeyu6', '7JywpMTEj93SQfgFnAXj', 'CXxCw4w1pzGAAIi7MOck',
+            'GvgzEXGoElZNZn8c5y2J', 'IyTldfMn4m0EHZV04p9O', 'Nxr7BWexah2pr68g9e6Q', 'iDdIrOxxmWuKUPaYkPxv'], 
+          'horror': [
+            '6QFu4m2jOIqjHO8lET1J', '6k243kM53SAMYHgMeyu6', '7JywpMTEj93SQfgFnAXj', 'CXxCw4w1pzGAAIi7MOck',
+            'GvgzEXGoElZNZn8c5y2J', 'IyTldfMn4m0EHZV04p9O', 'Nxr7BWexah2pr68g9e6Q', 'iDdIrOxxmWuKUPaYkPxv'], 
+          'popularnonaukowa': [
+            '6QFu4m2jOIqjHO8lET1J', '6k243kM53SAMYHgMeyu6', '7JywpMTEj93SQfgFnAXj', 'CXxCw4w1pzGAAIi7MOck',
+            'GvgzEXGoElZNZn8c5y2J', 'IyTldfMn4m0EHZV04p9O', 'Nxr7BWexah2pr68g9e6Q', 'iDdIrOxxmWuKUPaYkPxv'],  
+          'literatura młodzieżowa': [
+            '6QFu4m2jOIqjHO8lET1J', '6k243kM53SAMYHgMeyu6', '7JywpMTEj93SQfgFnAXj', 'CXxCw4w1pzGAAIi7MOck',
+            'GvgzEXGoElZNZn8c5y2J', 'IyTldfMn4m0EHZV04p9O', 'Nxr7BWexah2pr68g9e6Q', 'iDdIrOxxmWuKUPaYkPxv'],
+          'literatura faktu': [
+              '6QFu4m2jOIqjHO8lET1J', '6k243kM53SAMYHgMeyu6', '7JywpMTEj93SQfgFnAXj', 'CXxCw4w1pzGAAIi7MOck',
+              'GvgzEXGoElZNZn8c5y2J', 'IyTldfMn4m0EHZV04p9O', 'Nxr7BWexah2pr68g9e6Q', 'iDdIrOxxmWuKUPaYkPxv'],        
+        })
 
     onMounted(() => {
-      db.collection('books').where("genre", "array-contains", props.genre).get().then((snapshot) => {
-        snapshot.docs.forEach(doc => {
-          if (doc.data().series) {
-            if (doc.data().volume == 1) {
-              var data = {
-              'id': doc.id,
-            }
-            genreBooks.value.push(data)
-            }
-          } else {
-            var data = {
-              'id': doc.id,
-            }
-            genreBooks.value.push(data)
-          } 
-            
-        })
-        console.log(props.genre, genreBooks.value)
-      })
+        // ilosc obiektow do zapisania
+        var genre = genresObj.value[props.genre]
+        let nBooks = 6
+        for (let i=0; i<nBooks; i++){
+            // branie randomowego id z obiektu dla klucza fantasy
+            // jak chcemy do innego to po prostu zamiast fantasy co innego
+            let randomBookId = genre.sample()
+            db.collection("books").doc(randomBookId).get().then((doc) => {
+                var data = {
+                    bookId : doc.id,
+                    title : doc.data().title,
+                    author : doc.data().author,
+                    genre : doc.data().genre,
+                    cover : doc.data().cover
+                }
+                genreBooks.value.push(data)
+            })
+            // upewnianie sie ze id sie nie powtarzaja
+            genre.splice(genre.indexOf(randomBookId), 1)
+         } 
+
+         
+    
     })
+
+    // tworzenie metody sample dla obiektow typu array
+    // losowe zwracanie elementu
+    Array.prototype.sample = function() {
+      return this[Math.floor(Math.random()*this.length)]
+    }
+
 
 </script>
 

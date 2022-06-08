@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="mainDiv">
     <h3 class="title">Aktualności</h3>
     <hr class="hr-title">
 
@@ -51,13 +51,6 @@ export default {
 </script>
 
 <style scoped>
-
-.container {
-  margin-top: 70px;
-  padding: 25px;
-  background-color: #ffffff;
-}
-
 #newsCard {
   width: 100%;
   background-color: #ffffff;
